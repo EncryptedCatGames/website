@@ -1,4 +1,5 @@
 ---
+import LinkMark from './LinkMark.astro';
 import site from '../../site.config.mjs';
 import { url } from '../lib';
 ---
@@ -64,11 +65,11 @@ import { url } from '../lib';
   </p>
   {site.formEndpoint ? (
     <button type="submit" class="button">
-      Send message <span aria-hidden="true">↗</span>
+      Send message <LinkMark />
     </button>
   ) : (
     <button type="submit" class="button">
-      Prepare email <span aria-hidden="true">↗</span>
+      Prepare email <LinkMark />
     </button>
   )}
   {!site.formEndpoint && (
@@ -106,7 +107,7 @@ import { url } from '../lib';
       data-email-draft
       href={`mailto:${site.email}`}
     >
-      Open draft in email app <span aria-hidden="true">↗</span>
+      Open draft in email app <LinkMark />
     </a>
     <textarea readonly aria-label="Email draft"></textarea>
   </div>

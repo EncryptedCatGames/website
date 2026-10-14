@@ -1,4 +1,5 @@
 ---
+import LinkMark from '../components/LinkMark.astro';
 import Layout from '../layouts/Layout.astro';
 import { url } from '../lib';
 ---
@@ -9,7 +10,7 @@ import { url } from '../lib';
     <h1>This corridor leads nowhere.</h1>
     <p>The page may have moved, or the address is incorrect.</p>
     <a class="button" href={url()}>
-      Back to the light <span aria-hidden="true">↗</span>
+      Back to the light <LinkMark />
     </a>
   </section>
 </Layout>

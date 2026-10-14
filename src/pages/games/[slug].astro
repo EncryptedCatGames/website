@@ -1,4 +1,5 @@
 ---
+import LinkMark from '../../components/LinkMark.astro';
 import Layout from '../../layouts/Layout.astro';
 import GameStoreLink from '../../components/GameStoreLink.astro';
 import PostList from '../../components/PostList.astro';
@@ -117,7 +118,7 @@ const posts = (await getCollection('devlog'))
       <div class="section-heading">
         <h2>Development notes.</h2>
         <a class="text-link" href={url('devlog/')}>
-          All updates <span aria-hidden="true">↗</span>
+          All updates <LinkMark />
         </a>
       </div>
       <PostList posts={posts} />
@@ -129,7 +130,7 @@ const posts = (await getCollection('devlog'))
       <p>Find help with controls, devices, or a bug you encountered.</p>
     </div>
     <a class="button button-secondary" href={url('support/')}>
-      Player support <span aria-hidden="true">↗</span>
+      Player support <LinkMark />
     </a>
   </section>
 </Layout>

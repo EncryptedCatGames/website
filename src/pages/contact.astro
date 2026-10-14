@@ -1,4 +1,5 @@
 ---
+import SocialIcon from '../components/SocialIcon.astro';
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import site from '../../site.config.mjs';
@@ -31,7 +32,7 @@ import { url } from '../lib';
         <h3>Follow the signal.</h3>
         {site.socials.map((s) => (
           <a href={s.url} target="_blank" rel="noopener noreferrer">
-            {s.name} <span aria-hidden="true">↗</span>
+            <SocialIcon name={s.name} /> {s.name}
           </a>
         ))}
       </div>

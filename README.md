@@ -98,3 +98,5 @@ Add live App Store links to `appStoreUrl` in `src/data/games.ts` when available.
 `bun run import:itch` imports new owner-authored itch.io posts and artwork. Existing article IDs are skipped so local edits are preserved. It handles rate limits with delayed retries. Imported video embeds become links, and images are downloaded and compressed to WebP. Review imported content before deployment; imports do not run in CI. Screenshots and articles belong to Encrypted Cat Games and are reused at the owner's request.
 
 Play links open each game directly on itch.io in a new tab. No itch.io widgets are embedded. Community links open external services. Reduced-motion preferences, keyboard focus, semantic labels, and a skip link are supported.
+
+Social platform logos are vendored from [Simple Icons](https://github.com/simple-icons/simple-icons) under CC0; the license is included in `public/icons/LICENSE.md`. The navigation and external-link marks are custom SVGs.

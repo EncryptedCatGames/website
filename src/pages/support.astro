@@ -1,4 +1,5 @@
 ---
+import LinkMark from '../components/LinkMark.astro';
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { url } from '../lib';
@@ -26,7 +27,7 @@ import { url } from '../lib';
             button. Rotate your device to landscape.
           </p>
           <a class="text-link" href={url('games/')}>
-            Find your game <span aria-hidden="true">↗</span>
+            Find your game <LinkMark />
           </a>
         </details>
         <details>

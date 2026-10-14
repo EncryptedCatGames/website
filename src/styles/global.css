@@ -419,6 +419,10 @@ nav a[aria-current='page'] {
   padding-top: 6px;
 }
 .footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
   font-size: 13px;
   color: var(--muted);
 }
@@ -745,7 +749,9 @@ nav a[aria-current='page'] {
 }
 .community-links a {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
   font-size: 14px;
   color: var(--muted);
 }
@@ -1338,17 +1344,17 @@ nav a[aria-current='page']::after {
   transition: opacity 260ms var(--ease-state);
 }
 .button:has(> span[aria-hidden]) {
-  padding: 7px 8px 7px 22px;
+  padding: 15px 22px;
 }
 .button > span[aria-hidden] {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
-  border: 1px solid #786e5126;
-  border-radius: 5px;
-  background: #675c3c0c;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  border: 0;
+  border-radius: 0;
+  background: none;
   font-size: 18px;
   font-weight: 400;
   transition:
@@ -1368,8 +1374,6 @@ nav a[aria-current='page']::after {
   background: #c7ad75;
 }
 .button-secondary > span[aria-hidden] {
-  border-color: #666c512b;
-  background: #e7ddbb08;
   color: var(--accent);
 }
 .button-small {
@@ -1405,7 +1409,8 @@ nav a[aria-current='page']::after {
   transition: transform 260ms var(--ease-out);
 }
 .text-link > span[aria-hidden] {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   color: var(--accent);
   transition: transform 260ms var(--ease-out);
 }
@@ -1540,7 +1545,7 @@ textarea:focus {
     transform: translateX(1px);
   }
   .text-link:hover > span[aria-hidden] {
-    transform: translate(2px, -2px);
+    transform: translateX(2px);
   }
   .text-link:hover::after {
     transform: scaleX(0.78);
