@@ -1611,10 +1611,58 @@ textarea:focus {
     font-size: 14px;
   }
   .button {
-    min-height: 54px;
+    min-height: 50px;
+    gap: 24px;
+    padding: 14px 18px;
+    border-color: #e1dac8;
+    border-radius: 3px;
+    background: #e1dac8;
+    box-shadow: none;
+    font-size: 13px;
+    transition:
+      background-color 160ms var(--ease-state),
+      border-color 160ms var(--ease-state),
+      color 160ms var(--ease-state);
+  }
+  .button::before {
+    display: none;
+  }
+  .button:has(> span[aria-hidden]) {
+    padding: 14px 18px;
+  }
+  .button > span[aria-hidden] {
+    width: 18px;
+    height: 20px;
+    flex-basis: 18px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    font-size: 20px;
+    transition: none;
+  }
+  .button-secondary {
+    border-color: #4c5044;
+    background: #151813;
+    color: var(--text);
+  }
+  .button:active:not(:disabled) {
+    transform: none;
+    background: #cfc5ae;
+    box-shadow: none;
+  }
+  .button-secondary:active:not(:disabled) {
+    background: #252a20;
+  }
+  .hero .button,
+  .contact-strip .button,
+  .game-hero-copy .button,
+  .game-overview aside .button,
+  .contact-form .button {
+    width: 100%;
   }
   .button-small {
-    min-height: 42px;
+    min-height: 44px;
+    padding: 11px 16px;
   }
   .game-grid {
     gap: 44px;
@@ -1637,6 +1685,8 @@ textarea:focus {
   }
   .filter-button {
     padding: 10px 12px;
+    min-height: 44px;
+    border-radius: 3px;
   }
 }
 @media (max-width: 360px) {
