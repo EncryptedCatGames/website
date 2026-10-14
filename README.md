@@ -23,6 +23,8 @@ bun run preview
 
 ## Configuration and changing domains
 
+GitHub Actions automatically reads the published URL from Pages settings before building. Project hosting uses `/website/`; configuring a custom domain in Pages switches the next deployment to root paths. `SITE_URL` and `SITE_BASE` Actions variables are optional overrides, not required setup. The build and link verification run with the same resolved configuration.
+
 Edit `site.config.mjs`. The default URL is `https://games.encrypted-cat.com`. `siteUrl` determines canonical URLs, social image URLs, sitemap URLs, and the custom-domain CNAME. A different custom domain only requires changing `siteUrl`, rebuilding, and updating GitHub Pages/DNS. `customDomain` is derived from the URL; `CUSTOM_DOMAIN` can override it when needed. URLs ending in `.github.io` automatically omit CNAME.
 
 Environment overrides (also documented in `.env.example`):
