@@ -50,7 +50,7 @@ For another custom domain:
 SITE_URL=https://your-new-domain.com bun run build
 ```
 
-Assets, navigation, article images, and links respect the base path. Astro’s ClientRouter provides in-browser navigation with immediate content swaps and a persistent header/footer. Each route still has a real `index.html`, so direct links and reloads work on GitHub Pages without SPA rewrites. Document-level handlers keep forms, widgets, and filters working immediately after route changes, and consent state persists between routes.
+Assets, navigation, article images, and links respect the base path. Astro’s ClientRouter provides in-browser navigation with immediate content swaps and a persistent header/footer. Each route still has a real `index.html`, so direct links and reloads work on GitHub Pages without SPA rewrites. Document-level handlers keep forms and filters working immediately after route changes, and consent state persists between routes.
 
 ## GitHub Pages deployment
 
@@ -88,7 +88,7 @@ Add live App Store links to `appStoreUrl` in `src/data/games.ts` when available.
 ## Content and asset maintenance
 
 - Game copy and store links: `src/data/games.ts`.
-- Game screenshot/widget metadata: `src/data/itch.json`.
+- Game artwork metadata: `src/data/itch.json`.
 - Articles: `src/content/devlog/*.md`, with title, date, game, description, source, and optional image frontmatter.
 - Branding, game screenshots, and devlog images: `public/images/`.
 - Asset provenance: `src/data/asset-sources.json`.
@@ -97,4 +97,4 @@ Add live App Store links to `appStoreUrl` in `src/data/games.ts` when available.
 
 `bun run import:itch` imports new owner-authored itch.io posts and artwork. Existing article IDs are skipped so local edits are preserved. It handles rate limits with delayed retries. Imported video embeds become links, and images are downloaded and compressed to WebP. Review imported content before deployment; imports do not run in CI. Screenshots and articles belong to Encrypted Cat Games and are reused at the owner's request.
 
-Widgets load only when a visitor chooses **Load game widget**, with direct itch.io links always available. Community links open external services. Reduced-motion preferences, keyboard focus, semantic labels, and a skip link are supported.
+Play links open each game directly on itch.io in a new tab. No itch.io widgets are embedded. Community links open external services. Reduced-motion preferences, keyboard focus, semantic labels, and a skip link are supported.

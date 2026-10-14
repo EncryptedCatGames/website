@@ -1,0 +1,13 @@
+---
+const { title, href } = Astro.props;
+---
+
+<a
+  class="button"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`Play ${title} on itch.io`}
+>
+  Play on itch.io <span aria-hidden="true">↗</span>
+</a>

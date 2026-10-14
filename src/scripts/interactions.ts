@@ -49,21 +49,6 @@ document.addEventListener('submit', async (event) => {
 
 document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
-  const button = event.target.closest<HTMLButtonElement>('[data-load-widget]');
-  if (!button) return;
-  const widget = button.closest<HTMLElement>('[data-widget]');
-  if (!widget) return;
-  const iframe = document.createElement('iframe');
-  iframe.src = `https://itch.io/embed/${widget.dataset.id}?bg_color=121313&fg_color=e9e5d8&link_color=c7ad75&border_color=30302d`;
-  iframe.title = `${widget.dataset.title} on itch.io`;
-  iframe.width = '552';
-  iframe.height = '167';
-  iframe.setAttribute('loading', 'lazy');
-  widget.querySelector('.widget-placeholder')?.replaceWith(iframe);
-});
-
-document.addEventListener('click', (event) => {
-  if (!(event.target instanceof Element)) return;
   const button = event.target.closest<HTMLButtonElement>('[data-filter]');
   if (!button) return;
   const filter = button.dataset.filter;

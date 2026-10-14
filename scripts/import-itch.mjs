@@ -74,7 +74,6 @@ for (const [slug, sourceSlug] of [
     url,
     cover,
     screenshots,
-    widgetId: $('[data-game_id]').first().attr('data-game_id'),
   });
   await writeFile('src/data/itch.json', JSON.stringify(games, null, 2));
   const log = await html(`${url}/devlog`);

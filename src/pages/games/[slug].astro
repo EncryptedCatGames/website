@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ItchWidget from '../../components/ItchWidget.astro';
+import GameStoreLink from '../../components/GameStoreLink.astro';
 import PostList from '../../components/PostList.astro';
 import { games } from '../../data/games';
 import { url } from '../../lib';
@@ -40,9 +40,10 @@ const posts = (await getCollection('devlog'))
         {game.title}
         <span>{game.subtitle}</span>
       </h1>
-      <a class="button" href="#play">
-        Play the game <span aria-hidden="true">↗</span>
-      </a>
+      <GameStoreLink
+        title={`${game.title}: ${game.subtitle}`}
+        href={game.url}
+      />
     </div>
   </section>
   <section class="container section game-overview">
@@ -67,8 +68,7 @@ const posts = (await getCollection('devlog'))
     <aside id="play">
       <h2>Step inside.</h2>
       <p>Available now on itch.io.</p>
-      <ItchWidget
-        id={game.widgetId}
+      <GameStoreLink
         title={`${game.title}: ${game.subtitle}`}
         href={game.url}
       />
