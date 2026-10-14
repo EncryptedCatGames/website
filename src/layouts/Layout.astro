@@ -1,0 +1,132 @@
+---
+import '@fontsource/barlow-condensed/600.css';
+import '@fontsource/barlow-condensed/500.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/global.css';
+import site from '../../site.config.mjs';
+import { url } from '../lib';
+import PrivacyControls from '../components/PrivacyControls.astro';
+import { ClientRouter } from 'astro:transitions';
+const {
+  title = 'Encrypted Cat Games | Narrative horror',
+  description = 'Small games. Dark stories. Lingering nightmares. Explore The Cradle and atmospheric horror games by Encrypted Cat Games.',
+  image = '/images/banner.webp',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(
+  noindex ? url('404.html') : Astro.url.pathname,
+  site.siteUrl,
+);
+const nav = [
+  ['Games', 'games/'],
+  ['Devlog', 'devlog/'],
+  ['Support', 'support/'],
+];
+---
+
+<!doctype html>
+<html lang="en" transition:animate="none">
+  <head>
+    <ClientRouter fallback="swap" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b0c0c" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href={url('favicon.png')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(url(image), site.siteUrl)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="header" transition:persist="site-header">
+      <div class="nav-wrap">
+        <a class="brand" href={url()} aria-label="Encrypted Cat Games home">
+          <img src={url('images/avatar.webp')} width="44" height="44" alt="" />
+          <span>
+            ENCRYPTED CAT<small>GAMES</small>
+          </span>
+        </a>
+        <nav aria-label="Main navigation">
+          {nav.map(([label, path]) => (
+            <a
+              href={url(path)}
+              aria-current={
+                Astro.url.pathname.includes('/' + path) ? 'page' : undefined
+              }
+            >
+              {label}
+            </a>
+          ))}
+          <a class="nav-contact" href={url('contact/')}>
+            Contact <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" transition:name="page-content" transition:animate="none">
+      <slot />
+    </main>
+    <footer class="footer" transition:persist="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="footer-brand" href={url()}>
+            ENCRYPTED CAT GAMES
+          </a>
+          <p>Narrative horror, one episode at a time.</p>
+        </div>
+        <div class="footer-socials">
+          {site.socials.map((s) => (
+            <a href={s.url} target="_blank" rel="noopener noreferrer">
+              {s.name} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
+        <div class="footer-bottom">
+          <span>© {new Date().getFullYear()} Encrypted Cat Games</span>
+          <div>
+            <a href={url('support/')}>Support</a>
+            <a href={url('privacy/')}>Privacy policy</a>
+            <button type="button" class="plain-button" data-privacy-settings>
+              Privacy settings
+            </button>
+          </div>
+        </div>
+        <p id="analytics-disabled" class="form-note" hidden>
+          Optional analytics are currently disabled on this website.
+        </p>
+      </div>
+    </footer>
+    <PrivacyControls />
+    <script>
+      import '../scripts/interactions';
+      // The shell persists; update its current-page state before painting the next route.
+      function updateNavigation() {
+        document
+          .querySelectorAll<HTMLAnchorElement>('nav a')
+          .forEach((link) => {
+            const path = new URL(link.href).pathname;
+            if (
+              location.pathname === path ||
+              location.pathname.startsWith(path)
+            )
+              link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+          });
+      }
+      updateNavigation();
+      document.addEventListener('astro:after-swap', updateNavigation);
+      document.addEventListener('astro:page-load', updateNavigation);
+    </script>
+  </body>
+</html>

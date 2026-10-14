@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostList from '../../components/PostList.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('devlog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout
+  title="Devlog | Encrypted Cat Games"
+  description="Development notes, updates, and behind-the-scenes stories from The Cradle."
+>
+  <section class="container page-intro">
+    <p class="eyebrow">From the workshop</p>
+    <h1>Making the nightmares.</h1>
+    <p>New builds, strange discoveries, and the work behind The Cradle.</p>
+  </section>
+  <section class="container section devlog-index">
+    <div class="filter-bar" role="group" aria-label="Filter devlog by game">
+      <button
+        class="filter-button active"
+        data-filter="all"
+        aria-pressed="true"
+      >
+        All updates
+      </button>
+      <button
+        class="filter-button"
+        data-filter="episode-01"
+        aria-pressed="false"
+      >
+        Episode 01
+      </button>
+      <button
+        class="filter-button"
+        data-filter="trick-or-treat"
+        aria-pressed="false"
+      >
+        Trick-or-Treat
+      </button>
+      <span id="post-count" aria-live="polite">
+        {posts.length} posts
+      </span>
+    </div>
+    {posts.map((post) => (
+      <div data-post-game={post.data.game}>
+        <PostList posts={[post]} />
+      </div>
+    ))}
+  </section>
+</Layout>

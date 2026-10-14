@@ -1,0 +1,18 @@
+---
+const { id, title, href } = Astro.props;
+---
+
+<div class="itch-widget" data-widget data-id={id} data-title={title}>
+  <div class="widget-placeholder">
+    <p>Play on itch.io</p>
+    <span>
+      Load the itch.io widget to view the game. This connects to itch.io.
+    </span>
+    <button class="button button-secondary" type="button" data-load-widget>
+      Load game widget
+    </button>
+  </div>
+  <a class="text-link" href={href} target="_blank" rel="noopener noreferrer">
+    Open on itch.io <span aria-hidden="true">↗</span>
+  </a>
+</div>

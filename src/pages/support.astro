@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { url } from '../lib';
+---
+
+<Layout
+  title="Player Support | Encrypted Cat Games"
+  description="Get help with The Cradle games, report a bug, or contact Encrypted Cat Games."
+>
+  <section class="container page-intro">
+    <p class="eyebrow">Player support</p>
+    <h1>A light when you need it.</h1>
+    <p>Help with The Cradle: Episode 01 and The Cradle: Trick-or-Treat.</p>
+  </section>
+  <section class="container support-grid section">
+    <div>
+      <h2>Before you send a signal.</h2>
+      <div class="faq">
+        <details open>
+          <summary>How do I play on iPhone or iPad?</summary>
+          <p>
+            Open the game’s itch.io page in Safari. For Episode 01 on iPhone,
+            use Share → Add to Home Screen, then launch from the new icon to
+            play without browser bars. On iPad, use the game’s full-screen
+            button. Rotate your device to landscape.
+          </p>
+          <a class="text-link" href={url('games/')}>
+            Find your game <span aria-hidden="true">↗</span>
+          </a>
+        </details>
+        <details>
+          <summary>The game runs slowly or won’t load.</summary>
+          <p>
+            Try a current browser, close other tabs, and reload the game. In
+            Episode 01, lower graphics quality in Settings. If it still fails,
+            send us your device model, operating system, browser version, and
+            the point where loading stops.
+          </p>
+        </details>
+        <details>
+          <summary>Where can I adjust controls and comfort settings?</summary>
+          <p>
+            Episode 01 includes graphics, brightness, sensitivity, key
+            rebinding, and interface size settings. Its Comfort settings offer
+            options for a more comfortable experience. Headphones are
+            recommended; you can also use subtitles.
+          </p>
+        </details>
+        <details>
+          <summary>How do I report a bug?</summary>
+          <p>
+            Tell us which game you played, your device and operating system,
+            browser or app version, what you expected, and what happened
+            instead. Include steps to reproduce and any error text. Avoid
+            including passwords or personal account information.
+          </p>
+        </details>
+        <details>
+          <summary>Where are the iPhone and iPad App Store versions?</summary>
+          <p>
+            App Store links will appear on the game pages when available. The
+            current game pages link to itch.io. For questions about native
+            releases, contact us below.
+          </p>
+        </details>
+      </div>
+    </div>
+    <div class="support-form">
+      <h2>Contact support.</h2>
+      <p>Tell us what happened. We’ll reply to the email you provide.</p>
+      <ContactForm />
+    </div>
+  </section>
+</Layout>

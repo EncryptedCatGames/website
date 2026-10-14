@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import site from '../../site.config.mjs';
+import { url } from '../lib';
+---
+
+<Layout
+  title="Contact | Encrypted Cat Games"
+  description="Contact Encrypted Cat Games for player support, bug reports, press, or creator enquiries."
+>
+  <section class="container page-intro">
+    <p class="eyebrow">Keep in touch</p>
+    <h1>Send a signal.</h1>
+    <p>
+      Questions, feedback, press, or something strange you found in The Cradle.
+    </p>
+  </section>
+  <section class="container contact-grid section">
+    <aside>
+      <h2>We’re listening.</h2>
+      <p>
+        Write directly to <a href={`mailto:${site.email}`}>{site.email}</a>, or
+        use the form.
+      </p>
+      <p>
+        Need help playing? Start with{' '}
+        <a href={url('support/')}>player support</a>.
+      </p>
+      <div class="community-links">
+        <h3>Follow the signal.</h3>
+        {site.socials.map((s) => (
+          <a href={s.url} target="_blank" rel="noopener noreferrer">
+            {s.name} <span aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+    </aside>
+    <ContactForm />
+  </section>
+</Layout>

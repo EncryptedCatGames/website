@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.preview/
+bun.lock
+src/content/devlog/
+src/data/asset-sources.json
+public/

@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { url } from '../lib';
+---
+
+<Layout title="Signal lost | Encrypted Cat Games" noindex={true}>
+  <section class="container page-intro lost-page">
+    <p class="eyebrow">404 / Signal lost</p>
+    <h1>This corridor leads nowhere.</h1>
+    <p>The page may have moved, or the address is incorrect.</p>
+    <a class="button" href={url()}>
+      Back to the light <span aria-hidden="true">↗</span>
+    </a>
+  </section>
+</Layout>

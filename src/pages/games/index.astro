@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GameCard from '../../components/GameCard.astro';
+import { games } from '../../data/games';
+---
+
+<Layout
+  title="Games | Encrypted Cat Games"
+  description="Explore The Cradle: Episode 01 and The Cradle: Trick-or-Treat. Atmospheric horror, playable on itch.io."
+>
+  <section class="container page-intro">
+    <p class="eyebrow">The catalogue</p>
+    <h1>Choose your nightmare.</h1>
+    <p>
+      Two ways into The Cradle. A story to uncover, or one more door to knock
+      on.
+    </p>
+  </section>
+  <section class="container section catalogue">
+    <div class="game-grid">
+      {games.map((game) => (
+        <GameCard game={game} />
+      ))}
+    </div>
+  </section>
+</Layout>

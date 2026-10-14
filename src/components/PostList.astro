@@ -1,0 +1,45 @@
+---
+import { url, formatDate } from '../lib';
+const { posts } = Astro.props;
+---
+
+<div class="post-list">
+  {posts.map((post: any) => (
+    <article class="post-row">
+      <a
+        class="post-thumb"
+        href={url(`devlog/${post.id}/`)}
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <img
+          src={url(post.data.image || `/images/${post.data.game}-cover.webp`)}
+          alt=""
+          width="320"
+          height="200"
+          loading="lazy"
+        />
+      </a>
+      <div>
+        <p class="post-meta">
+          <time datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date)}
+          </time>
+          <span>
+            {post.data.game === 'episode-01' ? 'Episode 01' : 'Trick-or-Treat'}
+          </span>
+        </p>
+        <h3>
+          <a href={url(`devlog/${post.id}/`)}>{post.data.title}</a>
+        </h3>
+      </div>
+      <a
+        class="post-arrow"
+        href={url(`devlog/${post.id}/`)}
+        aria-label={`Read ${post.data.title}`}
+      >
+        ↗
+      </a>
+    </article>
+  ))}
+</div>

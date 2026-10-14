@@ -1,0 +1,37 @@
+---
+import { url } from '../lib';
+const { game } = Astro.props;
+---
+
+<article class="game-card" data-game={game.slug}>
+  <a
+    href={url(`games/${game.slug}/`)}
+    class="game-image"
+    aria-label={`Explore ${game.title}: ${game.subtitle}`}
+  >
+    <img
+      src={url(game.cover)}
+      alt={`${game.title}: ${game.subtitle} cover art`}
+      width="1200"
+      height="675"
+      loading="lazy"
+    />
+  </a>
+  <div class="game-copy">
+    <p class="game-kind">{game.kind}</p>
+    <h3>
+      <a href={url(`games/${game.slug}/`)}>
+        {game.title}
+        <span>{game.subtitle}</span>
+      </a>
+    </h3>
+    <p class="game-description">{game.short}</p>
+    <div class="game-meta">
+      <span>{game.length}</span>
+      <span>{game.platforms}</span>
+    </div>
+    <a class="text-link" href={url(`games/${game.slug}/`)}>
+      Explore the game <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>

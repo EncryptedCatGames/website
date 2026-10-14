@@ -1,0 +1,113 @@
+---
+import site from '../../site.config.mjs';
+import { url } from '../lib';
+---
+
+<form
+  class="contact-form"
+  action={site.formEndpoint || undefined}
+  method="POST"
+  data-astro-reload
+  data-contact
+  data-endpoint={site.formEndpoint}
+>
+  <div class="form-row">
+    <label>
+      Your email
+      <input
+        type="email"
+        name="email"
+        autocomplete="email"
+        required
+        maxlength="254"
+        placeholder="you@example.com"
+      />
+    </label>
+    <label>
+      Game
+      <select name="game">
+        <option>General enquiry</option>
+        <option>The Cradle: Episode 01</option>
+        <option>The Cradle: Trick-or-Treat</option>
+      </select>
+    </label>
+  </div>
+  <label>
+    Topic
+    <select name="topic">
+      <option>Player support</option>
+      <option>Bug report</option>
+      <option>Press & creators</option>
+      <option>Other</option>
+    </select>
+  </label>
+  <label>
+    Message
+    <textarea
+      name="message"
+      rows="5"
+      required
+      minlength="10"
+      maxlength="5000"
+      placeholder="Tell us what happened. For bugs, include your device, browser or app version, and steps to reproduce."
+    ></textarea>
+  </label>
+  <div class="honeypot" aria-hidden="true">
+    <label>
+      Leave this field empty
+      <input name="_gotcha" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  <p class="form-note">
+    Your email and message are used to respond to your enquiry.{' '}
+    <a href={url('privacy/')}>Privacy policy</a>
+  </p>
+  {site.formEndpoint ? (
+    <button type="submit" class="button">
+      Send message <span aria-hidden="true">↗</span>
+    </button>
+  ) : (
+    <button type="submit" class="button">
+      Prepare email <span aria-hidden="true">↗</span>
+    </button>
+  )}
+  {!site.formEndpoint && (
+    <p class="form-note">
+      Prepare a draft, then open it in your email app to send it. Prefer to
+      write directly? <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  )}
+  {site.formEndpoint && (
+    <p class="form-note">
+      Prefer email? <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  )}
+  <noscript>
+    <p class="form-note">
+      {site.formEndpoint
+        ? 'Submitting opens the form service’s response page.'
+        : 'Please email us directly; preparing a draft requires JavaScript.'}{' '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+    {!site.formEndpoint && <style>
+      .contact-form button[type='submit'] {
+        display: none;
+      }
+    </style>}
+  </noscript>
+  <p class="form-status" role="status" aria-live="polite"></p>
+  <div class="email-fallback" hidden>
+    <p>
+      Your email draft is ready. Open it in your email app, or copy it below and
+      send it to <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+    <a
+      class="button button-secondary"
+      data-email-draft
+      href={`mailto:${site.email}`}
+    >
+      Open draft in email app <span aria-hidden="true">↗</span>
+    </a>
+    <textarea readonly aria-label="Email draft"></textarea>
+  </div>
+</form>
