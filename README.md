@@ -75,7 +75,7 @@ The privacy page automatically describes the configured form mode. If you switch
 
 ## Analytics
 
-`G-XXXXXXXXXX` is intentionally inactive. Add your real GA4 measurement ID to enable optional analytics. The script is only injected after the visitor accepts, advertising features are disabled, and form messages/email addresses are never sent as analytics events. A footer privacy-settings button allows consent to be changed. Consent is stored in local storage; withdrawal disables tracking and attempts to clear analytics cookies. Check actual GA delivery after configuring your measurement ID.
+`G-DYL1N86XM1` is configured for this site. Override it with `PUBLIC_GA_ID`, or set `G-XXXXXXXXXX` to disable analytics. The script is only injected after the visitor accepts, advertising features are disabled, and form messages/email addresses are never sent as analytics events. A footer privacy-settings button allows consent to be changed. Consent is stored in local storage; withdrawal disables tracking and attempts to clear analytics cookies. GA4 sends the initial page view automatically. Keep **Enhanced measurement → Page views → Page changes based on browser history events** enabled in the web data stream to measure client-side navigation. The site does not send duplicate manual page-view events. Check incoming visits in GA4 Realtime.
 
 ## Privacy and App Store preparation
 

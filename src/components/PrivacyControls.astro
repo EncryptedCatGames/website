@@ -64,27 +64,24 @@ const enabled =
     });
     win.gtag('js', new Date());
     win.gtag('config', id, {
-      send_page_view: false,
+      send_page_view: true,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
     });
     const script = document.createElement('script');
     script.async = true;
+    // Already executed by insertion; the client router must not rerun it.
+    script.dataset.astroExec = '';
     script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    script.addEventListener('load', () => {
+      script.dataset.loaded = 'true';
+    });
     panel.append(script);
-  }
-  function trackPage() {
-    if (loaded && choice === 'granted')
-      win.gtag?.('event', 'page_view', {
-        page_location: location.href,
-        page_title: document.title,
-      });
   }
   document.addEventListener('astro:page-load', () => {
     if (!id) return;
     if (choice === 'granted') {
       loadAnalytics();
-      trackPage();
     } else if (choice !== 'denied') panel.hidden = false;
   });
   // Delegation also covers the privacy-settings button inside a newly swapped page.
@@ -114,7 +111,6 @@ const enabled =
     panel.hidden = true;
     if (choice === 'granted') {
       loadAnalytics();
-      trackPage();
     } else if (loaded) {
       win[`ga-disable-${id}`] = true;
       win.gtag?.('consent', 'update', { analytics_storage: 'denied' });
