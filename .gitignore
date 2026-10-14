@@ -12,3 +12,6 @@ dist/
 *.log
 .vscode/
 .idea/
+
+# Rebuilt from the pinned gobnative submodule; never commit generated binaries.
+public/other-projects/gobnative/play/

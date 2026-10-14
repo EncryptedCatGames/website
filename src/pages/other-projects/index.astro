@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LinkMark from '../../components/LinkMark.astro';
+import { url } from '../../lib';
+---
+
+<Layout
+  title="Other Projects | Encrypted Cat Games"
+  description="Explore projects beyond The Cradle, including gobnative, a browser runtime for the Goblins trilogy."
+>
+  <section class="container page-intro">
+    <p class="eyebrow">Beyond the dark</p>
+    <h1>Other Projects.</h1>
+    <p>
+      Side quests, experiments, and a few old favourites brought back to life.
+    </p>
+  </section>
+  <section class="container section project-list" aria-label="Projects">
+    <a
+      class="project-card"
+      href={url('other-projects/gobnative/')}
+      data-astro-reload
+    >
+      <div class="project-art" aria-hidden="true">
+        <img
+          src={url('other-projects/gobnative/play/apple-touch-icon.png')}
+          width="180"
+          height="180"
+          alt=""
+        />
+        <span>OLD GAMES. NEW HOME.</span>
+      </div>
+      <div class="project-copy">
+        <p class="eyebrow">Open source · Browser runtime</p>
+        <h2>gobnative</h2>
+        <p>
+          Play Gobliiins, Gobliins 2, and Goblins Quest 3 in your browser. Bring
+          your own GOG copy; your game files stay on your device.
+        </p>
+        <span class="text-link">
+          Explore the project <LinkMark />
+        </span>
+      </div>
+    </a>
+  </section>
+</Layout>
+
+<style>
+  .project-list {
+    padding-top: 0;
+  }
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  .project-art {
+    min-height: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    background: #ece6d7;
+    color: #385465;
+  }
+  .project-art img {
+    width: 120px;
+    height: 120px;
+  }
+  .project-art span {
+    font: 11px var(--mono);
+    letter-spacing: 0.14em;
+  }
+  .project-copy {
+    padding: 42px;
+    align-self: center;
+  }
+  .project-copy h2 {
+    font-size: 3.6rem;
+    margin-bottom: 18px;
+  }
+  .project-copy > p:not(.eyebrow) {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 26px;
+  }
+  .project-copy .text-link {
+    display: inline-flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .project-card:hover {
+    border-color: #88806b;
+  }
+  .project-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+  }
+  @media (max-width: 767px) {
+    .project-card {
+      grid-template-columns: 1fr;
+    }
+    .project-art {
+      min-height: 240px;
+    }
+    .project-copy {
+      padding: 28px;
+    }
+  }
+</style>

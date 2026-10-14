@@ -5,7 +5,10 @@ Static Astro website for Encrypted Cat Games. Built with Bun, ready for GitHub P
 ## Local development
 
 ```sh
+git submodule update --init --recursive
 bun install
+# Install Emscripten 6.0.12, then source its emsdk_env.sh (or set EMSDK).
+bun run build:gobnative
 bun run dev
 ```
 
@@ -19,7 +22,7 @@ bun run verify
 bun run preview
 ```
 
-`dist/` contains the complete static site: 37 HTML pages, local images/fonts, CSS/JS, sitemap, robots.txt, CNAME, and .nojekyll. The 28 imported devlog articles are Markdown in `src/content/devlog/`. No runtime calls to itch.io are needed to render pages. Run `bun run format` to format source and supporting files; imported article text is preserved.
+`dist/` contains the complete static site: 40 HTML pages, local images/fonts, CSS/JS, sitemap, robots.txt, CNAME, and .nojekyll. The 28 imported devlog articles are Markdown in `src/content/devlog/`. No runtime calls to itch.io are needed to render pages. Run `bun run format` to format source and supporting files; imported article text is preserved.
 
 ## Configuration and changing domains
 
@@ -100,3 +103,13 @@ Add live App Store links to `appStoreUrl` in `src/data/games.ts` when available.
 Play links open each game directly on itch.io in a new tab. No itch.io widgets are embedded. Community links open external services. Reduced-motion preferences, keyboard focus, semantic labels, and a skip link are supported.
 
 Social platform logos are vendored from [Simple Icons](https://github.com/simple-icons/simple-icons) under CC0; the license is included in `public/icons/LICENSE.md`. The navigation and external-link marks are custom SVGs.
+
+## gobnative web runtime
+
+`vendor/gobnative` is a Git submodule pinned to a reviewed revision. Every `bun run build` compiles it with Emscripten and packages the output at `other-projects/gobnative/play/`. Install Emscripten **6.0.12** and CMake locally; either source `emsdk_env.sh` or set `EMSDK` to the SDK folder. `bun run build:gobnative` refreshes the player for local development. Generated files in `public/other-projects/gobnative/play/` are ignored by Git.
+
+Actions checks out submodules recursively, installs the pinned SDK, compiles the runtime, and deploys it alongside Astro. It never downloads or packages game data. Visitors import their own GOG offline installers; the runtime extracts them locally into IndexedDB. The embedded player and full player share storage on the same origin. Moving domains will not migrate a visitor's game library or saves.
+
+The project page deliberately uses its own layout and full-page navigation so the WebAssembly player starts and shuts down normally. All runtime files use relative URLs and work on both a custom domain and a GitHub Pages project path.
+
+To upgrade, check out the desired commit in `vendor/gobnative`, run the build and browser checks, then commit the updated submodule pointer. Deployments build that exact commit rather than silently pulling upstream changes. GPL licensing and the complete source archive for the compiled revision ship with the runtime; `BUILD.txt` records the revision and build command.

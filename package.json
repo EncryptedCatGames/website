@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro build && node scripts/postbuild.mjs",
+    "build:gobnative": "node scripts/build-gobnative.mjs",
+    "build": "bun run build:gobnative && astro build && node scripts/postbuild.mjs",
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",
     "import:itch": "node scripts/import-itch.mjs",

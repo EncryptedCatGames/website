@@ -966,9 +966,19 @@ textarea::placeholder {
   }
   .nav-wrap {
     gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-block: 12px;
+  }
+  .header {
+    height: auto;
+  }
+  .brand {
+    width: fit-content;
   }
   nav {
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
   }
   nav a {
     font-size: 12px;
@@ -1567,7 +1577,7 @@ textarea:focus {
 }
 @media (max-width: 767px) {
   .header {
-    height: 72px;
+    height: auto;
   }
   .brand {
     gap: 8px;

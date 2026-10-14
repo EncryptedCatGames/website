@@ -3,6 +3,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { load } from 'cheerio';
 import site from '../site.config.mjs';
+import { execFileSync } from 'node:child_process';
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   return (
@@ -19,6 +20,41 @@ const errors = [];
 const origin = new URL(site.siteUrl).origin;
 const base = site.base.replace(/\/$/, '');
 let links = 0;
+// This runtime is rebuilt, rather than committed; verify its executable and source.
+const runtime = join(root, 'other-projects/gobnative/play');
+for (const name of [
+  'gobnative.js',
+  'gobnative.wasm',
+  'gobnative-source.tar.gz',
+  'LICENSE.txt',
+  'BUILD.txt',
+  'licences/imgui.txt',
+  'licences/Nunito-OFL.txt',
+  'licences/SDL2.txt',
+]) {
+  try {
+    if ((await stat(join(runtime, name))).size === 0)
+      errors.push(`Empty runtime artifact: ${name}`);
+  } catch {
+    errors.push(`Missing runtime artifact: ${name}`);
+  }
+}
+try {
+  const wasm = await readFile(join(runtime, 'gobnative.wasm'));
+  if (!wasm.subarray(0, 8).equals(Buffer.from([0, 97, 115, 109, 1, 0, 0, 0])))
+    errors.push('Invalid gobnative WebAssembly binary');
+  const revision = execFileSync(
+    'git',
+    ['-C', 'vendor/gobnative', 'rev-parse', 'HEAD'],
+    { encoding: 'utf8' },
+  ).trim();
+  if (!(await readFile(join(runtime, 'BUILD.txt'), 'utf8')).includes(revision))
+    errors.push('Runtime source revision does not match the submodule');
+} catch (error) {
+  errors.push(`Cannot verify gobnative: ${error.message}`);
+}
+if (files.some((file) => /\.(exe|stk|tot)$/i.test(file)))
+  errors.push('Game data or installers must not be packaged in the website');
 for (const file of files.filter((f) => f.endsWith('.html'))) {
   const html = await readFile(file, 'utf8');
   const $ = load(html);

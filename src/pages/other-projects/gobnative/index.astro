@@ -1,0 +1,664 @@
+---
+import Analytics from '../../../components/Analytics.astro';
+import { url } from '../../../lib';
+import site from '../../../../site.config.mjs';
+const player = url('other-projects/gobnative/play/');
+const playerPage = `${player}index.html`;
+const source = 'https://github.com/initcore0/gobnative';
+const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>gobnative — Old games. New home.</title>
+    <meta
+      name="description"
+      content="A new home for the Goblins trilogy. Play in your browser with your own GOG installers, saved locally on your device."
+    />
+    <meta name="theme-color" content="#f4efe3" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={`${player}favicon-32.png`} />
+    <meta property="og:title" content="gobnative — Old games. New home." />
+    <meta
+      property="og:description"
+      content="Bring your own GOG copy. Play the Goblins trilogy in your browser."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta
+      property="og:image"
+      content={new URL(`${player}apple-touch-icon.png`, site.siteUrl)}
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      Skip to content
+    </a>
+    <header class="project-header wrap">
+      <a class="back" href={url('other-projects/')}>
+        ← Other Projects
+      </a>
+      <a class="studio" href={url()}>
+        Encrypted Cat Games
+      </a>
+    </header>
+    <main id="main">
+      <section class="intro wrap">
+        <div class="intro-copy">
+          <p class="eyebrow">An open-source adventure</p>
+          <h1>
+            gobnative
+            <span>
+              Old games.
+              <br />
+              New home.
+            </span>
+          </h1>
+          <p class="lead">
+            Three wonderfully strange adventures, back in your browser. A new
+            engine for the Goblins trilogy, built for the way we play today.
+          </p>
+          <div class="intro-actions">
+            <a class="primary" href="#player">
+              Start playing
+            </a>
+            <a
+              class="quiet"
+              href={source}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          </div>
+        </div>
+        <div class="edition" aria-label="Supported games">
+          <div class="edition-top">
+            <img
+              src={`${player}apple-touch-icon.png`}
+              width="80"
+              height="80"
+              alt="gobnative icon"
+            />
+            <span>
+              THE GOBLINS
+              <br />
+              TRILOGY
+            </span>
+          </div>
+          <ol class="game-list">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Gobliiins</strong>
+                <small>1991 · Three heads are better than one</small>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Gobliins 2</strong>
+                <small>1992 · The Prince Buffoon</small>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Goblins Quest 3</strong>
+                <small>1993 · A very peculiar journey</small>
+              </div>
+            </li>
+          </ol>
+          <p class="edition-note">Your games. Your saves. Your browser.</p>
+        </div>
+      </section>
+
+      <section
+        class="play-section wrap"
+        id="player"
+        aria-labelledby="player-title"
+      >
+        <div class="section-label">
+          <p class="eyebrow">The playroom</p>
+          <span>BRING YOUR OWN GAME</span>
+        </div>
+        <div class="player-heading">
+          <div>
+            <h2 id="player-title">Let’s get you playing.</h2>
+            <p>
+              Own the trilogy on GOG? Your offline installers are your ticket
+              in.
+            </p>
+          </div>
+          <a class="quiet" href={playerPage}>
+            Open full player
+          </a>
+        </div>
+        <div class="player-frame">
+          <iframe
+            src={playerPage}
+            title="gobnative game library and player"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="player-note">
+          Best with a mouse and keyboard. Use a browser with WebGL 2. If the
+          player does not start, <a href={playerPage}>open it directly</a>.
+        </p>
+      </section>
+
+      <section class="how wrap" aria-labelledby="how-title">
+        <div class="section-label">
+          <p class="eyebrow">A little setup, a lot of adventure</p>
+        </div>
+        <h2 id="how-title">Bring a copy. Stay a while.</h2>
+        <ol class="steps">
+          <li>
+            <span>01</span>
+            <h3>Get your installers</h3>
+            <p>
+              Download the Windows offline installers (<code>setup_….exe</code>)
+              from{' '}
+              <a
+                href="https://www.gog.com/account"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                your GOG library
+              </a>
+              . They are read as game data, never run.
+            </p>
+          </li>
+          <li>
+            <span>02</span>
+            <h3>Add your games</h3>
+            <p>
+              In the player, choose a game’s “Install…” button and select its
+              installer. You can also drop an installer onto the player.
+            </p>
+          </li>
+          <li>
+            <span>03</span>
+            <h3>Pick up where you left off</h3>
+            <p>
+              Your imported games, settings, and saves stay in this browser.
+              Return on the same device and browser to continue.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="details wrap" aria-label="Features and help">
+        <div>
+          <p class="eyebrow">A fresh engine, familiar adventures</p>
+          <h2>A few modern comforts.</h2>
+          <p>
+            Quick saves, display filters, 4:3 aspect correction, adjustable
+            speed, and optional HD packs you create from your own game files.
+          </p>
+          <p>
+            Press <kbd>`</kbd> for settings. Hold <kbd>Esc</kbd> to return to
+            the library.
+          </p>
+          <a
+            class="quiet"
+            href={`${source}/blob/main/docs/user-guide.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Read the user guide
+          </a>
+        </div>
+        <div class="storage-note">
+          <p class="eyebrow">Everything stays with you</p>
+          <h3>Local files. Local saves.</h3>
+          <p>
+            Game installers are processed on your device and stored in your
+            browser. They are not uploaded to this website.
+          </p>
+          <p>
+            Clearing site data removes the local library and saves. Browser
+            storage can also be cleared automatically, so keep your original
+            installers.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="project-footer wrap">
+      <div>
+        <strong>gobnative</strong>
+        <p>Independent, open source, and made for curious players.</p>
+      </div>
+      <div class="footer-links">
+        <a href={source} target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+        <a href={`${player}gobnative-source.tar.gz`}>Engine source</a>
+        <a href={`${player}LICENSE.txt`}>GPL v3+</a>
+        <a href={url('privacy/')}>Privacy</a>
+        <a href={url('support/')}>Support</a>
+      </div>
+      <p class="credits">
+        Gobliiins, Gobliins 2, and Goblins Quest 3 are © Coktel Vision /
+        Microïds. No game data is included. gobnative is not affiliated with
+        Microïds, GOG, or ScummVM.
+      </p>
+    </footer>
+    <Analytics />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 24px;
+  }
+  body {
+    margin: 0;
+    background: #f4efe3;
+    color: #263b45;
+    font:
+      16px/1.7 system-ui,
+      -apple-system,
+      sans-serif;
+  }
+  a {
+    color: inherit;
+    text-underline-offset: 4px;
+  }
+  a:focus-visible,
+  iframe:focus-visible {
+    outline: 3px solid #3e7189;
+    outline-offset: 5px;
+  }
+  .wrap {
+    width: min(1160px, calc(100% - 80px));
+    margin-inline: auto;
+  }
+  .skip {
+    position: absolute;
+    left: 20px;
+    top: -80px;
+    padding: 12px;
+    background: #fff;
+    z-index: 2;
+  }
+  .skip:focus {
+    top: 12px;
+  }
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: center;
+    padding-block: 24px;
+    border-bottom: 1px solid #d1cbbc;
+    font-size: 13px;
+  }
+  .project-header a {
+    text-decoration: none;
+  }
+  .studio {
+    font-weight: 650;
+  }
+  .intro {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding-block: 90px 100px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+    color: #637b81;
+  }
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+  h1 {
+    margin-bottom: 28px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  h1 span {
+    display: block;
+    font-size: clamp(48px, 5.7vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.055em;
+    margin-top: 20px;
+    font-weight: 800;
+  }
+  .lead {
+    max-width: 43ch;
+    font-size: 17px;
+    color: #52666e;
+    margin-bottom: 32px;
+  }
+  .intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+  }
+  .primary {
+    padding: 12px 25px;
+    background: #315d72;
+    color: #fffaf0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 650;
+    text-decoration: none;
+    transition: background-color 180ms;
+  }
+  .primary:hover {
+    background: #254b60;
+  }
+  .quiet {
+    font-size: 13px;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+  .edition {
+    background: #e8e1cf;
+    border: 1px solid #d5cbb5;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 8px 8px 0 #d9d3c326;
+  }
+  .edition-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #cfc6af;
+  }
+  .edition-top img {
+    width: 72px;
+    height: 72px;
+  }
+  .edition-top > span {
+    font-size: 16px;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+  }
+  .game-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .game-list li {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    padding-block: 22px;
+    border-bottom: 1px solid #d1c8b3;
+  }
+  .game-list li > span {
+    color: #81724b;
+    font:
+      12px ui-monospace,
+      monospace;
+  }
+  .game-list strong {
+    font-size: 20px;
+    letter-spacing: -0.03em;
+  }
+  .game-list small {
+    display: block;
+    color: #6e776f;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .edition-note {
+    margin: 22px 0 0;
+    font-size: 11px;
+    color: #65736b;
+  }
+  .section-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid #ccc5b6;
+    padding-top: 22px;
+  }
+  .section-label > span {
+    font:
+      10px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+    color: #7d7f6b;
+  }
+  h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .player-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-block: 16px 24px;
+  }
+  .player-heading p {
+    color: #5c6d72;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .player-frame {
+    background: #15161a;
+    border: 8px solid #2c414b;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  iframe {
+    display: block;
+    width: 100%;
+    height: clamp(540px, 60vw, 720px);
+    border: 0;
+  }
+  .player-note {
+    font-size: 12px;
+    color: #61737a;
+    margin-block: 14px 0;
+  }
+  .how {
+    padding-block: 80px;
+  }
+  .how h2 {
+    margin-top: 12px;
+  }
+  .steps {
+    padding: 0;
+    margin: 32px 0 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .steps li > span {
+    display: inline-block;
+    font:
+      12px ui-monospace,
+      monospace;
+    color: #8a7048;
+    margin-bottom: 22px;
+  }
+  h3 {
+    font-size: 19px;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .steps p,
+  .details p:not(.eyebrow) {
+    font-size: 14px;
+    color: #556b71;
+  }
+  code {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+  .details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    padding-bottom: 80px;
+  }
+  .storage-note {
+    padding: 30px;
+    background: #e7ece5;
+    border-radius: 8px;
+  }
+  kbd {
+    font:
+      12px ui-monospace,
+      monospace;
+    border: 1px solid #bcc5ba;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: #fff9;
+  }
+  .project-footer {
+    border-top: 1px solid #ccc5b6;
+    padding-block: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .project-footer strong {
+    font-size: 20px;
+    letter-spacing: -0.03em;
+  }
+  .project-footer p {
+    font-size: 12px;
+    color: #687c81;
+    margin-block: 8px 0;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: start;
+    gap: 16px;
+    font-size: 12px;
+  }
+  .project-footer .credits {
+    grid-column: 1/-1;
+    font-size: 11px;
+    max-width: 90ch;
+  }
+  @media (max-width: 900px) {
+    .intro {
+      gap: 40px;
+    }
+    .wrap {
+      width: calc(100% - 48px);
+    }
+    .steps {
+      gap: 24px;
+    }
+    .details {
+      gap: 40px;
+    }
+  }
+  @media (max-width: 650px) {
+    .wrap {
+      width: calc(100% - 36px);
+    }
+    .project-header {
+      font-size: 11px;
+      gap: 12px;
+    }
+    .intro {
+      grid-template-columns: 1fr;
+      padding-block: 52px;
+      gap: 40px;
+    }
+    h1 span {
+      font-size: clamp(44px, 13vw, 58px);
+    }
+    .lead {
+      font-size: 16px;
+    }
+    .edition {
+      padding: 24px;
+    }
+    .player-heading {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+    .section-label > span {
+      font-size: 8px;
+    }
+    .player-frame {
+      border-width: 4px;
+    }
+    iframe {
+      height: 560px;
+    }
+    .how {
+      padding-block: 52px;
+    }
+    .steps,
+    .details {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+    .steps li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 0 14px;
+    }
+    .steps li > span {
+      grid-row: 1/3;
+      margin-top: 5px;
+    }
+    .steps p {
+      grid-column: 2;
+    }
+    .details {
+      padding-bottom: 52px;
+    }
+    .project-footer {
+      grid-template-columns: 1fr;
+    }
+    .footer-links {
+      justify-content: flex-start;
+    }
+    .project-footer .credits {
+      grid-column: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+    }
+  }
+</style>

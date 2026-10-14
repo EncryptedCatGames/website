@@ -6,3 +6,4 @@ bun.lock
 src/content/devlog/
 src/data/asset-sources.json
 public/
+vendor/
