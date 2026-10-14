@@ -46,8 +46,6 @@ for (const file of files.filter((f) => f.endsWith('.html'))) {
       errors.push(`${file}: missing ${value}`);
     }
   }
-  if (/src="https:\/\/www\.googletagmanager/.test(html))
-    errors.push(`${file}: analytics must not load before consent`);
 }
 if (errors.length) {
   console.error(errors.join('\n'));

@@ -1,0 +1,51 @@
+---
+import site from '../../site.config.mjs';
+const enabled =
+  /^G-[A-Z0-9]+$/.test(site.analyticsId) && site.analyticsId !== 'G-XXXXXXXXXX';
+---
+
+<div
+  id="site-analytics"
+  hidden
+  transition:persist="site-analytics"
+  data-ga-id={enabled ? site.analyticsId : ''}
+></div>
+<script>
+  const container = document.querySelector<HTMLElement>('#site-analytics')!;
+  const id = container.dataset.gaId;
+  // Preserve choices already made by visitors before the prompt was removed.
+  let optedOut = false;
+  try {
+    optedOut = localStorage.getItem('ecg-analytics-consent') === 'denied';
+  } catch {}
+  if (id && !optedOut) {
+    const win = window as typeof window & {
+      dataLayer: unknown[];
+      gtag: (...args: unknown[]) => void;
+    };
+    win.dataLayer ||= [];
+    win.gtag = function () {
+      win.dataLayer.push(arguments);
+    };
+    win.gtag('consent', 'default', {
+      analytics_storage: 'granted',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+    win.gtag('js', new Date());
+    win.gtag('config', id, {
+      send_page_view: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+    const script = document.createElement('script');
+    script.async = true;
+    script.dataset.astroExec = '';
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    script.addEventListener('load', () => {
+      script.dataset.loaded = 'true';
+    });
+    container.append(script);
+  }
+</script>

@@ -7,7 +7,7 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/global.css';
 import site from '../../site.config.mjs';
 import { url } from '../lib';
-import PrivacyControls from '../components/PrivacyControls.astro';
+import Analytics from '../components/Analytics.astro';
 import { ClientRouter } from 'astro:transitions';
 const {
   title = 'Encrypted Cat Games | Narrative horror',
@@ -97,17 +97,11 @@ const nav = [
           <div>
             <a href={url('support/')}>Support</a>
             <a href={url('privacy/')}>Privacy policy</a>
-            <button type="button" class="plain-button" data-privacy-settings>
-              Privacy settings
-            </button>
           </div>
         </div>
-        <p id="analytics-disabled" class="form-note" hidden>
-          Optional analytics are currently disabled on this website.
-        </p>
       </div>
     </footer>
-    <PrivacyControls />
+    <Analytics />
     <script>
       import '../scripts/interactions';
       // The shell persists; update its current-page state before painting the next route.

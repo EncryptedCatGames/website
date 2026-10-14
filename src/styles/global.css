@@ -880,33 +880,6 @@ textarea::placeholder {
   text-underline-offset: 4px;
   font-size: inherit;
 }
-.consent {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  max-width: 720px;
-  margin-left: auto;
-  z-index: 100;
-  background: #191c1b;
-  border: 1px solid #5c5b50;
-  box-shadow: 0 12px 60px #0009;
-  padding: 24px;
-}
-.consent p {
-  font-size: 13px;
-  color: var(--text);
-  margin-bottom: 18px;
-}
-.consent a {
-  color: var(--accent);
-  text-decoration: underline;
-}
-.consent > div {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
 .lost-page {
   padding-block: 150px;
   min-height: 65vh;
@@ -1206,12 +1179,6 @@ textarea::placeholder {
   }
   .support-grid h2 {
     font-size: 2.4rem;
-  }
-  .consent {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    padding: 20px;
   }
   .lost-page {
     padding-block: 90px;
@@ -1534,11 +1501,6 @@ select:focus,
 textarea:focus {
   border-color: #b1a078;
   box-shadow: 0 0 0 3px #c7ad7510;
-}
-.consent {
-  border-radius: 10px;
-  background: #171c15;
-  border-color: #4a523f;
 }
 .footer {
   background: #080b07;

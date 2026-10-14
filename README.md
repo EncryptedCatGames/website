@@ -50,7 +50,7 @@ For another custom domain:
 SITE_URL=https://your-new-domain.com bun run build
 ```
 
-Assets, navigation, article images, and links respect the base path. Astro’s ClientRouter provides in-browser navigation with immediate content swaps and a persistent header/footer. Each route still has a real `index.html`, so direct links and reloads work on GitHub Pages without SPA rewrites. Document-level handlers keep forms and filters working immediately after route changes, and consent state persists between routes.
+Assets, navigation, article images, and links respect the base path. Astro’s ClientRouter provides in-browser navigation with immediate content swaps and a persistent header/footer. Each route still has a real `index.html`, so direct links and reloads work on GitHub Pages without SPA rewrites. Document-level handlers keep forms and filters working immediately after route changes, and the analytics loader persists between routes.
 
 ## GitHub Pages deployment
 
@@ -75,11 +75,11 @@ The privacy page automatically describes the configured form mode. If you switch
 
 ## Analytics
 
-`G-DYL1N86XM1` is configured for this site. Override it with `PUBLIC_GA_ID`, or set `G-XXXXXXXXXX` to disable analytics. The script is only injected after the visitor accepts, advertising features are disabled, and form messages/email addresses are never sent as analytics events. A footer privacy-settings button allows consent to be changed. Consent is stored in local storage; withdrawal disables tracking and attempts to clear analytics cookies. GA4 sends the initial page view automatically. Keep **Enhanced measurement → Page views → Page changes based on browser history events** enabled in the web data stream to measure client-side navigation. The site does not send duplicate manual page-view events. Check incoming visits in GA4 Realtime.
+`G-DYL1N86XM1` is configured for this site. Override it with `PUBLIC_GA_ID`, or set `G-XXXXXXXXXX` to disable analytics. The script loads automatically without a prompt. Previously saved opt-out choices are still respected. Advertising features are disabled, and form messages/email addresses are never sent as analytics events. The privacy policy explains website measurement and cookie use. GA4 sends the initial page view automatically. Keep **Enhanced measurement → Page views → Page changes based on browser history events** enabled in the web data stream to measure client-side navigation. The site does not send duplicate manual page-view events. Check incoming visits in GA4 Realtime.
 
 ## Privacy and App Store preparation
 
-`/support/` is a permanent support URL with FAQs and contact details. `/privacy/` currently covers website hosting, contact information, optional analytics, and embeds. It explicitly distinguishes the website from future native releases.
+`/support/` is a permanent support URL with FAQs and contact details. `/privacy/` currently covers website hosting, contact information, website analytics, and embeds. It explicitly distinguishes the website from future native releases.
 
 Before using `/privacy/` as an App Store privacy URL, confirm each native game's actual data handling: SDKs, analytics/crash reports, ads, purchases, accounts, permissions, saved data, server communication, and retention. Add the native-game policy to `src/pages/privacy.astro`, update its date, and set `nativePrivacyConfirmed` only after that policy is accurate. Align App Store privacy labels with the app. This repository alone cannot verify native app data collection.
 
