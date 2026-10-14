@@ -16,9 +16,11 @@ document.addEventListener('submit', async (event) => {
     fallback.querySelector('textarea')!.value =
       `Subject: ${subject}\n\n${body}`;
     status.textContent =
-      'Draft prepared. Send it from your email app to complete your enquiry.';
-    fallback.querySelector<HTMLAnchorElement>('[data-email-draft]')!.href =
-      `mailto:encrypted.cat53@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      'Finish sending in your email app. If it did not open, use the link below.';
+    const emailLink =
+      fallback.querySelector<HTMLAnchorElement>('[data-email-draft]')!;
+    emailLink.href = `mailto:encrypted.cat53@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    emailLink.click();
     return;
   }
   const button = form.querySelector<HTMLButtonElement>(

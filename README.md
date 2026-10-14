@@ -69,7 +69,7 @@ Optional repository **Actions variables**: `SITE_URL`, `SITE_BASE`, `PUBLIC_FORM
 
 GitHub Pages cannot send emails itself. Create a form on https://formspree.io, configure its notification recipient as `encrypted.cat53@gmail.com`, and complete the service's email verification. Then set its `https://formspree.io/f/FORM_ID` endpoint in `site.config.mjs` or the `PUBLIC_FORM_ENDPOINT` Actions variable and rebuild.
 
-The form supports validation, a spam honeypot, pending/success/error messages, and a direct email fallback. Without an endpoint it prepares a copyable draft with a link to open the visitor's email app and clearly explains that the visitor must send it. It does not claim delivery. Before launch, submit a real test using the configured Formspree endpoint and confirm receipt in Gmail.
+The form supports validation, a spam honeypot, pending/success/error messages, and a direct email fallback. Without an endpoint, Send email opens the visitor's email app with the message ready to send. A copyable draft and retry link remain available if the email app does not open. It does not claim delivery. Before launch, submit a real test using the configured Formspree endpoint and confirm receipt in Gmail.
 
 The privacy page automatically describes the configured form mode. If you switch away from Formspree, update that description and the provider link.
 

@@ -63,19 +63,13 @@ import { url } from '../lib';
     Your email and message are used to respond to your enquiry.{' '}
     <a href={url('privacy/')}>Privacy policy</a>
   </p>
-  {site.formEndpoint ? (
-    <button type="submit" class="button">
-      Send message <LinkMark />
-    </button>
-  ) : (
-    <button type="submit" class="button">
-      Prepare email <LinkMark />
-    </button>
-  )}
+  <button type="submit" class="button button-email">
+    Send email
+  </button>
   {!site.formEndpoint && (
     <p class="form-note">
-      Prepare a draft, then open it in your email app to send it. Prefer to
-      write directly? <a href={`mailto:${site.email}`}>{site.email}</a>
+      Opens your email app with your message ready to send. Prefer to write
+      directly? <a href={`mailto:${site.email}`}>{site.email}</a>
     </p>
   )}
   {site.formEndpoint && (

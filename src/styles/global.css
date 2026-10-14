@@ -1312,36 +1312,24 @@ nav a[aria-current='page']::after {
   min-height: 56px;
   gap: 26px;
   padding: 15px 22px;
-  border-radius: var(--control-radius);
-  border: 1px solid #d7cfbc;
-  background: #e6decb;
-  background-image: linear-gradient(180deg, #f0eadb, #dfd6c2);
-  box-shadow:
-    inset 0 1px 0 #fff8,
-    inset 0 -1px 0 #5c4c3926,
-    0 4px 12px #0003;
-  color: #23271e;
+  border-radius: 6px;
+  border: 1px solid #68634e;
+  background: #22261e;
+  background-image: linear-gradient(110deg, #c7ad750d, transparent);
+  box-shadow: inset 0 1px 0 #ffffff08;
+  color: #e9e5d8;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.015em;
   line-height: 1.4;
   text-decoration: none;
   transition:
-    transform 260ms var(--ease-out),
-    box-shadow 260ms var(--ease-out),
+    background-color 220ms var(--ease-state),
     border-color 220ms var(--ease-state),
     color 220ms var(--ease-state);
 }
 .button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: #fff;
-  opacity: 0;
-  z-index: -1;
-  pointer-events: none;
-  transition: opacity 260ms var(--ease-state);
+  display: none;
 }
 .button:has(> span[aria-hidden]) {
   padding: 15px 22px;
@@ -1357,18 +1345,13 @@ nav a[aria-current='page']::after {
   background: none;
   font-size: 18px;
   font-weight: 400;
-  transition:
-    transform 260ms var(--ease-out),
-    background-color 260ms var(--ease-state);
+  color: var(--accent);
 }
 .button-secondary {
   border-color: #474d41;
   background: #151914;
-  background-image: linear-gradient(180deg, #1a1e19, #121610);
   color: #e4e1d4;
-  box-shadow:
-    inset 0 1px 0 #ffffff08,
-    0 3px 10px #0002;
+  box-shadow: none;
 }
 .button-secondary::before {
   background: #c7ad75;
@@ -1383,8 +1366,13 @@ nav a[aria-current='page']::after {
   border-radius: 6px;
 }
 .button:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: inset 0 1px 2px #0002;
+  transform: none;
+  border-color: #b4a477;
+  color: #fff7e4;
+}
+.button-email {
+  justify-content: center;
+  min-width: 180px;
 }
 .button:disabled {
   transform: none;
@@ -1521,28 +1509,18 @@ textarea:focus {
     border-color: #6b7457;
   }
   .button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    color: #23271e;
-    border-color: #e6dcc2;
-    box-shadow:
-      inset 0 1px 0 #fffc,
-      0 6px 18px #0004;
-  }
-  .button:hover:not(:disabled)::before {
-    opacity: 0.13;
+    transform: none;
+    color: #fff7e4;
+    border-color: #9a8b63;
+    background-color: #30362a;
   }
   .button-secondary:hover:not(:disabled) {
     color: var(--text);
     border-color: #8e815f;
-    box-shadow:
-      inset 0 1px 0 #ffffff0c,
-      0 6px 18px #0003;
-  }
-  .button-secondary:hover:not(:disabled)::before {
-    opacity: 0.06;
+    background-color: #20251b;
   }
   .button:hover:not(:disabled) > span[aria-hidden] {
-    transform: translateX(1px);
+    transform: none;
   }
   .text-link:hover > span[aria-hidden] {
     transform: translateX(2px);
@@ -1619,10 +1597,7 @@ textarea:focus {
     min-height: 50px;
     gap: 24px;
     padding: 14px 18px;
-    border-color: #e1dac8;
-    border-radius: 3px;
-    background: #e1dac8;
-    box-shadow: none;
+    border-radius: 6px;
     font-size: 13px;
     transition:
       background-color 160ms var(--ease-state),
@@ -1652,18 +1627,20 @@ textarea:focus {
   }
   .button:active:not(:disabled) {
     transform: none;
-    background: #cfc5ae;
-    box-shadow: none;
+    border-color: #b4a477;
   }
   .button-secondary:active:not(:disabled) {
     background: #252a20;
   }
-  .hero .button,
   .contact-strip .button,
   .game-hero-copy .button,
-  .game-overview aside .button,
-  .contact-form .button {
+  .game-overview aside .button {
     width: 100%;
+  }
+  .hero .button {
+    width: auto;
+    min-width: 250px;
+    max-width: 100%;
   }
   .button-small {
     min-height: 44px;
