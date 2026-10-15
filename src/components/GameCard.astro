@@ -2,17 +2,14 @@
 import LinkMark from './LinkMark.astro';
 import { url } from '../lib';
 const { game } = Astro.props;
+const details = url(`games/${game.slug}/`);
 ---
 
 <article class="game-card" data-game={game.slug}>
-  <a
-    href={url(`games/${game.slug}/`)}
-    class="game-image"
-    aria-label={`Explore ${game.title}: ${game.subtitle}`}
-  >
+  <a href={details} class="game-image" tabindex="-1" aria-hidden="true">
     <img
       src={url(game.cover)}
-      alt={`${game.title}: ${game.subtitle} cover art`}
+      alt=""
       width="1200"
       height="675"
       loading="lazy"
@@ -21,18 +18,33 @@ const { game } = Astro.props;
   <div class="game-copy">
     <p class="game-kind">{game.kind}</p>
     <h3>
-      <a href={url(`games/${game.slug}/`)}>
-        {game.title}
-        <span>{game.subtitle}</span>
+      <a href={details}>
+        <small>{game.title}</small>
+        {game.subtitle}
       </a>
     </h3>
     <p class="game-description">{game.short}</p>
-    <div class="game-meta">
-      <span>{game.length}</span>
-      <span>{game.platforms}</span>
+    <ul class="game-meta" aria-label="Details">
+      <li>{game.length}</li>
+      <li>{game.platforms}</li>
+    </ul>
+    <div class="game-actions">
+      <a
+        class="button button-small"
+        href={game.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Play ${game.title}: ${game.subtitle} on itch.io`}
+      >
+        Play <LinkMark external />
+      </a>
+      <a
+        class="button button-small button-secondary"
+        href={details}
+        aria-label={`${game.title}: ${game.subtitle} details`}
+      >
+        Details <LinkMark />
+      </a>
     </div>
-    <a class="text-link" href={url(`games/${game.slug}/`)}>
-      Explore the game <LinkMark />
-    </a>
   </div>
 </article>

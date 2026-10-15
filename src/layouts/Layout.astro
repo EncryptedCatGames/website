@@ -23,10 +23,12 @@ const canonical = new URL(
 );
 const nav = [
   ['Games', 'games/'],
+  ['Projects', 'other-projects/'],
   ['Devlog', 'devlog/'],
   ['Support', 'support/'],
-  ['Other Projects', 'other-projects/'],
 ];
+const current = (path: string) =>
+  Astro.url.pathname.includes('/' + path) ? 'page' : undefined;
 ---
 
 <!doctype html>
@@ -60,21 +62,54 @@ const nav = [
             ENCRYPTED CAT<small>GAMES</small>
           </span>
         </a>
-        <nav aria-label="Main navigation">
+        <nav class="site-nav" aria-label="Main navigation" data-nav>
           {nav.map(([label, path]) => (
-            <a
-              href={url(path)}
-              aria-current={
-                Astro.url.pathname.includes('/' + path) ? 'page' : undefined
-              }
-            >
+            <a href={url(path)} aria-current={current(path)}>
               {label}
             </a>
           ))}
-          <a class="nav-contact" href={url('contact/')}>
+          <a
+            class="nav-contact"
+            href={url('contact/')}
+            aria-current={current('contact/')}
+          >
             Contact <LinkMark />
           </a>
         </nav>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-menu-toggle
+        >
+          <span class="menu-label">Menu</span>
+          <span class="menu-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" hidden data-menu>
+        <div class="mobile-menu-inner">
+          <nav class="mobile-menu-links" aria-label="Main navigation" data-nav>
+            <a href={url()}>
+              Home <LinkMark />
+            </a>
+            {nav.map(([label, path]) => (
+              <a href={url(path)} aria-current={current(path)}>
+                {label} <LinkMark />
+              </a>
+            ))}
+          </nav>
+          <a class="button" href={url('contact/')}>
+            Contact us <LinkMark />
+          </a>
+          <div class="mobile-menu-socials" aria-label="Community">
+            {site.socials.map((s) => (
+              <a href={s.url} target="_blank" rel="noopener noreferrer">
+                <SocialIcon name={s.name} /> {s.name}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </header>
     <main id="main" transition:name="page-content" transition:animate="none">
@@ -109,14 +144,17 @@ const nav = [
     <script>
       import '../scripts/interactions';
       // The shell persists; update its current-page state before painting the next route.
+      const home = new URL(
+        document.querySelector<HTMLAnchorElement>('.brand')!.href,
+      ).pathname;
       function updateNavigation() {
         document
-          .querySelectorAll<HTMLAnchorElement>('nav a')
+          .querySelectorAll<HTMLAnchorElement>('[data-nav] a')
           .forEach((link) => {
             const path = new URL(link.href).pathname;
             if (
               location.pathname === path ||
-              location.pathname.startsWith(path)
+              (path !== home && location.pathname.startsWith(path))
             )
               link.setAttribute('aria-current', 'page');
             else link.removeAttribute('aria-current');

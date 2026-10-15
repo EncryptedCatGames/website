@@ -1,0 +1,25 @@
+---
+import LinkMark from './LinkMark.astro';
+import { url } from '../lib';
+const { project, headingLevel = 3 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
+---
+
+<a
+  class="project-card"
+  href={url(project.path)}
+  data-astro-reload={project.reload || undefined}
+>
+  <div class="project-art" aria-hidden="true">
+    <img src={url(project.icon)} width="180" height="180" alt="" />
+    <span>{project.tagline}</span>
+  </div>
+  <div class="project-copy">
+    <p class="eyebrow">{project.kind}</p>
+    <Heading>{project.name}</Heading>
+    <p>{project.description}</p>
+    <span class="text-link">
+      Explore the project <LinkMark />
+    </span>
+  </div>
+</a>

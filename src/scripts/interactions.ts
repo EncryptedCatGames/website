@@ -66,3 +66,32 @@ document.addEventListener('click', (event) => {
   const countLabel = document.querySelector('#post-count');
   if (countLabel) countLabel.textContent = `${count} posts`;
 });
+
+// The header persists across route swaps, so the menu is driven by document-level handlers.
+const menuToggle = () =>
+  document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+const menu = () => document.querySelector<HTMLElement>('[data-menu]');
+function setMenu(open: boolean, restoreFocus = false) {
+  const toggle = menuToggle();
+  const panel = menu();
+  if (!toggle || !panel) return;
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.querySelector('.menu-label')!.textContent = open ? 'Close' : 'Menu';
+  panel.hidden = !open;
+  document.documentElement.classList.toggle('menu-open', open);
+  if (open) panel.querySelector<HTMLAnchorElement>('a')?.focus();
+  else if (restoreFocus) toggle.focus();
+}
+document.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  if (event.target.closest('[data-menu-toggle]'))
+    setMenu(menuToggle()?.getAttribute('aria-expanded') !== 'true');
+  else if (event.target.closest('[data-menu] a')) setMenu(false);
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !menu()?.hidden) setMenu(false, true);
+});
+document.addEventListener('astro:after-swap', () => setMenu(false));
+matchMedia('(min-width: 861px)').addEventListener('change', (event) => {
+  if (event.matches) setMenu(false);
+});
