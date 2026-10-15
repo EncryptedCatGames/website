@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import PostList from '../../components/PostList.astro';
 import { getCollection } from 'astro:content';
 import { games } from '../../data/games';
+import { url } from '../../lib';
 const posts = (await getCollection('devlog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
@@ -16,6 +17,9 @@ const posts = (await getCollection('devlog')).sort(
     <p class="eyebrow">From the workshop</p>
     <h1>Making the nightmares.</h1>
     <p>New builds, strange discoveries, and the work behind The Cradle.</p>
+    <a class="text-link" href={url('devlog/rss.xml')}>
+      Follow with RSS
+    </a>
   </section>
   <section class="container section devlog-index">
     <div class="filter-bar" role="group" aria-label="Filter devlog by game">

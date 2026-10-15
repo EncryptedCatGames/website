@@ -9,6 +9,7 @@ import { projects } from '../data/projects';
 import { getCollection } from 'astro:content';
 import { url } from '../lib';
 import site from '../../site.config.mjs';
+import { homeData } from '../data/structured-data';
 const posts = (await getCollection('devlog'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
@@ -22,7 +23,7 @@ const socialNotes: Record<string, string> = {
 };
 ---
 
-<Layout>
+<Layout structuredData={homeData}>
   <section class="hero">
     <div class="hero-art">
       <img

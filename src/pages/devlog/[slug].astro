@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { url, formatDate } from '../../lib';
 import { gameName } from '../../data/games';
+import { postData } from '../../data/structured-data';
 export async function getStaticPaths() {
   return (await getCollection('devlog')).map((post) => ({
     params: { slug: post.id },
@@ -19,6 +20,7 @@ const { Content } = await render(post);
   image={post.data.image || `/images/${post.data.game}-cover.webp`}
   imageAlt={`${post.data.title}, The Cradle: ${gameName(post.data.game)}`}
   type="article"
+  structuredData={postData(post)}
 >
   <article class="container article">
     <header class="article-header">

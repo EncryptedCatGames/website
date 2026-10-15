@@ -5,6 +5,7 @@ import PostList from '../../components/PostList.astro';
 import GameCard from '../../components/GameCard.astro';
 import { games } from '../../data/games';
 import { url } from '../../lib';
+import { gameData } from '../../data/structured-data';
 import { getCollection } from 'astro:content';
 export function getStaticPaths() {
   return games.map((game) => ({
@@ -24,6 +25,7 @@ const posts = (await getCollection('devlog'))
   title={`${game.title}: ${game.subtitle} | Encrypted Cat Games`}
   description={game.description}
   image={game.cover}
+  structuredData={gameData(game)}
   imageAlt={`${game.title}: ${game.subtitle} cover art`}
 >
   <section class="game-hero">
