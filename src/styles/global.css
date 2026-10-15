@@ -562,6 +562,10 @@ summary:focus-visible {
   font: 11px var(--mono);
   color: #aaa99c;
 }
+.game-meta .game-status {
+  border-color: #5c5340;
+  color: var(--accent);
+}
 .game-actions {
   display: flex;
   flex-wrap: wrap;
@@ -640,6 +644,13 @@ summary:focus-visible {
   height: 100%;
   object-fit: cover;
   filter: saturate(0.65);
+}
+/* Posts without their own image fall back to the game cover; keep its lettering whole. */
+.post-thumb-cover {
+  background: var(--bg-deep);
+}
+.post-thumb-cover img {
+  object-fit: contain;
 }
 .post-meta {
   display: flex;
@@ -818,6 +829,34 @@ summary:focus-visible {
   margin-top: 20px;
 }
 
+/* Catalogue */
+.catalogue-filters {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+.catalogue-filters .filter-bar {
+  margin: 0;
+}
+.catalogue-count {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font: 11px var(--mono);
+}
+.catalogue-group + .catalogue-group {
+  margin-top: 72px;
+}
+.catalogue-heading {
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+.catalogue-empty {
+  padding: 48px 0;
+  text-align: center;
+}
+
 /* Game detail page */
 .game-hero {
   position: relative;
@@ -849,7 +888,7 @@ summary:focus-visible {
 .game-hero h1 {
   font-size: clamp(4rem, 8vw, 8rem);
   text-transform: uppercase;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 .game-hero h1 span {
   display: block;
@@ -859,6 +898,13 @@ summary:focus-visible {
 }
 .game-hero .eyebrow {
   margin-bottom: 14px;
+}
+.game-hero-meta {
+  margin: 0 0 28px;
+  padding: 0;
+}
+.game-hero-meta li {
+  background: #0b0c0ccc;
 }
 .back-link {
   display: inline-block;
@@ -1584,6 +1630,22 @@ textarea::placeholder {
   .filter-button {
     padding: 10px 12px;
     font-size: 12px;
+  }
+  .catalogue-filters {
+    margin-bottom: 32px;
+  }
+  .catalogue-group + .catalogue-group {
+    margin-top: 48px;
+  }
+  .catalogue-filters .filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .catalogue-filters .filter-button {
+    flex-shrink: 0;
   }
   #post-count {
     width: 100%;

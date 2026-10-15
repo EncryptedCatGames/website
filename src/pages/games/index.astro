@@ -1,26 +1,86 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import GameCard from '../../components/GameCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 import { games } from '../../data/games';
+import { projects } from '../../data/projects';
+import { platforms } from '../../data/platforms';
+const total = games.length + projects.length;
+const types = [
+  ['all', 'Everything'],
+  ['game', 'Games'],
+  ['project', 'Projects'],
+];
 ---
 
 <Layout
   title="Games | Encrypted Cat Games"
-  description="Explore The Cradle: Episode 01 and The Cradle: Trick-or-Treat. Atmospheric horror, playable on itch.io."
+  description="Every Encrypted Cat game and side project in one place: The Cradle: Episode 01, The Cradle: Trick-or-Treat, and gobnative."
 >
   <section class="container page-intro">
     <p class="eyebrow">The catalogue</p>
     <h1>Choose your nightmare.</h1>
     <p>
-      Two ways into The Cradle. A story to uncover, or one more door to knock
-      on.
+      Every game and side project in one place. Filter by what you want to play
+      and where you want to play it.
     </p>
   </section>
-  <section class="container section catalogue">
-    <div class="game-grid">
-      {games.map((game) => (
-        <GameCard game={game} />
-      ))}
+  <section class="container section catalogue" data-catalogue>
+    <div class="catalogue-filters">
+      <div class="filter-bar" role="group" aria-label="Filter by type">
+        {types.map(([value, label]) => (
+          <button
+            class:list={['filter-button', { active: value === 'all' }]}
+            data-catalogue-filter="type"
+            data-value={value}
+            aria-pressed={value === 'all' ? 'true' : 'false'}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div class="filter-bar" role="group" aria-label="Filter by platform">
+        <button
+          class="filter-button active"
+          data-catalogue-filter="platform"
+          data-value="all"
+          aria-pressed="true"
+        >
+          Any platform
+        </button>
+        {Object.entries(platforms).map(([value, label]) => (
+          <button
+            class="filter-button"
+            data-catalogue-filter="platform"
+            data-value={value}
+            aria-pressed="false"
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <p class="catalogue-count" aria-live="polite" data-catalogue-count>
+        {total} titles
+      </p>
     </div>
+    <div class="catalogue-group" data-group>
+      <h2 class="catalogue-heading">Games</h2>
+      <div class="game-grid">
+        {games.map((game) => (
+          <GameCard game={game} />
+        ))}
+      </div>
+    </div>
+    <div class="catalogue-group" data-group>
+      <h2 class="catalogue-heading">Side projects</h2>
+      <div class="project-list">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </div>
+    <p class="catalogue-empty" hidden data-catalogue-empty>
+      Nothing matches those filters yet.
+    </p>
   </section>
 </Layout>

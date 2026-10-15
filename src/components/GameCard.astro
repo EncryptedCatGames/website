@@ -5,7 +5,13 @@ const { game } = Astro.props;
 const details = url(`games/${game.slug}/`);
 ---
 
-<article class="game-card" data-game={game.slug}>
+<article
+  class="game-card"
+  data-game={game.slug}
+  data-item
+  data-type="game"
+  data-platforms={game.platformTags.join(' ')}
+>
   <a href={details} class="game-image" tabindex="-1" aria-hidden="true">
     <img
       src={url(game.cover)}
@@ -25,6 +31,7 @@ const details = url(`games/${game.slug}/`);
     </h3>
     <p class="game-description">{game.short}</p>
     <ul class="game-meta" aria-label="Details">
+      <li class="game-status">{game.status}</li>
       <li>{game.length}</li>
       <li>{game.platforms}</li>
     </ul>

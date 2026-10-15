@@ -9,6 +9,9 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
   class="project-card"
   href={url(project.path)}
   data-astro-reload={project.reload || undefined}
+  data-item
+  data-type="project"
+  data-platforms={project.platformTags.join(' ')}
 >
   <div class="project-art" aria-hidden="true">
     <img src={url(project.icon)} width="180" height="180" alt="" />

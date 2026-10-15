@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import PostList from '../../components/PostList.astro';
 import { getCollection } from 'astro:content';
+import { games } from '../../data/games';
 const posts = (await getCollection('devlog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
@@ -25,20 +26,15 @@ const posts = (await getCollection('devlog')).sort(
       >
         All updates
       </button>
-      <button
-        class="filter-button"
-        data-filter="episode-01"
-        aria-pressed="false"
-      >
-        Episode 01
-      </button>
-      <button
-        class="filter-button"
-        data-filter="trick-or-treat"
-        aria-pressed="false"
-      >
-        Trick-or-Treat
-      </button>
+      {games.map((game) => (
+        <button
+          class="filter-button"
+          data-filter={game.slug}
+          aria-pressed="false"
+        >
+          {game.subtitle}
+        </button>
+      ))}
       <span id="post-count" aria-live="polite">
         {posts.length} posts
       </span>

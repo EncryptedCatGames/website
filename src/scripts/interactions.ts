@@ -95,3 +95,39 @@ document.addEventListener('astro:after-swap', () => setMenu(false));
 matchMedia('(min-width: 861px)').addEventListener('change', (event) => {
   if (event.matches) setMenu(false);
 });
+
+// Catalogue: one active value per filter group; items match on type and platform tags.
+document.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  const button = event.target.closest<HTMLButtonElement>(
+    '[data-catalogue-filter]',
+  );
+  const root = button?.closest<HTMLElement>('[data-catalogue]');
+  if (!button || !root) return;
+  const group = button.dataset.catalogueFilter!;
+  root
+    .querySelectorAll<HTMLButtonElement>(`[data-catalogue-filter="${group}"]`)
+    .forEach((b) => {
+      b.classList.toggle('active', b === button);
+      b.setAttribute('aria-pressed', String(b === button));
+    });
+  root.dataset[group] = button.dataset.value;
+  const type = root.dataset.type ?? 'all';
+  const platform = root.dataset.platform ?? 'all';
+  let count = 0;
+  root.querySelectorAll<HTMLElement>('[data-group]').forEach((section) => {
+    let visible = 0;
+    section.querySelectorAll<HTMLElement>('[data-item]').forEach((item) => {
+      item.hidden =
+        (type !== 'all' && item.dataset.type !== type) ||
+        (platform !== 'all' &&
+          !item.dataset.platforms!.split(' ').includes(platform));
+      if (!item.hidden) visible++;
+    });
+    section.hidden = visible === 0;
+    count += visible;
+  });
+  root.querySelector<HTMLElement>('[data-catalogue-empty]')!.hidden = count > 0;
+  root.querySelector('[data-catalogue-count]')!.textContent =
+    `${count} ${count === 1 ? 'title' : 'titles'}`;
+});

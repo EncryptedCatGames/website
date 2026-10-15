@@ -2,6 +2,7 @@
 import LinkMark from './LinkMark.astro';
 import site from '../../site.config.mjs';
 import { url } from '../lib';
+import { games } from '../data/games';
 ---
 
 <form
@@ -28,8 +29,9 @@ import { url } from '../lib';
       Game
       <select name="game">
         <option>General enquiry</option>
-        <option>The Cradle: Episode 01</option>
-        <option>The Cradle: Trick-or-Treat</option>
+        {games.map((game) => (
+          <option>{`${game.title}: ${game.subtitle}`}</option>
+        ))}
       </select>
     </label>
   </div>

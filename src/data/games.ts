@@ -1,4 +1,5 @@
 import artwork from './itch.json';
+import type { Platform } from './platforms';
 export const games = [
   {
     slug: 'episode-01',
@@ -8,7 +9,9 @@ export const games = [
     short: 'The signal stopped. Something underneath is waking up.',
     description:
       'September, 1996. A radio engineer descends beneath an abandoned Soviet sanatorium to restore a silent station. The night shift is missing. The building is listening.',
-    platforms: 'Browser · Windows · Linux',
+    status: 'Out now',
+    platforms: 'Browser · Windows · Linux · Phone',
+    platformTags: ['browser', 'desktop', 'mobile'] as Platform[],
     length: '45-60 minutes',
     languages: 'English & Russian',
     warning:
@@ -37,7 +40,9 @@ export const games = [
     short: 'Twenty doors. Some sweets. One very bad choice.',
     description:
       'A Halloween party at the Swallow sanatorium needs more sweets. Knock on twenty doors, read the clues, and hope a child answers. When Nanny opens, the only way out is through her labyrinth.',
+    status: 'Out now',
     platforms: 'Browser · Desktop & mobile',
+    platformTags: ['browser', 'desktop', 'mobile'] as Platform[],
     length: 'Short & replayable',
     languages: 'English & Russian',
     warning:
@@ -62,3 +67,6 @@ export const games = [
   ...game,
   ...artwork.find((item) => item.slug === game.slug)!,
 }));
+
+export const gameName = (slug: string) =>
+  games.find((game) => game.slug === slug)?.subtitle ?? slug;
