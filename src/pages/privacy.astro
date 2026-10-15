@@ -8,25 +8,27 @@ const analyticsEnabled =
 
 <Layout
   title="Privacy Policy | Encrypted Cat Games"
-  description="How the Encrypted Cat Games website handles contact messages, website analytics, and third-party services."
+  description="How the Encrypted Cat Games website and The Cradle: Episode 01 on iPhone and iPad handle your information."
 >
   <article class="container article legal">
     <header class="article-header">
       <p class="eyebrow">Privacy</p>
       <h1>Your privacy.</h1>
-      <p>Website privacy policy · Updated October 14, 2026</p>
+      <p>Website and app privacy policy · Updated October 15, 2026</p>
     </header>
     <div class="prose">
       <p>
         This policy describes how Encrypted Cat Games (Encrypted Cat / 0xKOT)
-        handles information through this website. For privacy questions or
-        requests, contact <a href={`mailto:${site.email}`}>{site.email}</a>.
+        handles information through this website and in The Cradle: Episode 01
+        for iPhone and iPad. For privacy questions or requests, contact{' '}
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
       <h2>Scope</h2>
       <p>
         This policy covers the studio website, contact pages, website analytics,
-        and links used here. Games running on itch.io are also subject to
-        itch.io’s privacy policy and the game’s own data practices.
+        and links used here, and the iPhone and iPad version of The Cradle:
+        Episode 01. Games running on itch.io are also subject to itch.io’s
+        privacy policy and the game’s own data practices.
       </p>
       {!site.nativePrivacyConfirmed && (
         <div class="notice">
@@ -37,6 +39,84 @@ const analyticsEnabled =
             describe native game data collection.
           </p>
         </div>
+      )}
+      {site.nativePrivacyConfirmed && (
+        <section id="the-cradle-episode-01-ios" aria-labelledby="ios-heading">
+          <h2 id="ios-heading">The Cradle: Episode 01 on iPhone and iPad</h2>
+          <p>
+            This section covers the App Store version of The Cradle: Episode 01.
+            The game works fully without sending anything about you. There is no
+            account, no advertising, and no tracking: the app does not use the
+            advertising identifier (IDFA) and does not track you across other
+            companies’ apps or websites, so it never asks for tracking
+            permission.
+          </p>
+          <h3>Anonymous statistics (only if you say Yes)</h3>
+          <p>
+            On the title screen the game asks once whether to send anonymous
+            play statistics. Nothing is sent until you choose Yes; No, or not
+            answering, means nothing is sent. With a Yes, the game sends short
+            events such as a session starting, a checkpoint or ending reached,
+            an achievement unlocked, and a frame-rate range, together with the
+            game’s version, language, graphics settings, and the operating
+            system family. A random session number is kept in memory only and is
+            new every session. Your name, email, anything you type, your saves,
+            contacts, photos, microphone, camera, precise location, and device
+            identifiers are never collected. You can change your answer at any
+            time in Settings → Interface → Anonymous statistics.
+          </p>
+          <p>
+            The statistics are processed for us by{' '}
+            <a href="https://aptabase.com">Aptabase</a>, a privacy-focused
+            analytics service, and stored in its United States region. Aptabase
+            uses your connection’s IP address only to work out the country and
+            region and to count daily users with a hash whose salt changes every
+            24 hours; it does not store IP addresses. Aptabase keeps analytics
+            data for up to 5 years. See{' '}
+            <a href="https://aptabase.com/legal/privacy">
+              Aptabase’s privacy policy
+            </a>
+            . The legal basis is your consent, which you can withdraw in the
+            settings at any time. Because the statistics contain nothing that
+            identifies you, we cannot find, show, or delete one player’s data.
+          </p>
+          <p>
+            In the App Store’s privacy details, this is declared as Coarse
+            Location, Product Interaction, and Performance Data: not linked to
+            you, used for analytics only, and not used for tracking.
+          </p>
+          <h3>Saves and settings</h3>
+          <p>
+            Your progress, settings, achievements, and personal bests stay on
+            your device. The app keeps them in its own web storage, with a spare
+            copy among the app’s own files, which iOS includes when it backs up
+            the app. They are never sent to us. Deleting the app removes them
+            from the device; “Reset progress” in the game clears both copies.
+          </p>
+          <h3>Game Center</h3>
+          <p>
+            Game Center is optional; you can play without signing in. It is
+            Apple’s service, and Apple’s privacy policy applies to it. The game
+            only reports achievement progress to Game Center, and reads back
+            achievements you have already unlocked.
+          </p>
+          <h3>Purchase, links, and permissions</h3>
+          <p>
+            The game is a paid app sold and delivered by Apple through the App
+            Store. Apple handles payment, and Apple’s privacy policy covers the
+            purchase and download; we receive no payment information. Apart from
+            the opt-in statistics, the app reaches no internet service. Links in
+            the game (Discord, Reddit, and the credits) open in Safari, where
+            those sites’ own policies apply. The game never uses your microphone
+            and never records sound.
+          </p>
+          <h3>Children</h3>
+          <p>
+            The Cradle is a horror game and is not directed at children under
+            13. We do not knowingly collect information from children, or
+            personal information from anyone.
+          </p>
+        </section>
       )}
       <h2>gobnative browser storage</h2>
       <p>
@@ -131,9 +211,9 @@ const analyticsEnabled =
       </p>
       <h2>Policy updates</h2>
       <p>
-        We will update this page when website services or data practices change.
-        Native game disclosures will identify the relevant game and describe its
-        actual data practices before App Store release.
+        We will update this page when website services or game data practices
+        change, with a new date at the top. Any future native release will be
+        added here, by name, before it reaches the App Store.
       </p>
       <p>
         <a class="text-link" href={url('contact/')}>

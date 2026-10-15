@@ -82,11 +82,11 @@ The privacy page automatically describes the configured form mode. If you switch
 
 ## Privacy and App Store preparation
 
-`/support/` is a permanent support URL with FAQs and contact details. `/privacy/` currently covers website hosting, contact information, website analytics, and embeds. It explicitly distinguishes the website from future native releases.
+`/support/` is a permanent support URL with FAQs and contact details. `/privacy/` covers website hosting, contact information, website analytics, and embeds, plus the iPhone and iPad version of The Cradle: Episode 01 (its own section, from the game's in-game privacy notice and its `PrivacyInfo.xcprivacy`). `nativePrivacyConfirmed` is `true` for that section.
 
 Before using `/privacy/` as an App Store privacy URL, confirm each native game's actual data handling: SDKs, analytics/crash reports, ads, purchases, accounts, permissions, saved data, server communication, and retention. Add the native-game policy to `src/pages/privacy.astro`, update its date, and set `nativePrivacyConfirmed` only after that policy is accurate. Align App Store privacy labels with the app. This repository alone cannot verify native app data collection.
 
-Add live App Store links to `appStoreUrl` in `src/data/games.ts` when available. Buttons remain hidden until real URLs exist.
+Add live App Store links to `appStoreUrl` in `src/data/games.ts` when available. Buttons remain hidden until real URLs exist. `comingSoon` lists announced platforms after the released ones as "(coming soon)" on the game page; clear it when the App Store link goes in.
 
 ## Content and asset maintenance
 

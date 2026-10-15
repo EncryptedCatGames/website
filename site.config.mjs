@@ -13,7 +13,7 @@ export default {
   formEndpoint: process.env.PUBLIC_FORM_ENDPOINT || '', // https://formspree.io/f/YOUR_FORM_ID
   analyticsId: process.env.PUBLIC_GA_ID || 'G-DYL1N86XM1',
   // Set true only after checking the native games and completing game privacy disclosures.
-  nativePrivacyConfirmed: false,
+  nativePrivacyConfirmed: true,
   socials: [
     { name: 'itch.io', url: 'https://0xkot.itch.io/' },
     { name: 'Discord', url: 'https://discord.gg/ufYtrP3NRk' },

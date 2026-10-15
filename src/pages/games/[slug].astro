@@ -14,6 +14,9 @@ export function getStaticPaths() {
   }));
 }
 const { game } = Astro.props;
+const platforms = game.comingSoon
+  ? `${game.platforms} · ${game.comingSoon} (coming soon)`
+  : game.platforms;
 const others = games.filter((other) => other.slug !== game.slug);
 const posts = (await getCollection('devlog'))
   .filter((p) => p.data.game === game.slug)
@@ -48,7 +51,7 @@ const posts = (await getCollection('devlog'))
       <ul class="game-meta game-hero-meta" aria-label="Details">
         <li class="game-status">{game.status}</li>
         <li>{game.length}</li>
-        <li>{game.platforms}</li>
+        <li>{platforms}</li>
       </ul>
       <GameStoreLink
         title={`${game.title}: ${game.subtitle}`}
@@ -71,7 +74,7 @@ const posts = (await getCollection('devlog'))
         </div>
         <div>
           <span>Available on</span>
-          <strong>{game.platforms}</strong>
+          <strong>{platforms}</strong>
         </div>
         <div>
           <span>Languages</span>
@@ -82,6 +85,9 @@ const posts = (await getCollection('devlog'))
     <aside id="play">
       <h2>Step inside.</h2>
       <p>Available now on itch.io.</p>
+      {game.comingSoon && !game.appStoreUrl && (
+        <p>Coming soon to the App Store for iPhone and iPad.</p>
+      )}
       <GameStoreLink
         title={`${game.title}: ${game.subtitle}`}
         href={game.url}
