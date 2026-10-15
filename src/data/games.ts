@@ -11,6 +11,8 @@ export const games = [
       'September, 1996. A radio engineer descends beneath an abandoned Soviet sanatorium to restore a silent station. The night shift is missing. The building is listening.',
     status: 'Out now',
     platforms: 'Browser · Windows · Linux · Phone',
+    // Announced but not yet released; shown after the platforms as "(coming soon)".
+    comingSoon: 'iPhone & iPad app',
     platformTags: ['browser', 'desktop', 'mobile'] as Platform[],
     length: '45-60 minutes',
     languages: 'English & Russian',
@@ -42,6 +44,7 @@ export const games = [
       'A Halloween party at the Swallow sanatorium needs more sweets. Knock on twenty doors, read the clues, and hope a child answers. When Nanny opens, the only way out is through her labyrinth.',
     status: 'Out now',
     platforms: 'Browser · Desktop & mobile',
+    comingSoon: '',
     platformTags: ['browser', 'desktop', 'mobile'] as Platform[],
     length: 'Short & replayable',
     languages: 'English & Russian',
