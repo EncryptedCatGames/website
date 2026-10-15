@@ -25,6 +25,10 @@ const runtime = join(root, 'other-projects/gobnative/play');
 for (const name of [
   'gobnative.js',
   'gobnative.wasm',
+  'manifest.webmanifest',
+  'sw.js',
+  'icon-192.png',
+  'icon-512.png',
   'gobnative-source.tar.gz',
   'LICENSE.txt',
   'BUILD.txt',

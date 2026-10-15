@@ -9,9 +9,9 @@ export const projects = [
     tagline: 'OLD GAMES. NEW HOME.',
     icon: 'other-projects/gobnative/play/apple-touch-icon.png',
     description:
-      'Play Gobliiins, Gobliins 2, and Goblins Quest 3 in your browser. Bring your own GOG copy; your game files stay on your device.',
+      'Play Gobliiins, Gobliins 2, and Goblins Quest 3 in your browser, on a computer or a phone. Bring your own GOG copy; your game files stay on your device.',
     path: 'other-projects/gobnative/',
-    platformTags: ['browser'] as Platform[],
+    platformTags: ['browser', 'mobile'] as Platform[],
     // The project page is a standalone document outside the site layout.
     reload: true,
   },
