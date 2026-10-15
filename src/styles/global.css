@@ -1341,6 +1341,15 @@ textarea::placeholder {
   :root {
     --gutter: 32px;
   }
+  .hero-art {
+    width: 55%;
+  }
+  .hero-copy {
+    max-width: 48%;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.2vw, 3.2rem);
+  }
   .game-grid {
     gap: 32px;
   }
@@ -1431,6 +1440,9 @@ textarea::placeholder {
   }
   .hero-art::after {
     background: linear-gradient(0deg, var(--bg-deep) 2%, transparent 55%);
+  }
+  .hero-copy {
+    max-width: none;
   }
   .hero-inner {
     min-height: 0;

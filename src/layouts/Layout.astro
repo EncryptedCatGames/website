@@ -7,6 +7,7 @@ import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/global.css';
+import displayFont from '@fontsource/barlow-condensed/files/barlow-condensed-latin-600-normal.woff2?url';
 import site from '../../site.config.mjs';
 import { url } from '../lib';
 import Analytics from '../components/Analytics.astro';
@@ -15,6 +16,8 @@ const {
   title = 'Encrypted Cat Games | Narrative horror',
   description = 'Small games. Dark stories. Lingering nightmares. Explore The Cradle and atmospheric horror games by Encrypted Cat Games.',
   image = '/images/banner.webp',
+  imageAlt = 'Encrypted Cat Games. A figure waits in a lit sanatorium doorway.',
+  type = 'website',
   noindex = false,
 } = Astro.props;
 const canonical = new URL(
@@ -37,6 +40,13 @@ const current = (path: string) =>
     <ClientRouter fallback="swap" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="preload"
+      href={displayFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0b0c0c" />
@@ -44,9 +54,11 @@ const current = (path: string) =>
     <link rel="icon" type="image/png" href={url('favicon.png')} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(url(image), site.siteUrl)} />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     {noindex && <meta name="robots" content="noindex" />}
   </head>

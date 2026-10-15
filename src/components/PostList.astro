@@ -3,6 +3,9 @@ import LinkMark from './LinkMark.astro';
 import { url, formatDate } from '../lib';
 import { gameName } from '../data/games';
 const { posts } = Astro.props;
+// Thumbnails come from scripts/make-thumbs.mjs.
+const thumb = (post: any) =>
+  (post.data.image || `/images/${post.data.game}-cover.webp`).split('/').pop();
 ---
 
 <div class="post-list">
@@ -15,7 +18,7 @@ const { posts } = Astro.props;
         aria-hidden="true"
       >
         <img
-          src={url(post.data.image || `/images/${post.data.game}-cover.webp`)}
+          src={url(`/images/thumbs/${thumb(post)}`)}
           alt=""
           width="320"
           height="200"

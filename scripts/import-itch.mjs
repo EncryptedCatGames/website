@@ -168,3 +168,4 @@ await writeFile(
     2,
   ),
 );
+await import('./make-thumbs.mjs');

@@ -25,6 +25,7 @@ const posts = (await getCollection('devlog'))
   title={`${game.title}: ${game.subtitle} | Encrypted Cat Games`}
   description={game.description}
   image={game.cover}
+  imageAlt={`${game.title}: ${game.subtitle} cover art`}
 >
   <section class="game-hero">
     <img
