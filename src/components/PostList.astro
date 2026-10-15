@@ -1,5 +1,4 @@
 ---
-import LinkMark from './LinkMark.astro';
 import { url, formatDate } from '../lib';
 import { gameName } from '../data/games';
 const { posts } = Astro.props;
@@ -36,13 +35,6 @@ const thumb = (post: any) =>
           <a href={url(`devlog/${post.id}/`)}>{post.data.title}</a>
         </h3>
       </div>
-      <a
-        class="post-arrow"
-        href={url(`devlog/${post.id}/`)}
-        aria-label={`Read ${post.data.title}`}
-      >
-        <LinkMark />
-      </a>
     </article>
   ))}
 </div>

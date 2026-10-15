@@ -1,14 +1,13 @@
 ---
-import LinkMark from './LinkMark.astro';
 const { title, href } = Astro.props;
 ---
 
 <a
-  class="button"
+  class="text-link"
   href={href}
   target="_blank"
   rel="noopener noreferrer"
   aria-label={`Play ${title} on itch.io`}
 >
-  Play on itch.io <LinkMark external />
+  Play on itch.io
 </a>

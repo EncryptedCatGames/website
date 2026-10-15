@@ -1,5 +1,4 @@
 ---
-import LinkMark from './LinkMark.astro';
 import site from '../../site.config.mjs';
 import { url } from '../lib';
 import { games } from '../data/games';
@@ -65,7 +64,7 @@ import { games } from '../data/games';
     Your email and message are used to respond to your enquiry.{' '}
     <a href={url('privacy/')}>Privacy policy</a>
   </p>
-  <button type="submit" class="button button-email">
+  <button type="submit" class="button">
     Send email
   </button>
   {!site.formEndpoint && (
@@ -98,12 +97,8 @@ import { games } from '../data/games';
       Your email draft is ready. Open it in your email app, or copy it below and
       send it to <a href={`mailto:${site.email}`}>{site.email}</a>.
     </p>
-    <a
-      class="button button-secondary"
-      data-email-draft
-      href={`mailto:${site.email}`}
-    >
-      Open draft in email app <LinkMark />
+    <a class="text-link" data-email-draft href={`mailto:${site.email}`}>
+      Open draft in email app
     </a>
     <textarea readonly aria-label="Email draft"></textarea>
   </div>

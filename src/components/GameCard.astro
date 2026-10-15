@@ -1,5 +1,4 @@
 ---
-import LinkMark from './LinkMark.astro';
 import { url } from '../lib';
 const { game } = Astro.props;
 const details = url(`games/${game.slug}/`);
@@ -37,20 +36,20 @@ const details = url(`games/${game.slug}/`);
     </ul>
     <div class="game-actions">
       <a
-        class="button button-small"
+        class="text-link"
         href={game.url}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Play ${game.title}: ${game.subtitle} on itch.io`}
       >
-        Play <LinkMark external />
+        Play on itch.io
       </a>
       <a
-        class="button button-small button-secondary"
+        class="text-link"
         href={details}
         aria-label={`${game.title}: ${game.subtitle} details`}
       >
-        Details <LinkMark />
+        Details
       </a>
     </div>
   </div>

@@ -1,5 +1,4 @@
 ---
-import LinkMark from './LinkMark.astro';
 import { url } from '../lib';
 const { project, headingLevel = 3 } = Astro.props;
 const Heading = headingLevel === 2 ? 'h2' : 'h3';
@@ -21,8 +20,6 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
     <p class="eyebrow">{project.kind}</p>
     <Heading>{project.name}</Heading>
     <p>{project.description}</p>
-    <span class="text-link">
-      Explore the project <LinkMark />
-    </span>
+    <span class="text-link">Explore the project</span>
   </div>
 </a>
