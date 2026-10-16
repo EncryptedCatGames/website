@@ -1,7 +1,7 @@
 ---
 import site from '../../site.config.mjs';
 import { url } from '../lib';
-import { games } from '../data/games';
+import { fullName, games } from '../data/games';
 ---
 
 <form
@@ -29,7 +29,7 @@ import { games } from '../data/games';
       <select name="game">
         <option>General enquiry</option>
         {games.map((game) => (
-          <option>{`${game.title}: ${game.subtitle}`}</option>
+          <option>{fullName(game)}</option>
         ))}
       </select>
     </label>

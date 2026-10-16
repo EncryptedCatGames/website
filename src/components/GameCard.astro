@@ -1,6 +1,8 @@
 ---
 import { url } from '../lib';
+import { fullName } from '../data/games';
 const { game } = Astro.props;
+const name = fullName(game);
 const details = url(`games/${game.slug}/`);
 ---
 
@@ -24,8 +26,17 @@ const details = url(`games/${game.slug}/`);
     <p class="game-kind">{game.kind}</p>
     <h3>
       <a href={details}>
-        <small>{game.title}</small>
-        {game.subtitle}
+        {game.subtitle ? (
+          <>
+            <small>{game.title}</small>
+            {game.subtitle}
+          </>
+        ) : (
+          <>
+            <small>{game.workingTitle ? 'Working title' : ' '}</small>
+            {game.title}
+          </>
+        )}
       </a>
     </h3>
     <p class="game-description">{game.short}</p>
@@ -35,20 +46,28 @@ const details = url(`games/${game.slug}/`);
       <li>{game.platforms}</li>
     </ul>
     <div class="game-actions">
-      <a
-        class="text-link"
-        href={game.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Play ${game.title}: ${game.subtitle} on itch.io`}
-      >
-        Play on itch.io
-      </a>
-      <a
-        class="text-link"
-        href={details}
-        aria-label={`${game.title}: ${game.subtitle} details`}
-      >
+      {game.url ? (
+        <a
+          class="text-link"
+          href={game.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Play ${name} on itch.io`}
+        >
+          Play on itch.io
+        </a>
+      ) : (
+        game.trailer && (
+          <a
+            class="text-link"
+            href={`${details}#trailer`}
+            aria-label={`Watch the ${name} teaser`}
+          >
+            Watch the teaser
+          </a>
+        )
+      )}
+      <a class="text-link" href={details} aria-label={`${name} details`}>
         Details
       </a>
     </div>

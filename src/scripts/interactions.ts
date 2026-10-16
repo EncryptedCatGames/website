@@ -131,3 +131,22 @@ document.addEventListener('click', (event) => {
   root.querySelector('[data-catalogue-count]')!.textContent =
     `${count} ${count === 1 ? 'title' : 'titles'}`;
 });
+
+// Trailers: swap the poster for YouTube's privacy-enhanced player only when asked.
+document.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  const poster = event.target.closest<HTMLAnchorElement>('[data-trailer]');
+  if (!poster) return;
+  event.preventDefault();
+  const id = encodeURIComponent(poster.dataset.trailer ?? '');
+  const frame = document.createElement('iframe');
+  frame.className = 'trailer-frame';
+  frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
+  frame.title = poster.dataset.trailerTitle ?? 'Trailer';
+  frame.allow =
+    'autoplay; encrypted-media; picture-in-picture; fullscreen; web-share';
+  frame.allowFullscreen = true;
+  frame.referrerPolicy = 'strict-origin-when-cross-origin';
+  poster.replaceWith(frame);
+  frame.focus();
+});

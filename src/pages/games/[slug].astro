@@ -3,9 +3,11 @@ import Layout from '../../layouts/Layout.astro';
 import GameStoreLink from '../../components/GameStoreLink.astro';
 import PostList from '../../components/PostList.astro';
 import GameCard from '../../components/GameCard.astro';
-import { games } from '../../data/games';
+import Trailer from '../../components/Trailer.astro';
+import { fullName, games } from '../../data/games';
 import { url } from '../../lib';
 import { gameData } from '../../data/structured-data';
+import site from '../../../site.config.mjs';
 import { getCollection } from 'astro:content';
 export function getStaticPaths() {
   return games.map((game) => ({
@@ -14,6 +16,8 @@ export function getStaticPaths() {
   }));
 }
 const { game } = Astro.props;
+const name = fullName(game);
+const youtube = site.socials.find((social) => social.name === 'YouTube');
 const platforms = game.comingSoon
   ? `${game.platforms} · ${game.comingSoon} (coming soon)`
   : game.platforms;
@@ -25,16 +29,16 @@ const posts = (await getCollection('devlog'))
 ---
 
 <Layout
-  title={`${game.title}: ${game.subtitle} | Encrypted Cat Games`}
+  title={`${name} | Encrypted Cat Games`}
   description={game.description}
   image={game.cover}
   structuredData={gameData(game)}
-  imageAlt={`${game.title}: ${game.subtitle} cover art`}
+  imageAlt={`${name} cover art`}
 >
   <section class="game-hero">
     <img
       src={url(game.screenshots[0] || game.cover)}
-      alt={`${game.title}: ${game.subtitle} gameplay`}
+      alt={`${name} gameplay`}
       width="1600"
       height="900"
       fetchpriority="high"
@@ -46,19 +50,32 @@ const posts = (await getCollection('devlog'))
       <p class="eyebrow">{game.kind}</p>
       <h1>
         {game.title}
-        <span>{game.subtitle}</span>
+        {game.subtitle && <span>{game.subtitle}</span>}
       </h1>
+      {game.workingTitle && (
+        <p class="wip-note">Working title · heavy work in progress</p>
+      )}
       <ul class="game-meta game-hero-meta" aria-label="Details">
         <li class="game-status">{game.status}</li>
         <li>{game.length}</li>
         <li>{platforms}</li>
       </ul>
-      <GameStoreLink
-        title={`${game.title}: ${game.subtitle}`}
-        href={game.url}
-      />
+      {game.url ? (
+        <GameStoreLink title={name} href={game.url} />
+      ) : (
+        game.trailer && (
+          <a class="text-link" href="#trailer">
+            Watch the teaser
+          </a>
+        )
+      )}
     </div>
   </section>
+  {game.trailer && (
+    <section class="container section game-trailer" id="trailer">
+      <Trailer {...game.trailer} />
+    </section>
+  )}
   <section class="container section game-overview">
     <div>
       <h2>{game.short}</h2>
@@ -83,15 +100,34 @@ const posts = (await getCollection('devlog'))
       </div>
     </div>
     <aside id="play">
-      <h2>Step inside.</h2>
-      <p>Available now on itch.io.</p>
+      {game.url ? (
+        <>
+          <h2>Step inside.</h2>
+          <p>Available now on itch.io.</p>
+        </>
+      ) : (
+        <>
+          <h2>Not playable yet.</h2>
+          <p>
+            Still being built, and everything you see may change, including the
+            name.
+          </p>
+          {youtube && (
+            <a
+              class="text-link"
+              href={youtube.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Follow development on YouTube
+            </a>
+          )}
+        </>
+      )}
       {game.comingSoon && !game.appStoreUrl && (
         <p>Coming soon to the App Store for iPhone and iPad.</p>
       )}
-      <GameStoreLink
-        title={`${game.title}: ${game.subtitle}`}
-        href={game.url}
-      />
+      {game.url && <GameStoreLink title={name} href={game.url} />}
       {game.appStoreUrl && (
         <a class="text-link" href={game.appStoreUrl}>
           Download on the App Store
@@ -126,7 +162,7 @@ const posts = (await getCollection('devlog'))
             width="1600"
             height="900"
             loading="lazy"
-            alt={`${game.title}: ${game.subtitle}, gameplay screenshot ${i + 1}`}
+            alt={`${name}, gameplay screenshot ${i + 1}`}
           />
         </a>
       ))}
