@@ -113,7 +113,7 @@ export const games = [
       '/images/destruction-cars-5.webp',
     ],
     trailer: {
-      youtubeId: '0jkqTabnLYU',
+      youtubeId: '37PTZaJQYsk',
       poster: '/images/destruction-cars-trailer.webp',
       title: 'Destruction Cars teaser (work in progress)',
     },
