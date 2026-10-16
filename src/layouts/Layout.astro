@@ -31,6 +31,8 @@ const nav = [
   ['Support', 'support/'],
   ['Contact', 'contact/'],
 ];
+const analyticsEnabled =
+  /^G-[A-Z0-9]+$/.test(site.analyticsId) && site.analyticsId !== 'G-XXXXXXXXXX';
 const current = (path: string) =>
   Astro.url.pathname.includes('/' + path) ? 'page' : undefined;
 ---
@@ -151,6 +153,11 @@ const current = (path: string) =>
             <a href={url('privacy/')}>Privacy policy</a>
             <a href={url('other-projects/')}>Other Projects</a>
             <a href={url('devlog/rss.xml')}>RSS</a>
+            {analyticsEnabled && (
+              <button class="footer-button" type="button" data-consent-open>
+                Cookie settings
+              </button>
+            )}
           </div>
         </div>
       </div>

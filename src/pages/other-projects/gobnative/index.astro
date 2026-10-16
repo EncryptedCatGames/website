@@ -246,6 +246,9 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
         <a href={`${player}gobnative-source.tar.gz`}>Engine source</a>
         <a href={`${player}LICENSE.txt`}>GPL v3+</a>
         <a href={url('privacy/')}>Privacy</a>
+        <button class="cookie-settings" type="button" data-consent-open>
+          Cookie settings
+        </button>
         <a href={url('support/')}>Support</a>
       </div>
       <p class="credits">
@@ -568,6 +571,14 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
     align-content: start;
     gap: 16px;
     font-size: 12px;
+  }
+  .cookie-settings {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
   }
   .project-footer .credits {
     grid-column: 1/-1;

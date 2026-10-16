@@ -730,6 +730,16 @@ summary:focus-visible {
   display: flex;
   gap: 24px;
 }
+.footer-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+.footer-button:hover {
+  color: var(--accent);
+}
 
 /* Inner page intro */
 .page-intro {
