@@ -1,9 +1,7 @@
 // schema.org JSON-LD for search engines, built from the same data as the pages.
 import site from '../../site.config.mjs';
 import { url } from '../lib';
-import { games, gameName } from './games';
-
-type Game = (typeof games)[number];
+import { fullName, games, type Game } from './games';
 const absolute = (path = '') => new URL(url(path), site.siteUrl).href;
 const languages: Record<string, string> = { English: 'en', Russian: 'ru' };
 
@@ -38,20 +36,32 @@ export const gameData = (game: Game) => ({
     {
       '@type': 'VideoGame',
       '@id': absolute(`games/${game.slug}/#game`),
-      name: `${game.title}: ${game.subtitle}`,
+      name: fullName(game),
       url: absolute(`games/${game.slug}/`),
       description: game.description,
       image: [game.cover, ...game.screenshots].map(absolute),
-      genre: ['Horror', game.kind],
+      genre: [game.genre, game.kind],
       gamePlatform: game.platforms.split('·').map((name) => name.trim()),
       inLanguage: game.languages
         .split('&')
         .map((name) => languages[name.trim()])
         .filter(Boolean),
-      isPartOf: { '@type': 'VideoGameSeries', name: game.title },
+      ...(game.subtitle
+        ? { isPartOf: { '@type': 'VideoGameSeries', name: game.title } }
+        : {}),
+      ...(game.trailer
+        ? {
+            trailer: {
+              '@type': 'VideoObject',
+              name: game.trailer.title,
+              embedUrl: `https://www.youtube-nocookie.com/embed/${game.trailer.youtubeId}`,
+              thumbnailUrl: absolute(game.trailer.poster),
+            },
+          }
+        : {}),
       author: { '@id': studio['@id'] },
       publisher: { '@id': studio['@id'] },
-      sameAs: [game.url],
+      sameAs: [game.url].filter(Boolean),
     },
   ],
 });
@@ -80,7 +90,10 @@ export const postData = (post: {
       ),
       about: {
         '@id': absolute(`games/${post.data.game}/#game`),
-        name: `The Cradle: ${gameName(post.data.game)}`,
+        name: (() => {
+          const game = games.find((g) => g.slug === post.data.game);
+          return game ? fullName(game) : post.data.game;
+        })(),
       },
       author: { '@id': studio['@id'] },
       publisher: { '@id': studio['@id'] },

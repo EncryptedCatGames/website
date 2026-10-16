@@ -1,0 +1,33 @@
+---
+// A YouTube trailer that loads nothing from YouTube until the visitor presses play.
+// Without JavaScript the poster is a plain link to the video on YouTube.
+import { url } from '../lib';
+interface Props {
+  youtubeId: string;
+  poster: string;
+  title: string;
+}
+const { youtubeId, poster, title } = Astro.props;
+const watch = `https://www.youtube.com/watch?v=${youtubeId}`;
+---
+
+<figure class="trailer">
+  <a
+    class="trailer-poster"
+    href={watch}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-trailer={youtubeId}
+    data-trailer-title={title}
+    aria-label={`Play trailer: ${title}`}
+  >
+    <img src={url(poster)} alt="" width="1280" height="720" loading="lazy" />
+    <span class="trailer-play" aria-hidden="true"></span>
+  </a>
+  <figcaption>
+    Plays from YouTube in privacy-enhanced mode once you press play.
+    <a href={watch} target="_blank" rel="noopener noreferrer">
+      Watch on YouTube
+    </a>
+  </figcaption>
+</figure>

@@ -4,6 +4,7 @@ import GameCard from '../components/GameCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PostList from '../components/PostList.astro';
 import SocialIcon from '../components/SocialIcon.astro';
+import Trailer from '../components/Trailer.astro';
 import { games } from '../data/games';
 import { projects } from '../data/projects';
 import { getCollection } from 'astro:content';
@@ -14,6 +15,8 @@ const posts = (await getCollection('devlog'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 const latest = games[0];
+// A game still being built, shown with its teaser.
+const inDevelopment = games.find((game) => game.status === 'In development');
 const socialNotes: Record<string, string> = {
   Discord: 'Chat with players',
   YouTube: 'Trailers and videos',
@@ -75,6 +78,24 @@ const socialNotes: Record<string, string> = {
       ))}
     </div>
   </section>
+  {inDevelopment?.trailer && (
+    <section class="section container" id="in-development">
+      <div class="in-development">
+        <Trailer {...inDevelopment.trailer} />
+        <div>
+          <p class="eyebrow">In development</p>
+          <h2>{inDevelopment.title}.</h2>
+          {inDevelopment.workingTitle && (
+            <p class="wip-note">Working title · heavy work in progress</p>
+          )}
+          <p>{inDevelopment.description}</p>
+          <a class="text-link" href={url(`games/${inDevelopment.slug}/`)}>
+            More about it
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
   <section class="section container" id="projects">
     <div class="section-heading">
       <h2>Other projects.</h2>

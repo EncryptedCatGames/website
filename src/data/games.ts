@@ -6,6 +6,7 @@ export const games = [
     title: 'The Cradle',
     subtitle: 'Episode 01',
     kind: 'Narrative survival horror',
+    genre: 'Horror',
     short: 'The signal stopped. Something underneath is waking up.',
     description:
       'September, 1996. A radio engineer descends beneath an abandoned Soviet sanatorium to restore a silent station. The night shift is missing. The building is listening.',
@@ -39,6 +40,7 @@ export const games = [
     title: 'The Cradle',
     subtitle: 'Trick-or-Treat',
     kind: 'Halloween horror',
+    genre: 'Horror',
     short: 'Twenty doors. Some sweets. One very bad choice.',
     description:
       'A Halloween party at the Swallow sanatorium needs more sweets. Knock on twenty doors, read the clues, and hope a child answers. When Nanny opens, the only way out is through her labyrinth.',
@@ -66,10 +68,71 @@ export const games = [
     ],
     appStoreUrl: '',
   },
+  {
+    slug: 'destruction-cars',
+    // Not the final name: shown with a "Working title" note.
+    title: 'Destruction Cars',
+    subtitle: '',
+    workingTitle: true,
+    kind: 'Physics destruction sandbox',
+    genre: 'Action',
+    short: 'Zombies. Physics. Total chaos.',
+    description:
+      'A chaotic physics driving game for the browser. Plough through hordes of zombies, smash cars to pieces, bring whole buildings down, and launch off loops, trampolines and skyscraper rooftops. Heavy work in progress: the name, the look and everything else may still change.',
+    status: 'In development',
+    platforms: 'Browser · Desktop & mobile',
+    comingSoon: '',
+    platformTags: ['browser', 'desktop', 'mobile'] as Platform[],
+    length: 'Open-ended sandbox',
+    languages: 'English',
+    warning:
+      'Cartoon violence against zombies, car crashes, explosions, and flashing lights.',
+    features: [
+      [
+        'Crush the horde.',
+        'Zombies, sheep, cows and the odd chicken. Hit them slowly and they topple; hit them fast and they fly.',
+      ],
+      [
+        'Wreck everything.',
+        'Cars dent, shed doors, wheels and whole front ends, catch fire and explode. Buildings crack and collapse around you.',
+      ],
+      [
+        'Seven places to ruin.',
+        'Downtown, a farm, a raceway, a snowy village, a port, a stunt park, and skyscraper rooftops above the smog.',
+      ],
+    ],
+    appStoreUrl: '',
+    // No public page yet: no play link until there is one.
+    url: '',
+    cover: '/images/destruction-cars-cover.webp',
+    screenshots: [
+      '/images/destruction-cars-1.webp',
+      '/images/destruction-cars-2.webp',
+      '/images/destruction-cars-3.webp',
+      '/images/destruction-cars-4.webp',
+      '/images/destruction-cars-5.webp',
+    ],
+    trailer: {
+      youtubeId: '0jkqTabnLYU',
+      poster: '/images/destruction-cars-trailer.webp',
+      title: 'Destruction Cars teaser (work in progress)',
+    },
+  },
 ].map((game) => ({
+  url: '',
+  cover: '',
+  screenshots: [] as string[],
   ...game,
-  ...artwork.find((item) => item.slug === game.slug)!,
+  ...artwork.find((item) => item.slug === game.slug),
 }));
 
-export const gameName = (slug: string) =>
-  games.find((game) => game.slug === slug)?.subtitle ?? slug;
+export type Game = (typeof games)[number];
+
+/** "The Cradle: Episode 01", or just the title for a game that isn't part of a series. */
+export const fullName = (game: Pick<Game, 'title' | 'subtitle'>) =>
+  game.subtitle ? `${game.title}: ${game.subtitle}` : game.title;
+
+export const gameName = (slug: string) => {
+  const game = games.find((g) => g.slug === slug);
+  return game ? game.subtitle || game.title : slug;
+};
