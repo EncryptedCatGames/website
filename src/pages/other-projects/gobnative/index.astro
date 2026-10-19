@@ -5,6 +5,7 @@ import site from '../../../../site.config.mjs';
 const player = url('other-projects/gobnative/play/');
 const playerPage = `${player}index.html`;
 const source = 'https://github.com/initcore0/gobnative';
+const images = url('other-projects/gobnative/images/');
 const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
 ---
 
@@ -16,7 +17,7 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
     <title>gobnative — Old games. New home.</title>
     <meta
       name="description"
-      content="A new home for the Goblins trilogy. Play in your browser with your own GOG installers, saved locally on your device."
+      content="A new home for the Goblins trilogy. Play in your browser with your own GOG installers, or natively on macOS, Windows and LG webOS TVs."
     />
     <meta name="theme-color" content="#f4efe3" />
     <link rel="canonical" href={canonical} />
@@ -24,14 +25,17 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
     <meta property="og:title" content="gobnative — Old games. New home." />
     <meta
       property="og:description"
-      content="Bring your own GOG copy. Play the Goblins trilogy in your browser."
+      content="Bring your own GOG copy. Play the Goblins trilogy in your browser, on your computer, or on your TV."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta
       property="og:image"
-      content={new URL(`${player}apple-touch-icon.png`, site.siteUrl)}
+      content={new URL(`${images}social-preview.jpg`, site.siteUrl)}
     />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <a class="skip" href="#main">
@@ -154,6 +158,73 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
         </p>
       </section>
 
+      <section class="screens wrap" aria-labelledby="screens-title">
+        <div class="section-label">
+          <p class="eyebrow">A closer look</p>
+          <span>ORIGINAL PIXELS OR HD</span>
+        </div>
+        <h2 id="screens-title">The same room, two ways.</h2>
+        <p class="screens-lead">
+          Every picture can be swapped for a high-resolution version you make
+          from your own game files. Here Gobliins 2’s village keeps its goblins,
+          while the room behind them is repainted.
+        </p>
+        <div class="compare">
+          <figure>
+            <img
+              src={`${images}gob2-original.jpg`}
+              width="960"
+              height="720"
+              loading="lazy"
+              alt="Gobliins 2’s village with the original pixels"
+            />
+            <figcaption>Original pixels</figcaption>
+          </figure>
+          <figure>
+            <img
+              src={`${images}gob2-hd.jpg`}
+              width="960"
+              height="720"
+              loading="lazy"
+              alt="The same room with an HD pack"
+            />
+            <figcaption>With an HD pack</figcaption>
+          </figure>
+        </div>
+        <div class="gallery">
+          <figure>
+            <img
+              src={`${images}gobliiins.jpg`}
+              width="960"
+              height="720"
+              loading="lazy"
+              alt="Gobliiins, the first level"
+            />
+            <figcaption>Gobliiins, the first level</figcaption>
+          </figure>
+          <figure>
+            <img
+              src={`${images}menu-levels.jpg`}
+              width="1280"
+              height="960"
+              loading="lazy"
+              alt="The in-game menu with level select"
+            />
+            <figcaption>Level select, quick saves, filters</figcaption>
+          </figure>
+          <figure>
+            <img
+              src={`${images}tv-goblins3.jpg`}
+              width="1280"
+              height="720"
+              loading="lazy"
+              alt="Goblins Quest 3 on an LG TV with the remote’s key tips"
+            />
+            <figcaption>Goblins Quest 3 on an LG TV</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section class="how wrap" aria-labelledby="how-title">
         <div class="section-label">
           <p class="eyebrow">A little setup, a lot of adventure</p>
@@ -195,6 +266,69 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
             </p>
           </li>
         </ol>
+      </section>
+
+      <section class="platforms wrap" aria-labelledby="platforms-title">
+        <div class="section-label">
+          <p class="eyebrow">Beyond the browser</p>
+          <span>SAME ENGINE, MORE PLACES</span>
+        </div>
+        <h2 id="platforms-title">On your desk, or on the sofa.</h2>
+        <div class="platform-grid">
+          <article>
+            <h3>macOS</h3>
+            <p>
+              A native app with the same library. Build it from source with
+              CMake and SDL2; installers can be dropped onto the window.
+            </p>
+            <a
+              class="quiet"
+              href={`${source}#quick-start`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Build instructions
+            </a>
+          </article>
+          <article>
+            <h3>Windows</h3>
+            <p>
+              Windows 10 and 11. Download the ready-built zip from the latest
+              build, unpack it and run <code>gobnative.exe</code>.
+            </p>
+            <a
+              class="quiet"
+              href={`${source}/actions/workflows/windows.yml`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Latest builds
+            </a>
+          </article>
+          <article class="tv">
+            <img
+              src={`${images}tv-library.jpg`}
+              width="1280"
+              height="720"
+              loading="lazy"
+              alt="The gobnative library on an LG TV"
+            />
+            <h3>LG webOS TV</h3>
+            <p>
+              A native TV app for the Homebrew Channel. Copy the installers to a
+              USB stick and the games install themselves; play with the Magic
+              Remote, with its colour keys as shortcuts.
+            </p>
+            <a
+              class="quiet"
+              href={`${source}/blob/main/docs/user-guide.md#lg-webos-tv`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TV guide
+            </a>
+          </article>
+        </div>
       </section>
 
       <section class="details wrap" aria-label="Features and help">
@@ -491,6 +625,77 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
     color: #61737a;
     margin-block: 14px 0;
   }
+  .screens {
+    padding-top: 80px;
+  }
+  .screens h2 {
+    margin-top: 12px;
+  }
+  .screens-lead {
+    max-width: 62ch;
+    font-size: 14px;
+    color: #556b71;
+    margin-bottom: 28px;
+  }
+  figure {
+    margin: 0;
+  }
+  .screens img,
+  .platforms img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #15161a;
+    box-shadow: 6px 6px 0 #d9d3c34d;
+  }
+  figcaption {
+    font-size: 12px;
+    color: #61737a;
+    margin-top: 10px;
+  }
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+    align-items: start;
+  }
+  .platforms {
+    padding-bottom: 80px;
+  }
+  .platforms h2 {
+    margin-top: 12px;
+  }
+  .platform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.6fr;
+    gap: 24px;
+    margin-top: 32px;
+    align-items: start;
+  }
+  .platform-grid article {
+    background: #e8e1cf;
+    border: 1px solid #d5cbb5;
+    border-radius: 12px;
+    padding: 26px;
+  }
+  .platform-grid article.tv {
+    background: #e7ece5;
+    border-color: #cfd8cc;
+  }
+  .platform-grid article.tv img {
+    margin-bottom: 20px;
+  }
+  .platform-grid p {
+    font-size: 14px;
+    color: #556b71;
+  }
   .how {
     padding-block: 80px;
   }
@@ -598,6 +803,12 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
     .details {
       gap: 40px;
     }
+    .platform-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .platform-grid article.tv {
+      grid-column: 1/-1;
+    }
   }
   @media (max-width: 650px) {
     .wrap {
@@ -639,9 +850,18 @@ const canonical = new URL(url('other-projects/gobnative/'), site.siteUrl);
       padding-block: 52px;
     }
     .steps,
-    .details {
+    .details,
+    .compare,
+    .gallery,
+    .platform-grid {
       grid-template-columns: 1fr;
       gap: 26px;
+    }
+    .platform-grid article.tv {
+      grid-column: 1;
+    }
+    .screens {
+      padding-top: 52px;
     }
     .steps li {
       display: grid;
