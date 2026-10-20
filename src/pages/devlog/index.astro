@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import PostList from '../../components/PostList.astro';
 import { getCollection } from 'astro:content';
 import { gameName, games } from '../../data/games';
+import { projects } from '../../data/projects';
 import { url } from '../../lib';
 const posts = (await getCollection('devlog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -11,12 +12,15 @@ const posts = (await getCollection('devlog')).sort(
 
 <Layout
   title="Devlog | Encrypted Cat Games"
-  description="Development notes, updates, and behind-the-scenes stories from The Cradle."
+  description="Development notes, updates, and behind-the-scenes stories from The Cradle and our other projects."
 >
   <section class="container page-intro">
     <p class="eyebrow">From the workshop</p>
     <h1>Making the nightmares.</h1>
-    <p>New builds, strange discoveries, and the work behind The Cradle.</p>
+    <p>
+      New builds, strange discoveries, and the work behind The Cradle and our
+      other projects.
+    </p>
     <a class="text-link" href={url('devlog/rss.xml')}>
       Follow with RSS
     </a>
@@ -37,6 +41,15 @@ const posts = (await getCollection('devlog')).sort(
           aria-pressed="false"
         >
           {gameName(game.slug)}
+        </button>
+      ))}
+      {projects.map((project) => (
+        <button
+          class="filter-button"
+          data-filter={project.slug}
+          aria-pressed="false"
+        >
+          {project.name}
         </button>
       ))}
       <span id="post-count" aria-live="polite">
