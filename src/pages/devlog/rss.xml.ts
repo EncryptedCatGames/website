@@ -1,7 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import site from '../../../site.config.mjs';
-import { gameName } from '../../data/games';
+import { subjectFullName } from '../../data/subjects';
 import { url } from '../../lib';
 
 export async function GET() {
@@ -11,14 +11,14 @@ export async function GET() {
   return rss({
     title: `${site.name} devlog`,
     description:
-      'Development notes, updates, and behind-the-scenes stories from The Cradle.',
+      'Development notes, updates, and behind-the-scenes stories from The Cradle and our other projects.',
     site: new URL(url(), site.siteUrl).href,
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.date,
       link: url(`devlog/${post.id}/`),
-      categories: [`The Cradle: ${gameName(post.data.game)}`],
+      categories: [subjectFullName(post.data.game)],
     })),
     customData: '<language>en</language>',
   });

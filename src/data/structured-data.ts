@@ -2,6 +2,7 @@
 import site from '../../site.config.mjs';
 import { url } from '../lib';
 import { fullName, games, type Game } from './games';
+import { isProject, subjectFullName, subjectPath } from './subjects';
 const absolute = (path = '') => new URL(url(path), site.siteUrl).href;
 const languages: Record<string, string> = { English: 'en', Russian: 'ru' };
 
@@ -89,11 +90,10 @@ export const postData = (post: {
         post.data.image || `/images/${post.data.game}-cover.webp`,
       ),
       about: {
-        '@id': absolute(`games/${post.data.game}/#game`),
-        name: (() => {
-          const game = games.find((g) => g.slug === post.data.game);
-          return game ? fullName(game) : post.data.game;
-        })(),
+        '@id': isProject(post.data.game)
+          ? absolute(subjectPath(post.data.game))
+          : absolute(`games/${post.data.game}/#game`),
+        name: subjectFullName(post.data.game),
       },
       author: { '@id': studio['@id'] },
       publisher: { '@id': studio['@id'] },

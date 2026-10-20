@@ -1,6 +1,6 @@
 ---
 import { url, formatDate } from '../lib';
-import { gameName } from '../data/games';
+import { subjectName } from '../data/subjects';
 const { posts } = Astro.props;
 // Thumbnails come from scripts/make-thumbs.mjs.
 const thumb = (post: any) =>
@@ -29,7 +29,7 @@ const thumb = (post: any) =>
           <time datetime={post.data.date.toISOString()}>
             {formatDate(post.data.date)}
           </time>
-          <span>{gameName(post.data.game)}</span>
+          <span>{subjectName(post.data.game)}</span>
         </p>
         <h3>
           <a href={url(`devlog/${post.id}/`)}>{post.data.title}</a>
