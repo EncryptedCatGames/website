@@ -3,7 +3,11 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { load } from 'cheerio';
 import site from '../site.config.mjs';
-import { execFileSync } from 'node:child_process';
+import {
+  readRelease,
+  tarCommitId,
+  versionMatches,
+} from './gobnative-release.mjs';
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   return (
@@ -20,7 +24,7 @@ const errors = [];
 const origin = new URL(site.siteUrl).origin;
 const base = site.base.replace(/\/$/, '');
 let links = 0;
-// This runtime is rebuilt, rather than committed; verify its executable and source.
+// This runtime is downloaded, rather than committed; verify its executable and source.
 const runtime = join(root, 'other-projects/gobnative/play');
 for (const name of [
   'gobnative.js',
@@ -32,6 +36,7 @@ for (const name of [
   'gobnative-source.tar.gz',
   'LICENSE.txt',
   'BUILD.txt',
+  'VERSION.txt',
   'licences/imgui.txt',
   'licences/Nunito-OFL.txt',
   'licences/SDL2.txt',
@@ -47,13 +52,17 @@ try {
   const wasm = await readFile(join(runtime, 'gobnative.wasm'));
   if (!wasm.subarray(0, 8).equals(Buffer.from([0, 97, 115, 109, 1, 0, 0, 0])))
     errors.push('Invalid gobnative WebAssembly binary');
-  const revision = execFileSync(
-    'git',
-    ['-C', 'vendor/gobnative', 'rev-parse', 'HEAD'],
-    { encoding: 'utf8' },
-  ).trim();
-  if (!(await readFile(join(runtime, 'BUILD.txt'), 'utf8')).includes(revision))
-    errors.push('Runtime source revision does not match the submodule');
+  // The binary, the source archive and BUILD.txt must all name the pinned release.
+  const release = await readRelease();
+  const version = await readFile(join(runtime, 'VERSION.txt'), 'utf8');
+  if (!versionMatches(version, release))
+    errors.push(`Runtime was not built from gobnative ${release.tag}`);
+  const source = await readFile(join(runtime, 'gobnative-source.tar.gz'));
+  if (tarCommitId(source) !== release.commit)
+    errors.push(`Runtime source archive is not gobnative ${release.tag}`);
+  const build = await readFile(join(runtime, 'BUILD.txt'), 'utf8');
+  if (!build.includes(`${release.tag} ${release.commit}`))
+    errors.push(`BUILD.txt does not record gobnative ${release.tag}`);
 } catch (error) {
   errors.push(`Cannot verify gobnative: ${error.message}`);
 }
