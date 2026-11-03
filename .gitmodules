@@ -1,3 +1,0 @@
-[submodule "vendor/gobnative"]
-	path = vendor/gobnative
-	url = https://github.com/initcore0/gobnative.git
