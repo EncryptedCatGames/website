@@ -53,7 +53,9 @@ const posts = (await getCollection('devlog'))
         {game.subtitle && <span>{game.subtitle}</span>}
       </h1>
       {game.workingTitle && (
-        <p class="wip-note">Working title · heavy work in progress</p>
+        <p class="wip-note">
+          Codename · the final game will have a different name
+        </p>
       )}
       <ul class="game-meta game-hero-meta" aria-label="Details">
         <li class="game-status">{game.status}</li>
@@ -109,8 +111,14 @@ const posts = (await getCollection('devlog'))
         <>
           <h2>Not playable yet.</h2>
           <p>
-            Still being built, and everything you see may change, including the
-            name.
+            Still being built, and everything you see may change.
+            {game.workingTitle && (
+              <>
+                {' '}
+                "{game.title}" is a codename: the final game will have a
+                different name.
+              </>
+            )}
           </p>
           {youtube && (
             <a

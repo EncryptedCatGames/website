@@ -70,7 +70,7 @@ export const games = [
   },
   {
     slug: 'destruction-cars',
-    // Not the final name: shown with a "Working title" note.
+    // A codename, not the final name: shown with a "Codename" note.
     title: 'Destruction Cars',
     subtitle: '',
     workingTitle: true,
@@ -78,7 +78,7 @@ export const games = [
     genre: 'Action',
     short: 'Zombies. Physics. Total chaos.',
     description:
-      'A chaotic physics driving game for the browser. Plough through hordes of zombies, smash cars to pieces, bring whole buildings down, and launch off loops, trampolines and skyscraper rooftops. Heavy work in progress: the name, the look and everything else may still change.',
+      'A chaotic physics driving game for the browser. Plough through hordes of zombies, smash cars to pieces, bring whole buildings down, and launch off loops, trampolines and skyscraper rooftops. "Destruction Cars" is only a codename: the finished game will be released under a different name. Heavy work in progress, so the look and everything else may still change too.',
     status: 'In development',
     platforms: 'Browser · Desktop & mobile',
     comingSoon: '',

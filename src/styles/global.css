@@ -1705,3 +1705,61 @@ textarea::placeholder {
     transform: none;
   }
 }
+
+/* Private playtest */
+.playtest-heading {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 420px);
+  gap: 24px 48px;
+  align-items: end;
+  margin-bottom: 32px;
+}
+.playtest-heading h1 {
+  margin-block: 8px;
+}
+.playtest-intro,
+.playtest-note {
+  color: var(--muted);
+}
+.playtest-frame {
+  aspect-ratio: 16 / 9;
+  max-height: calc(100svh - 120px);
+  width: 100%;
+  background: #000;
+  border: 1px solid var(--line);
+}
+.playtest-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.playtest-frame:fullscreen {
+  max-height: none;
+  border: 0;
+}
+.playtest-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 16px;
+}
+button.text-link {
+  background: none;
+  border: 0;
+  padding-inline: 0;
+  cursor: pointer;
+}
+.playtest-note {
+  max-width: 720px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+.playtest-note a {
+  color: var(--text);
+}
+@media (max-width: 767px) {
+  .playtest-heading {
+    grid-template-columns: 1fr;
+  }
+}
