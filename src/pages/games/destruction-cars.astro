@@ -1,0 +1,519 @@
+---
+// Destruction Cars has its own page in the game's arcade look (the other games use
+// games/[slug].astro). Content lives in data/destruction-cars.ts.
+import Layout from '../../layouts/Layout.astro';
+import PostList from '../../components/PostList.astro';
+import Trailer from '../../components/Trailer.astro';
+import { games } from '../../data/games';
+import {
+  videos,
+  different,
+  weapons,
+  labWeapons,
+  bosses,
+  cars,
+  maps,
+  modes,
+  pickups,
+  tech,
+  gallery,
+} from '../../data/destruction-cars';
+import { url } from '../../lib';
+import { gameData } from '../../data/structured-data';
+import site from '../../../site.config.mjs';
+import { getCollection } from 'astro:content';
+import '@fontsource-variable/archivo/wdth-italic.css';
+import '@fontsource-variable/archivo/wdth.css';
+import '../../styles/destruction-cars.css';
+
+const game = games.find((g) => g.slug === 'destruction-cars')!;
+const youtube = site.socials.find((social) => social.name === 'YouTube');
+const discord = site.socials.find((social) => social.name === 'Discord');
+const posts = (await getCollection('devlog'))
+  .filter((p) => p.data.game === game.slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6);
+const nav = [
+  ['Videos', 'videos'],
+  ['Why it’s different', 'different'],
+  ['Weapons', 'weapons'],
+  ['Bosses', 'bosses'],
+  ['Garage', 'garage'],
+  ['Maps', 'maps'],
+  ['Tech', 'tech'],
+  ['Devlog', 'devlog'],
+];
+const chevrons = (n: number) => Array.from({ length: 10 }, (_, i) => i < n);
+---
+
+<Layout
+  title="Destruction Cars (codename) | Encrypted Cat Games"
+  description={game.description}
+  image={game.cover}
+  structuredData={gameData(game)}
+  imageAlt="Destruction Cars cover art"
+>
+  <div class="dc">
+    <section class="dc-hero">
+      <video
+        class="dc-hero-video"
+        src={url('video/destruction-cars-reel.mp4')}
+        poster={url('images/destruction-cars/reel-poster.webp')}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        data-dc-reel
+      ></video>
+      <div class="dc-hero-shade"></div>
+      <div class="container dc-hero-copy">
+        <a class="dc-back" href={url('games/')}>
+          All games
+        </a>
+        <span class="dc-streaks" aria-hidden="true"></span>
+        <h1 class="dc-logo">
+          <span>Destruction</span>
+          <span>Cars</span>
+        </h1>
+        <p class="dc-tag">Codename</p>
+        <p class="dc-strap">Physics. Wrecks. Zombies.</p>
+        <p class="dc-pitch">
+          A car-mayhem game for the browser and your phone. Soft-body cars that
+          crumple where you hit them, a garage of twelve, weapons you can rip
+          doors off with, and bosses you beat with physics: a monster truck, a
+          UFO and a walking harbour crane.
+        </p>
+        <div class="dc-actions">
+          <a class="dc-btn dc-btn-main" href="#videos">
+            Watch the trailers
+          </a>
+          <a class="dc-btn" href="#devlog">
+            Read the devlog
+          </a>
+        </div>
+        <ul class="dc-chips" aria-label="Details">
+          <li>In development</li>
+          <li>Browser · Desktop &amp; phone</li>
+          <li>Campaign · Free roam · Online</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="dc-codename" role="note">
+      <div class="container">
+        <strong>Working title</strong>
+        <p>
+          “Destruction Cars” is only a codename. The real name will be announced
+          later. Everything you see is a work in progress and may still change.
+        </p>
+      </div>
+    </div>
+
+    <nav class="dc-nav" aria-label="On this page">
+      <div class="container">
+        {nav.map(([label, id]) => (
+          <a href={`#${id}`}>{label}</a>
+        ))}
+      </div>
+    </nav>
+
+    <section class="container dc-section" id="videos">
+      <header class="dc-head">
+        <p class="dc-kicker">Videos</p>
+        <h2>See it break</h2>
+      </header>
+      <div class="dc-featured">
+        <Trailer {...videos.featured} />
+        <div class="dc-featured-copy">
+          <h3>{videos.featured.title}</h3>
+          <p>{videos.featured.note}</p>
+          {youtube && (
+            <a
+              class="dc-link"
+              href={youtube.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More on YouTube
+            </a>
+          )}
+        </div>
+      </div>
+      <div class="dc-video-grid">
+        {videos.latest.map((v) => (
+          <div class="dc-video">
+            <Trailer {...v} />
+            <h3>{v.title}</h3>
+            <p>{v.note}</p>
+          </div>
+        ))}
+      </div>
+      <details class="dc-archive">
+        <summary>From the archive: early work in progress</summary>
+        <div class="dc-video-grid dc-video-grid-2">
+          {videos.archive.map((v) => (
+            <div class="dc-video">
+              <Trailer {...v} />
+              <h3>{v.title}</h3>
+              <p>{v.note}</p>
+            </div>
+          ))}
+        </div>
+      </details>
+    </section>
+
+    <section class="container dc-section" id="different">
+      <header class="dc-head">
+        <p class="dc-kicker">Why it’s different</p>
+        <h2>Not another racer</h2>
+        <p class="dc-intro">
+          Think Carmageddon meets a stunt racer, built around crashes that are
+          simulated, not scripted. The goal isn’t to finish first. It’s to make
+          the biggest mess and walk away (or limp away) with the cash.
+        </p>
+      </header>
+      <div class="dc-diff">
+        {different.map((d, i) => (
+          <article class="dc-plate">
+            <span class="dc-num">{String(i + 1).padStart(2, '0')}</span>
+            <p class="dc-chip">{d.tag}</p>
+            <h3>{d.title}</h3>
+            <p>{d.copy}</p>
+          </article>
+        ))}
+      </div>
+      <div class="dc-split">
+        <img
+          src={url('images/destruction-cars/shots/cider-press.webp')}
+          alt="Wrecked cars piled up after the cider press, with the game's HUD"
+          width="1280"
+          height="720"
+          loading="lazy"
+        />
+        <div>
+          <h3>Pick it up, top it up</h3>
+          <dl class="dc-pickups">
+            {pickups.map(([name, copy]) => (
+              <div>
+                <dt>{name}</dt>
+                <dd>{copy}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="dc-band" id="weapons">
+      <div class="container dc-section">
+        <header class="dc-head">
+          <p class="dc-kicker">Arsenal</p>
+          <h2>Weapons</h2>
+          <p class="dc-intro">
+            Twin machine guns on every car, and nine specials from crates placed
+            around each map. They all hurt through the same damage model as a
+            crash, so a rocket to the door takes the door.
+          </p>
+        </header>
+        <div class="dc-weapons">
+          {weapons.map((w) => (
+            <article class="dc-weapon">
+              <img
+                src={url(w.image)}
+                alt={`${w.name} in action`}
+                width="918"
+                height="458"
+                loading="lazy"
+              />
+              <div>
+                <p
+                  class:list={[
+                    'dc-rarity',
+                    `dc-rarity-${w.rarity.toLowerCase()}`,
+                  ]}
+                >
+                  {w.rarity}
+                </p>
+                <h3>{w.name}</h3>
+                <p>{w.copy}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="dc-lab">
+          <p>
+            <strong>In the lab now.</strong> Being built and tested, not in the
+            game yet:
+          </p>
+          <ul>
+            {labWeapons.map((w) => (
+              <li>{w}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="container dc-section" id="bosses">
+      <header class="dc-head">
+        <p class="dc-kicker">Bosses</p>
+        <h2>Big, angry, breakable</h2>
+        <p class="dc-intro">
+          Each boss is a three-phase fight with no timer. You don’t whittle down
+          a health bar, you take the machine apart. Medals go to the fastest
+          wreck. More are on the way.
+        </p>
+      </header>
+      <div class="dc-bosses">
+        {bosses.map((b) => (
+          <article class="dc-boss">
+            <div class="dc-boss-art">
+              <img
+                src={url(b.image)}
+                alt={b.name}
+                width="1100"
+                height="790"
+                loading="lazy"
+              />
+            </div>
+            <div class="dc-boss-copy">
+              <p class="dc-chip">{b.where}</p>
+              <h3>{b.name}</h3>
+              <p>{b.pitch}</p>
+              <ol>
+                {b.phases.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ol>
+            </div>
+            <img
+              class="dc-boss-shot"
+              src={url(b.shot)}
+              alt={`${b.name} fight in the game`}
+              width="1280"
+              height="720"
+              loading="lazy"
+            />
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="dc-band" id="garage">
+      <div class="container dc-section">
+        <header class="dc-head">
+          <p class="dc-kicker">Garage</p>
+          <h2>Twelve cars, all breakable</h2>
+          <p class="dc-intro">
+            Classics you’ll recognise under made-up names. Light cars fly, heavy
+            ones bully. Earn cash to buy them, then pick a paint (chrome,
+            cobalt, flame, hazard and more), a livery and a named driver.
+          </p>
+        </header>
+        <div class="dc-cars">
+          {cars.map((c) => (
+            <article class="dc-car">
+              <img
+                src={url(c.image)}
+                alt={c.name}
+                width="720"
+                height="450"
+                loading="lazy"
+              />
+              <div class="dc-car-copy">
+                <div class="dc-car-top">
+                  <h3>{c.name}</h3>
+                  <span class="dc-price">{c.price}</span>
+                </div>
+                <p>{c.role}</p>
+                <dl class="dc-stats">
+                  <div>
+                    <dt>Speed</dt>
+                    <dd aria-label={`${c.speed} km/h`}>
+                      {chevrons(c.speedBar).map((on) => (
+                        <i class:list={{ on }}></i>
+                      ))}
+                      <span>{c.speed} km/h</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Weight</dt>
+                    <dd aria-label={`${c.mass} kg`}>
+                      {chevrons(c.weightBar).map((on) => (
+                        <i class:list={{ on }}></i>
+                      ))}
+                      <span>{c.mass.toLocaleString('en-US')} kg</span>
+                    </dd>
+                  </div>
+                </dl>
+                <p class="dc-drive">{c.drive}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="container dc-section" id="maps">
+      <header class="dc-head">
+        <p class="dc-kicker">Maps</p>
+        <h2>Five places to ruin</h2>
+        <p class="dc-intro">
+          Small to medium maps, built by hand, with set pieces in every corner.
+          A flat Arena with the giant press in the middle is made for online.
+        </p>
+      </header>
+      <div class="dc-maps">
+        {maps.map((m) => (
+          <article class="dc-map">
+            <img
+              src={url(m.image)}
+              alt={m.name}
+              width="1200"
+              height="675"
+              loading="lazy"
+            />
+            <div>
+              <h3>{m.name}</h3>
+              <p>{m.copy}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="dc-modes">
+        {modes.map((m) => (
+          <article class="dc-plate">
+            <h3>{m.name}</h3>
+            <p>{m.copy}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container dc-section" id="gallery">
+      <header class="dc-head">
+        <p class="dc-kicker">Screenshots</p>
+        <h2>Straight from the game</h2>
+      </header>
+      <div class="dc-gallery">
+        {gallery.map((g) => (
+          <a
+            href={url(g.src)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${g.alt}, full size`}
+          >
+            <img
+              src={url(g.src)}
+              alt={g.alt}
+              width="1280"
+              height="720"
+              loading="lazy"
+            />
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="dc-band" id="tech">
+      <div class="container dc-section">
+        <header class="dc-head">
+          <p class="dc-kicker">Under the hood</p>
+          <h2>The hard parts</h2>
+          <p class="dc-intro">
+            Simulated crashes, online play and a phone in your pocket pull in
+            different directions. Here’s what it took. The devlog goes deeper.
+          </p>
+        </header>
+        <div class="dc-tech">
+          {tech.map((t) => (
+            <article>
+              <p class="dc-stat">{t.stat}</p>
+              <h3>{t.title}</h3>
+              <p>{t.copy}</p>
+            </article>
+          ))}
+        </div>
+        <p class="dc-stack">
+          Built with three.js (WebGL), Rapier physics, TypeScript, Web Workers
+          and Colyseus for online play.
+        </p>
+      </div>
+    </section>
+
+    <section class="container dc-section" id="devlog">
+      <header class="dc-head dc-head-row">
+        <div>
+          <p class="dc-kicker">Devlog</p>
+          <h2>How it’s being made</h2>
+        </div>
+        <a class="dc-link" href={url('devlog/')}>
+          All posts
+        </a>
+      </header>
+      {posts.length > 0 ? (
+        <PostList posts={posts} />
+      ) : (
+        <p>Development posts are coming soon.</p>
+      )}
+    </section>
+
+    <section class="container dc-section dc-follow">
+      <div class="dc-plate dc-follow-plate">
+        <span class="dc-streaks" aria-hidden="true"></span>
+        <h2>Not playable yet</h2>
+        <p>
+          The game is still being built. Follow along for new videos, devlogs
+          and the real name when we announce it.
+        </p>
+        <div class="dc-actions">
+          {youtube && (
+            <a
+              class="dc-btn dc-btn-main"
+              href={youtube.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              YouTube
+            </a>
+          )}
+          {discord && (
+            <a
+              class="dc-btn"
+              href={discord.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Discord
+            </a>
+          )}
+          <a class="dc-btn" href={url('contact/')}>
+            Contact
+          </a>
+        </div>
+        <p class="dc-warning">
+          <strong>Content warning:</strong> {game.warning}
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  // The hero reel stays still for people who asked for less motion or to save data.
+  function settleReel() {
+    const reel = document.querySelector<HTMLVideoElement>('[data-dc-reel]');
+    if (!reel) return;
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = (navigator as any).connection?.saveData === true;
+    if (calm || saveData) {
+      reel.removeAttribute('autoplay');
+      reel.pause();
+      reel.preload = 'none';
+    }
+  }
+  settleReel();
+  document.addEventListener('astro:page-load', settleReel);
+</script>
