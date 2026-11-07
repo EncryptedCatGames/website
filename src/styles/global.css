@@ -1722,6 +1722,7 @@ textarea::placeholder {
   color: var(--muted);
 }
 .playtest-frame {
+  position: relative;
   aspect-ratio: 16 / 9;
   max-height: calc(100svh - 120px);
   width: 100%;
@@ -1734,9 +1735,60 @@ textarea::placeholder {
   height: 100%;
   border: 0;
 }
-.playtest-frame:fullscreen {
+/* On touch screens the inline game is too small to play: a tap expands it. */
+.playtest-tap,
+.playtest-exit {
+  display: none;
+}
+@media (pointer: coarse) {
+  .playtest-tap {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: #0b0c0c99;
+    color: var(--text);
+    font: 500 15px var(--body);
+    cursor: pointer;
+  }
+  .playtest-tap span {
+    padding: 10px 16px;
+    border: 1px solid var(--accent);
+    background: var(--bg);
+  }
+}
+.playtest-frame.is-expanded {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   max-height: none;
+  aspect-ratio: auto;
   border: 0;
+}
+.playtest-frame.is-expanded .playtest-tap {
+  display: none;
+}
+.playtest-frame.is-expanded .playtest-exit {
+  position: absolute;
+  top: max(8px, env(safe-area-inset-top));
+  left: max(8px, env(safe-area-inset-left));
+  display: block;
+  padding: 4px 8px;
+  opacity: 0.75;
+  border: 1px solid #ffffff33;
+  border-radius: 4px;
+  background: #000000aa;
+  color: #fff;
+  font: 12px var(--mono);
+  cursor: pointer;
+}
+.playtest-lock,
+.playtest-lock body {
+  overflow: hidden;
 }
 .playtest-actions {
   display: flex;
