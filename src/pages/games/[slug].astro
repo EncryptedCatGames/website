@@ -10,10 +10,13 @@ import { gameData } from '../../data/structured-data';
 import site from '../../../site.config.mjs';
 import { getCollection } from 'astro:content';
 export function getStaticPaths() {
-  return games.map((game) => ({
-    params: { slug: game.slug },
-    props: { game },
-  }));
+  // Destruction Cars has its own page (games/destruction-cars.astro).
+  return games
+    .filter((game) => game.slug !== 'destruction-cars')
+    .map((game) => ({
+      params: { slug: game.slug },
+      props: { game },
+    }));
 }
 const { game } = Astro.props;
 const name = fullName(game);
