@@ -106,11 +106,11 @@ export const games = [
     url: '',
     cover: '/images/destruction-cars-cover.webp',
     screenshots: [
-      '/images/destruction-cars-1.webp',
-      '/images/destruction-cars-2.webp',
-      '/images/destruction-cars-3.webp',
-      '/images/destruction-cars-4.webp',
-      '/images/destruction-cars-5.webp',
+      '/images/destruction-cars/shots/chain-reaction.webp',
+      '/images/destruction-cars/shots/village-ufo-b.webp',
+      '/images/destruction-cars/shots/bertha-tanks.webp',
+      '/images/destruction-cars/shots/horde.webp',
+      '/images/destruction-cars/shots/quarry-dusk.webp',
     ],
     trailer: {
       youtubeId: 'JILZZJzn_6c',
