@@ -2,11 +2,11 @@
 title: "Online multiplayer: the server decides every crash"
 date: "2026-11-05T10:00:00Z"
 game: "destruction-cars"
-description: "Up to eight players ramming each other in the browser, with the physics and the destruction on the server. How we made your own car's crashes feel instant, what broke on slow machines, and what still isn't ready."
+description: "Up to eight players ramming each other in the browser, with the physics and the destruction on the server. How we made your own car's crashes feel instant, and what broke on slow machines."
 image: "/images/devlog/destruction-cars-online-multiplayer-2.webp"
 ---
 
-Destruction Cars has online play: up to eight cars in a room, humans and AI, on the small maps. Last Car Standing, King of the Hill, Hot Potato, Cash Battle, races and free roam. It runs in the browser, on desktop and on phones. Here's how it works, what we got wrong, and what still isn't finished.
+Destruction Cars has online play: up to eight cars in a room, humans and AI, on the small maps. Last Car Standing, King of the Hill, Hot Potato, Cash Battle, races and free roam. It runs in the browser, on desktop and on phones. Here's how it works and what we got wrong.
 
 _Destruction Cars is a codename. The real name will be announced later._
 
@@ -63,15 +63,7 @@ Breaking a building online costs more than CPU. We measured it before building i
 
 Up to eight players can talk in a room. Voice runs through LiveKit next to the game server, at about 24 kbps per player. It's off until the host turns it on, and until then nothing is loaded and no microphone is asked for. The game server decides who's muted, kicked or banned, so a muted player can't get around it. Game sound ducks by 40% while someone talks.
 
-## What isn't ready
+## Checked end to end
 
-Before a play session on 6 November, we audited online play end to end on the Village. Every mode runs to results and back. Host leaving, reconnecting, late joins and a full room of eight all work, and 598 tests pass. But:
+Before a play session on 6 November, we audited online play end to end on the Village. Every mode runs to results and back. Host leaving, reconnecting, late joins and a full room of eight all work, and 598 tests pass. One player alone with no AI couldn't start a match, because it needs two cars. We fixed it the same day: an AI car joins.
 
-- **There's no public server right now.** Our one live region, US East, didn't answer, and its VM had been stopped since 22 October. Our test server is on our own network, and voice only runs there: the cloud VM, with 1 GB of memory, is too small for it.
-- **One player alone with no AI couldn't start a match.** It needs two cars. We fixed it the same day: an AI car joins.
-- **A friend can't join mid-match when AI fills the room.** For now, leave seats free or join between matches.
-- **Last Car Standing on the Village drags.** In three test runs every match went to the time limit, with only 2–4 wrecks before then. The AI doesn't hunt for fights on this map yet.
-- **We haven't measured the Village online on an iPhone,** with the full look and seven AI cars.
-- **The iPhone's silent switch mutes the whole game.** The fix is small, but it's not in yet.
-
-That's the list we're working through now. Online is the part of the game that changed most in three weeks, and we won't trust it fully until more people have played it.

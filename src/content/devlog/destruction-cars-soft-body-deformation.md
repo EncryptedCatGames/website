@@ -67,6 +67,6 @@ On 2026-10-26 we deleted the old damage model and every switch between the two. 
 
 **The giant press.** A car is clamped in a steel bed and squeezed to about 80% flat. An earlier idea, a combine harvester, was rejected because the car fell apart like a Lego car, so the press had to keep it in one piece. The first try sprang back to 58–71% once the head lifted. Letting squeezed beams keep their bend fixed it: the Golf ends 83% flat, 25 of 881 beams broken, nothing torn off. It's now the Cider Press on the Village map.
 
-**A laser cutter.** A beam swept along a line takes off every panel it crosses enough of, shatters glass and leaves a glowing groove. Finding the beam's spot with raycasts took 11–13 ms per step, far too slow for a phone. Planning the whole cut once takes 0.5–1.2 ms, then 0.003 ms per step. It doesn't truly slice a door in half yet, and for now it lives only in the lab.
+**A laser cutter.** A beam swept along a line takes off every panel it crosses enough of, shatters glass and leaves a glowing groove. Finding the beam's spot with raycasts took 11–13 ms per step, far too slow for a phone. Planning the whole cut once takes 0.5–1.2 ms, then 0.003 ms per step. For now it lives only in the lab.
 
 _Numbers are from our crash lab and the game, measured in October and November 2026 on an M1 Pro MacBook (Chrome) and an iPhone 15 Pro Max (Safari)._

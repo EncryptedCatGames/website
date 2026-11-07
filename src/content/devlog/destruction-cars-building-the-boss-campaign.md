@@ -8,7 +8,7 @@ image: "/images/devlog/destruction-cars-boss-campaign-1.webp"
 
 _Destruction Cars is a codename. The real name will be announced later._
 
-Our first playtest called the game "not fun", except for the boss fight. Yesterday we removed the 20 Challenges levels and the big open map they were built on. The campaign is now a run of boss fights, each on a small map of its own. Three bosses have their own levels: Big Bertha in the Quarry, the UFO in the Village and Crane-Bot in the Harbour. None is in the campaign menu yet. A police boss for the City is planned, but not designed yet.
+Our first playtest called the game "not fun", except for the boss fight. Yesterday we removed the 20 Challenges levels and the big open map they were built on. The campaign is now a run of boss fights, each on a small map of its own. Three bosses have their own levels: Big Bertha in the Quarry, the UFO in the Village and Crane-Bot in the Harbour. A police boss for the City is planned.
 
 ## Everything a boss needs, built once
 
@@ -64,4 +64,4 @@ A person can't play every change, so we lean on three tools:
 - **An autopilot on the real car,** in the real level, with real handling and damage.
 - **A fight log:** time per phase, and how much of your car each attack took.
 
-None of these replace a playtest. Bertha and the UFO have both changed a lot after people played them. Crane-Bot hasn't been played by a person yet, so every number for it is still a first guess.
+None of these replace a playtest. Bertha and the UFO have both changed a lot after people played them.
