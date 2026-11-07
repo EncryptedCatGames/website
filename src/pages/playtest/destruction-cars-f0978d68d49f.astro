@@ -1,0 +1,78 @@
+---
+// Private playtest: nothing on the site links here, it is left out of the
+// sitemap and search engines are asked not to index it. Share the URL directly.
+import Layout from '../../layouts/Layout.astro';
+import { url } from '../../lib';
+const build =
+  'https://storage.googleapis.com/8a6fa694b1b8544dbb2d19fea040062b/index.html';
+---
+
+<Layout
+  title="Destruction Cars playtest | Encrypted Cat Games"
+  description="Private playtest build of Destruction Cars (codename)."
+  image="/images/destruction-cars-cover.webp"
+  imageAlt="Destruction Cars cover art"
+  noindex
+>
+  <section class="container section playtest">
+    <div class="playtest-heading">
+      <div>
+        <p class="eyebrow">Private playtest</p>
+        <h1>Destruction Cars</h1>
+        <p class="wip-note">
+          Codename · the final game will have a different name
+        </p>
+      </div>
+      <p class="playtest-intro">
+        Thanks for playing an early build. Expect bugs, missing pieces and
+        changes between builds. Please don't share this link publicly.
+      </p>
+    </div>
+    <div class="playtest-frame" data-playtest-frame>
+      <iframe
+        src={build}
+        title="Destruction Cars playtest build"
+        allow="fullscreen; autoplay; gamepad; accelerometer; gyroscope; screen-wake-lock"
+        allowfullscreen
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </div>
+    <div class="playtest-actions">
+      <button class="text-link" type="button" data-playtest-fullscreen>
+        Play full screen
+      </button>
+      <a class="text-link" href={build} target="_blank" rel="noopener">
+        Open in a new tab
+      </a>
+    </div>
+    <p class="playtest-note">
+      On iPhone, open it in a new tab and use Share → Add to Home Screen to play
+      full screen in landscape. Found a bug or have feedback? Tell us on{' '}
+      <a
+        href="https://discord.gg/ufYtrP3NRk"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Discord
+      </a>{' '}
+      or through the <a href={url('contact/')}>contact form</a>.
+    </p>
+  </section>
+</Layout>
+
+<script>
+  function setup() {
+    const button = document.querySelector<HTMLButtonElement>(
+      '[data-playtest-fullscreen]',
+    );
+    const frame = document.querySelector<HTMLElement>('[data-playtest-frame]');
+    if (!button || !frame) return;
+    // iPhone Safari has no Fullscreen API: hide the button there.
+    if (!frame.requestFullscreen) {
+      button.hidden = true;
+      return;
+    }
+    button.onclick = () => frame.requestFullscreen().catch(() => {});
+  }
+  document.addEventListener('astro:page-load', setup);
+</script>

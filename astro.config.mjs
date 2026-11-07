@@ -32,6 +32,7 @@ export default defineConfig({
   base: site.base,
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  // Playtest builds are shared by direct link only: keep them out of the sitemap.
+  integrations: [sitemap({ filter: (page) => !page.includes('/playtest/') })],
   devToolbar: { enabled: false },
 });
