@@ -86,7 +86,9 @@ const socialNotes: Record<string, string> = {
           <p class="eyebrow">In development</p>
           <h2>{inDevelopment.title}.</h2>
           {inDevelopment.workingTitle && (
-            <p class="wip-note">Codename · the final game will have a different name</p>
+            <p class="wip-note">
+              Codename · the final game will have a different name
+            </p>
           )}
           <p>{inDevelopment.description}</p>
           <a class="text-link" href={url(`games/${inDevelopment.slug}/`)}>
