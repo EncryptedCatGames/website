@@ -78,17 +78,9 @@ It came out as an 8-second scene with four shots, and it taught us things that w
 
 - `brake` at a standstill reverses, because those are the game's controls.
 - A skid needs a small spin kick, because the arcade handling catches slides.
-- There's no dawn light yet. Dusk stands in.
-- Crowds can't walk to a place yet. They mill about and turn to face the car.
 
 ## Where scenes are used
 
 - **Big Bertha's level** now runs the full flow: an intro scene, a gate sprint through the Quarry, a live scene as she bursts in, then the fight. Her phase changes play from files too.
 - **All 35 old trailer shots** are now scene files on the game's real maps. The old trailer code is gone.
 - **MP4 export:** any staged scene renders to an MP4 at 720p or 1080p, 30 or 60 fps, with its music and crash sounds mixed offline. The first promo scene, 21 seconds through the Village ending at the UFO, was made the same day.
-
-## Still open
-
-- Nobody has re-framed the drafted Village scene by hand in the editor yet. That's the test of the whole idea.
-- The phone frame rate during a scene hasn't been measured on an iPhone.
-- Export is tested in Chrome only.

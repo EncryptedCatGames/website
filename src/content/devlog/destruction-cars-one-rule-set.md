@@ -51,7 +51,7 @@ Now a boss's body is a heavy car, and its attacks are weapons. A stomp or slam i
 
 ![Big Bertha winding up a charge. The debug readout bottom left still shows the car's old ×1.5 toughness, one of the special cases we removed.](/images/devlog/destruction-cars-one-rule-set-1.webp)
 
-That makes boss fights harder on the car, and we measured how much. In the Bosses Lab, with the autopilot attacking Big Bertha, her attacks took health about 1.9× as fast under the shared rules as under the old fight rules. We haven't rebalanced the bosses for it yet. The autopilot can't win these fights under either rule set, so it doesn't tell us whether a fight is fun. That needs people playing it.
+That makes boss fights harder on the car, and we measured how much. In the Bosses Lab, with the autopilot attacking Big Bertha, her attacks took health about 1.9× as fast under the shared rules as under the old fight rules.
 
 ## When a fight really needs a different rule
 
@@ -63,7 +63,7 @@ Sometimes one will. So overrides still exist, with a gate in front of them:
 
 The first approved override came the same day. After playing the UFO fight on the Village, the verdict was "the grass handles very badly". The Village's grass now grips like asphalt, but still looks, sounds and bumps like grass. Driven from a standing start for 1.2 s, the car reached 36.7 km/h on the Village's grass, 26.7 km/h on normal grass and 38.9 km/h on the road. Because it's a map rule, it applies wherever the Village is played, online included.
 
-The same gate covers difficulty. We added three modes (Arcade, Challenging, Nightmare), and each is an override of the shared rules, never a separate copy of a boss. None is approved yet, so for now everyone plays by the plain shared rules.
+The same gate covers difficulty. We added three modes (Arcade, Challenging, Nightmare), and each is an override of the shared rules, never a separate copy of a boss.
 
 ## What we kept different, and why
 

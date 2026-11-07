@@ -8,7 +8,7 @@ image: "/images/devlog/destruction-cars-sound-overhaul-1.webp"
 
 _Destruction Cars is a codename. The real name will be announced later._
 
-If a crash sounds like a spoon on a pan, it doesn't matter how good the dents look. Two weeks ago ours did. Here's how we rebuilt the sound, and what we still haven't checked.
+If a crash sounds like a spoon on a pan, it doesn't matter how good the dents look. Two weeks ago ours did. Here's how we rebuilt the sound.
 
 ![A chain reaction of exploding barrels on the farm](/images/devlog/destruction-cars-sound-overhaul-1.webp)
 
@@ -33,7 +33,6 @@ It's Windows-only, so it runs on our Windows PC over SSH. Each car got its own e
 Not everything worked:
 
 - Some community engine scripts gave full throttle quieter than coasting. We swapped them.
-- Several engines stall right after the starter, so start-up clips aren't usable yet.
 - Our first boss, Big Bertha, got a bored and stroked 454 of her own. Her first render idled at 2,025 rpm, and every RPM row below that collapsed onto it. Closing down the idle air fixed it. Engine Simulator has no supercharger, so a sampled blower whine sits on top.
 
 For the two electric cars, our synth whistled at 2.7–4 kHz, so they play a real recording of a rally car's electric launch instead, pitched per car.
@@ -75,11 +74,5 @@ We build Destruction Cars with AI agents, and agents test with the sound muted. 
 - **The sound board** lists every sound straight from the code, shows where each is used, and plays it the way the game does: a crash at three strengths, an engine at any RPM. Each entry has **Keep**, **Change** and **Remove**. A click writes a note, and agents pick up the open ones as work.
 
 One note said ramming Bertha's fuel tank made a weird sound. Every metal crash take got remade as a real crunch. Once a choice had been heard, we deleted the losers: the old synth sounds, squeal and crash set are gone.
-
-## Still open
-
-- Nobody has listened to all of this on an iPhone yet, only measured it.
-- Engine start-up clips need a fix before cars can crank.
-- The multiplayer mix is singleplayer's, not yet tuned for eight cars.
 
 Engine Simulator is by AngeTheGreat, and he's credited in the game.

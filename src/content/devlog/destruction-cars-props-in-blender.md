@@ -48,7 +48,7 @@ That rule matters. Several agents build props at once, and we merge some and rej
 
 ## What went wrong
 
-**High came out darker than Medium.** The first baked buildings looked darker on High, and the agents covered for it with hand-tuned brightness gains of up to 1.8. When we measured, three things were wrong: the AO bake saw the low-detail model sitting on the high one and treated it as a shadow caster, the AO was raw while the kit lifts its own, and the draft's materials simply aren't the kit's colours. Our first fix matched one brightness figure over the whole model. That failed too, because inside one building the materials disagreed by up to 10×. The garage's brick wanted a gain of 0.8, its paint 2.6. What stuck was matching material by material on the main walls, then rebaking. Brick still needs a small trim, and High still lights shade more than Medium. No texture fixes that.
+**High came out darker than Medium.** The first baked buildings looked darker on High, and the agents covered for it with hand-tuned brightness gains of up to 1.8. When we measured, three things were wrong: the AO bake saw the low-detail model sitting on the high one and treated it as a shadow caster, the AO was raw while the kit lifts its own, and the draft's materials simply aren't the kit's colours. Our first fix matched one brightness figure over the whole model. That failed too, because inside one building the materials disagreed by up to 10×. The garage's brick wanted a gain of 0.8, its paint 2.6. What stuck was matching material by material on the main walls, then rebaking.
 
 **Stale textures.** When the barn's doors were rebuilt, its compressed KTX2 textures still matched the old layout, so High on desktop drew old textures on the new mesh. Now a rebuilt prop must rebuild its KTX2 files in the same PR.
 
@@ -58,7 +58,7 @@ The Quarry played well, with a derby floor, three benches, eight ramps and a cru
 
 ![The Quarry's crusher plant at dusk, in the game, with the bulldozer on the left](/images/devlog/destruction-cars-props-in-blender-2.webp)
 
-It still has open problems. The conveyor belt was taken off because it fell at the first hit, and we haven't measured the Quarry on an iPhone yet. The stunt set pieces come next.
+The stunt set pieces come next.
 
 ## The cars
 
