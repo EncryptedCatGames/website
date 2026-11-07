@@ -36,6 +36,17 @@ const build =
         allowfullscreen
         referrerpolicy="no-referrer"
       ></iframe>
+      <button
+        class="playtest-tap"
+        type="button"
+        data-playtest-fullscreen
+        aria-label="Play full screen"
+      >
+        <span>Tap to play full screen</span>
+      </button>
+      <button class="playtest-exit" type="button" data-playtest-exit>
+        ✕ Exit
+      </button>
     </div>
     <div class="playtest-actions">
       <button class="text-link" type="button" data-playtest-fullscreen>
@@ -46,8 +57,9 @@ const build =
       </a>
     </div>
     <p class="playtest-note">
-      On iPhone, open it in a new tab and use Share → Add to Home Screen to play
-      full screen in landscape. Found a bug or have feedback? Tell us on{' '}
+      Turn your phone sideways to play. On iPhone, for a true full screen
+      without the address bar, open it in a new tab and use Share → Add to Home
+      Screen. Found a bug or have feedback? Tell us on{' '}
       <a
         href="https://discord.gg/ufYtrP3NRk"
         target="_blank"
@@ -61,18 +73,55 @@ const build =
 </Layout>
 
 <script>
+  // Desktop and Android use the Fullscreen API. iPhone has none for page
+  // elements, so there the frame is stretched over the whole page instead.
+  // Either way the game sees the real screen shape, so its own "rotate to
+  // landscape" screen works (inside a 16:9 box it always looks landscape).
   function setup() {
-    const button = document.querySelector<HTMLButtonElement>(
-      '[data-playtest-fullscreen]',
-    );
     const frame = document.querySelector<HTMLElement>('[data-playtest-frame]');
-    if (!button || !frame) return;
-    // iPhone Safari has no Fullscreen API: hide the button there.
-    if (!frame.requestFullscreen) {
-      button.hidden = true;
-      return;
-    }
-    button.onclick = () => frame.requestFullscreen().catch(() => {});
+    if (!frame) return;
+    const iframe = frame.querySelector('iframe');
+    const nativeFullscreen =
+      document.fullscreenEnabled &&
+      typeof frame.requestFullscreen === 'function';
+
+    const expand = () => {
+      frame.classList.add('is-expanded');
+      document.documentElement.classList.add('playtest-lock');
+      iframe?.focus();
+    };
+    const collapse = () => {
+      frame.classList.remove('is-expanded');
+      document.documentElement.classList.remove('playtest-lock');
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+    const enter = async () => {
+      expand();
+      if (!nativeFullscreen) return;
+      try {
+        await frame.requestFullscreen();
+        // Android Chrome can lock to landscape once full screen.
+        const orientation = screen.orientation as ScreenOrientation & {
+          lock?: (o: string) => Promise<void>;
+        };
+        await orientation.lock?.('landscape').catch(() => {});
+      } catch {
+        // Fullscreen refused: the stretched frame still works.
+      }
+    };
+
+    frame.ownerDocument
+      .querySelectorAll<HTMLButtonElement>('[data-playtest-fullscreen]')
+      .forEach((button) => (button.onclick = enter));
+    frame
+      .querySelector<HTMLButtonElement>('[data-playtest-exit]')
+      ?.addEventListener('click', collapse);
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) collapse();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') collapse();
+    });
   }
   document.addEventListener('astro:page-load', setup);
 </script>
