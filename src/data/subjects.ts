@@ -22,3 +22,6 @@ export const subjectFullName = (slug: string) => {
 export const subjectPath = (slug: string) =>
   project(slug)?.path ?? `games/${slug}/`;
 export const isProject = (slug: string) => Boolean(project(slug));
+// The series a post belongs to (its game's series, or the side project itself).
+export const subjectSeries = (slug: string) =>
+  games.find((g) => g.slug === slug)?.series ?? slug;

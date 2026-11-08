@@ -1,0 +1,25 @@
+---
+// One series in the games catalogue: its name and genre, then its games.
+import GameCard from './GameCard.astro';
+import type { Series } from '../data/series';
+interface Props {
+  series: Series;
+}
+const { series } = Astro.props;
+---
+
+<div class="series" id={series.slug} data-group>
+  <header class="series-head">
+    <p class="series-meta">
+      <span>{series.genre}</span>
+      <span>{series.status}</span>
+    </p>
+    <h2>{series.name}</h2>
+    <p>{series.pitch}</p>
+  </header>
+  <div class="game-grid">
+    {series.games.map((game) => (
+      <GameCard game={game} />
+    ))}
+  </div>
+</div>

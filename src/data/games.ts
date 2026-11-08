@@ -3,6 +3,7 @@ import type { Platform } from './platforms';
 export const games = [
   {
     slug: 'episode-01',
+    series: 'the-cradle',
     title: 'The Cradle',
     subtitle: 'Episode 01',
     kind: 'Narrative survival horror',
@@ -34,9 +35,15 @@ export const games = [
       ],
     ],
     appStoreUrl: '',
+    // The homepage carousel's picture for this game.
+    hero: {
+      image: '/images/episode-01-1.webp',
+      alt: 'A dim sanatorium corridor under a single lamp.',
+    },
   },
   {
     slug: 'trick-or-treat',
+    series: 'the-cradle',
     title: 'The Cradle',
     subtitle: 'Trick-or-Treat',
     kind: 'Halloween horror',
@@ -67,9 +74,14 @@ export const games = [
       ],
     ],
     appStoreUrl: '',
+    hero: {
+      image: '/images/trick-or-treat-4.webp',
+      alt: 'Nanny waits in a doorway under paper bats.',
+    },
   },
   {
     slug: 'destruction-cars',
+    series: 'destruction-cars',
     // A codename, not the final name: shown with a "Codename" note.
     title: 'Destruction Cars',
     subtitle: '',
@@ -102,6 +114,10 @@ export const games = [
       ],
     ],
     appStoreUrl: '',
+    hero: {
+      image: '/images/destruction-cars-cover.webp',
+      alt: 'A car explodes on a city crossing.',
+    },
     // No public page yet: no play link until there is one.
     url: '',
     cover: '/images/destruction-cars-cover.webp',

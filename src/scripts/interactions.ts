@@ -59,10 +59,12 @@ document.addEventListener('click', (event) => {
     b.classList.toggle('active', b === button);
     b.setAttribute('aria-pressed', String(b === button));
   });
-  document.querySelectorAll<HTMLElement>('[data-post-game]').forEach((post) => {
-    post.hidden = filter !== 'all' && post.dataset.postGame !== filter;
-    if (!post.hidden) count++;
-  });
+  document
+    .querySelectorAll<HTMLElement>('[data-post-series]')
+    .forEach((post) => {
+      post.hidden = filter !== 'all' && post.dataset.postSeries !== filter;
+      if (!post.hidden) count++;
+    });
   const countLabel = document.querySelector('#post-count');
   if (countLabel) countLabel.textContent = `${count} posts`;
 });
@@ -86,7 +88,7 @@ document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
   if (event.target.closest('[data-menu-toggle]'))
     setMenu(menuToggle()?.getAttribute('aria-expanded') !== 'true');
-  else if (event.target.closest('[data-menu] a')) setMenu(false);
+  else if (event.target.closest('[data-menu] a, .nav-follow')) setMenu(false);
 });
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !menu()?.hidden) setMenu(false, true);
@@ -96,7 +98,8 @@ matchMedia('(min-width: 861px)').addEventListener('change', (event) => {
   if (event.matches) setMenu(false);
 });
 
-// Catalogue: one active value per filter group; items match on type and platform tags.
+// Catalogue: one active value per filter group (genre, platform); an item
+// matches when its tags for every group include the active value.
 document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
   const button = event.target.closest<HTMLButtonElement>(
@@ -112,16 +115,17 @@ document.addEventListener('click', (event) => {
       b.setAttribute('aria-pressed', String(b === button));
     });
   root.dataset[group] = button.dataset.value;
-  const type = root.dataset.type ?? 'all';
-  const platform = root.dataset.platform ?? 'all';
+  const active = ['genre', 'platform']
+    .map((name) => [name, root.dataset[name] ?? 'all'])
+    .filter(([, value]) => value !== 'all');
   let count = 0;
   root.querySelectorAll<HTMLElement>('[data-group]').forEach((section) => {
     let visible = 0;
     section.querySelectorAll<HTMLElement>('[data-item]').forEach((item) => {
-      item.hidden =
-        (type !== 'all' && item.dataset.type !== type) ||
-        (platform !== 'all' &&
-          !item.dataset.platforms!.split(' ').includes(platform));
+      item.hidden = active.some(
+        ([name, value]) =>
+          !(item.dataset[name] ?? '').split(' ').includes(value),
+      );
       if (!item.hidden) visible++;
     });
     section.hidden = visible === 0;
@@ -129,7 +133,7 @@ document.addEventListener('click', (event) => {
   });
   root.querySelector<HTMLElement>('[data-catalogue-empty]')!.hidden = count > 0;
   root.querySelector('[data-catalogue-count]')!.textContent =
-    `${count} ${count === 1 ? 'title' : 'titles'}`;
+    `${count} ${count === 1 ? 'game' : 'games'}`;
 });
 
 // Trailers: swap the poster for YouTube's privacy-enhanced player only when asked.
@@ -150,3 +154,78 @@ document.addEventListener('click', (event) => {
   poster.replaceWith(frame);
   frame.focus();
 });
+
+// Homepage carousel: the next game every few seconds. It waits while the
+// pointer or focus is on it or the tab is hidden, and never moves by itself
+// for people who prefer reduced motion. Swipe or the game names to change it.
+const SLIDE_MS = 6000;
+let carouselTick: ReturnType<typeof setInterval> | undefined;
+function startCarousel() {
+  clearInterval(carouselTick);
+  const root = document.querySelector<HTMLElement>('[data-carousel]');
+  if (!root) return;
+  const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+  const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-slide-to]')];
+  let current = 0;
+  let elapsed = 0;
+  let held = false;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const progress = () =>
+    dots[current]
+      ?.querySelector<HTMLElement>('span')
+      ?.style.setProperty('--p', String(still ? 1 : elapsed / SLIDE_MS));
+  const show = (index: number) => {
+    dots[current]
+      ?.querySelector<HTMLElement>('span')
+      ?.style.setProperty('--p', '0');
+    current = (index + slides.length) % slides.length;
+    elapsed = 0;
+    slides.forEach((slide, i) => {
+      const on = i === current;
+      slide.classList.toggle('active', on);
+      slide.inert = !on;
+      if (on) slide.removeAttribute('aria-hidden');
+      else slide.setAttribute('aria-hidden', 'true');
+    });
+    dots.forEach((dot, i) =>
+      dot.setAttribute('aria-current', String(i === current)),
+    );
+    progress();
+  };
+  root.addEventListener('pointerenter', () => (held = true));
+  root.addEventListener('pointerleave', () => (held = false));
+  root.addEventListener('focusin', () => (held = true));
+  root.addEventListener('focusout', (event) => {
+    if (!root.contains(event.relatedTarget as Node)) held = false;
+  });
+  root.addEventListener('click', (event) => {
+    const dot = (event.target as Element).closest<HTMLButtonElement>(
+      '[data-slide-to]',
+    );
+    if (dot) show(Number(dot.dataset.slideTo));
+  });
+  let startX: number | null = null;
+  root.addEventListener(
+    'touchstart',
+    (event) => (startX = event.touches[0].clientX),
+    { passive: true },
+  );
+  root.addEventListener('touchend', (event) => {
+    if (startX === null) return;
+    const dx = event.changedTouches[0].clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+  });
+  show(0);
+  if (still || slides.length < 2) return;
+  carouselTick = setInterval(() => {
+    if (held || document.hidden) return;
+    elapsed += 100;
+    if (elapsed >= SLIDE_MS) show(current + 1);
+    else progress();
+  }, 100);
+}
+document.addEventListener('astro:page-load', startCarousel);
+document.addEventListener('astro:before-swap', () =>
+  clearInterval(carouselTick),
+);

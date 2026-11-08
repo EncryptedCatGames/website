@@ -1,86 +1,82 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import GameCard from '../../components/GameCard.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
+import SeriesBlock from '../../components/SeriesBlock.astro';
 import { games } from '../../data/games';
-import { projects } from '../../data/projects';
-import { platforms } from '../../data/platforms';
-const total = games.length + projects.length;
-const types = [
-  ['all', 'Everything'],
-  ['game', 'Games'],
-  ['project', 'Projects'],
+import { series } from '../../data/series';
+import { platforms, type Platform } from '../../data/platforms';
+import { url } from '../../lib';
+// Genre filter values: one per genre the games have, in catalogue order.
+const genres = [...new Set(games.map((game) => game.genre))];
+const filters = [
+  {
+    name: 'genre',
+    label: 'Filter by genre',
+    all: 'Every genre',
+    values: genres.map((genre) => [genre.toLowerCase(), genre]),
+  },
+  {
+    name: 'platform',
+    label: 'Filter by platform',
+    all: 'Any platform',
+    // Only platforms some game runs on.
+    values: Object.entries(platforms).filter(([value]) =>
+      games.some((game) => game.platformTags.includes(value as Platform)),
+    ),
+  },
 ];
 ---
 
 <Layout
   title="Games | Encrypted Cat Games"
-  description="Every Encrypted Cat game and side project in one place: The Cradle: Episode 01, The Cradle: Trick-or-Treat, and gobnative."
+  description="Every Encrypted Cat game by series: The Cradle, an episodic narrative horror series, and Destruction Cars, a car-mayhem game in development."
 >
   <section class="container page-intro">
     <p class="eyebrow">The catalogue</p>
-    <h1>Choose your nightmare.</h1>
+    <h1>Our games.</h1>
     <p>
-      Every game and side project in one place. Filter by what you want to play
-      and where you want to play it.
+      Every game we make, grouped by series. Filter by genre or by where you
+      want to play.
     </p>
   </section>
   <section class="container section catalogue" data-catalogue>
     <div class="catalogue-filters">
-      <div class="filter-bar" role="group" aria-label="Filter by type">
-        {types.map(([value, label]) => (
+      {filters.map((filter) => (
+        <div class="filter-bar" role="group" aria-label={filter.label}>
           <button
-            class:list={['filter-button', { active: value === 'all' }]}
-            data-catalogue-filter="type"
-            data-value={value}
-            aria-pressed={value === 'all' ? 'true' : 'false'}
+            class="filter-button active"
+            data-catalogue-filter={filter.name}
+            data-value="all"
+            aria-pressed="true"
           >
-            {label}
+            {filter.all}
           </button>
-        ))}
-      </div>
-      <div class="filter-bar" role="group" aria-label="Filter by platform">
-        <button
-          class="filter-button active"
-          data-catalogue-filter="platform"
-          data-value="all"
-          aria-pressed="true"
-        >
-          Any platform
-        </button>
-        {Object.entries(platforms).map(([value, label]) => (
-          <button
-            class="filter-button"
-            data-catalogue-filter="platform"
-            data-value={value}
-            aria-pressed="false"
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+          {filter.values.map(([value, label]) => (
+            <button
+              class="filter-button"
+              data-catalogue-filter={filter.name}
+              data-value={value}
+              aria-pressed="false"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      ))}
       <p class="catalogue-count" aria-live="polite" data-catalogue-count>
-        {total} titles
+        {games.length} games
       </p>
     </div>
-    <div class="catalogue-group" data-group>
-      <h2 class="catalogue-heading">Games</h2>
-      <div class="game-grid">
-        {games.map((game) => (
-          <GameCard game={game} />
-        ))}
-      </div>
-    </div>
-    <div class="catalogue-group" data-group>
-      <h2 class="catalogue-heading">Side projects</h2>
-      <div class="project-list">
-        {projects.map((project) => (
-          <ProjectCard project={project} />
-        ))}
-      </div>
+    <div class="series-stack">
+      {series.map((item) => (
+        <SeriesBlock series={item} />
+      ))}
     </div>
     <p class="catalogue-empty" hidden data-catalogue-empty>
       Nothing matches those filters yet.
+    </p>
+    <p class="catalogue-more">
+      Looking for tools and side projects? They live under
+      <a href={url('other-projects/')}>Projects</a>.
     </p>
   </section>
 </Layout>

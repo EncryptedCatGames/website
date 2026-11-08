@@ -152,7 +152,7 @@ const STATIC = {
   'games/index.astro': ['page-games', 'Games catalogue', 'games/'],
   'other-projects/index.astro': [
     'page-other-projects',
-    'Other projects',
+    'Projects',
     'other-projects/',
   ],
 };

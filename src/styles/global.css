@@ -255,6 +255,7 @@ summary:focus-visible {
   display: flex;
   align-items: center;
   gap: 32px;
+  margin-left: auto;
 }
 .site-nav a {
   position: relative;
@@ -350,81 +351,323 @@ summary:focus-visible {
 .mobile-menu-links a[aria-current='page'] {
   color: var(--accent);
 }
-.mobile-menu-socials {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px 16px;
-  margin-top: auto;
-}
-.mobile-menu-socials a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  font-size: 14px;
-  color: var(--muted);
-}
 
-/* Homepage hero */
-.hero {
+/* Homepage: one full-screen slide per game, taking turns on a timer */
+.landing {
   position: relative;
+  height: calc(100svh - var(--header-h));
+  min-height: 540px;
+  max-height: 940px;
   overflow: hidden;
   background: var(--bg-deep);
-  border-bottom: 1px solid var(--line-soft);
 }
-.hero-art {
+.slide {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(58%, 860px);
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
 }
-.hero-art img {
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+.slide img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 30% 45%;
+  transform: scale(1.05);
+  transition: transform 7s linear;
 }
-.hero-art::after {
+.slide.active img {
+  transform: scale(1);
+}
+.slide::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, var(--bg-deep) 0%, transparent 40%),
-    linear-gradient(0deg, var(--bg-deep) 0%, transparent 25%);
+    linear-gradient(
+      0deg,
+      #070808 0%,
+      #070808e0 24%,
+      #07080870 50%,
+      transparent 72%
+    ),
+    linear-gradient(180deg, #070808e6 0%, #07080899 16%, transparent 34%);
 }
-.hero-inner {
-  position: relative;
+.slide-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 116px;
   z-index: 1;
-  min-height: clamp(460px, 64vh, 620px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: 72px;
+  transition: opacity 500ms var(--ease-out) 350ms;
 }
-.hero-copy {
-  max-width: 34rem;
+/* The leaving game's text goes at once, so two titles never overlap. */
+.slide:not(.active) .slide-copy {
+  opacity: 0;
+  transition: opacity 150ms linear;
 }
-.hero h1 {
-  font-size: clamp(2.8rem, 5vw, 4.6rem);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  margin-bottom: 20px;
-}
-.hero h1 span {
-  color: #aaa797;
-}
-.hero-copy > p:not(.eyebrow) {
-  max-width: 32rem;
-  font-size: 15px;
-  line-height: 1.75;
-  color: #aaa99f;
-  margin-bottom: 32px;
-}
-.hero-actions {
+.slide-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 32px;
+  gap: 6px 20px;
+  margin-bottom: 14px;
+  font: 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+.slide-meta span + span {
+  color: #cfcbbd;
+}
+.slide h2 {
+  font-size: clamp(3.6rem, 9vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.slide h2 small {
+  display: block;
+  margin-bottom: 10px;
+  font: 13px var(--mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #cfcbbd;
+}
+.slide-copy > p:not(.slide-meta) {
+  max-width: 40ch;
+  font-size: 17px;
+  color: #d6d2c4;
+  margin-bottom: 24px;
+}
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 10px 22px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 500;
+}
+.slide-cta:hover {
+  background: #dcc48f;
+  color: var(--bg);
+}
+.landing-head {
+  position: relative;
+  z-index: 2;
+  padding-top: 36px;
+}
+.landing-head .eyebrow {
+  margin-bottom: 10px;
+}
+.landing-head h1 {
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: 0;
+  margin: 0;
+}
+.landing-head h1 span {
+  color: var(--accent);
+}
+.landing-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding-block: 22px 28px;
+  border-top: 1px solid #ffffff14;
+}
+.slide-dots {
+  display: flex;
+  gap: 24px;
+}
+.slide-dots button {
+  min-width: 112px;
+  padding: 10px 0 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 11px var(--mono);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.slide-dots span {
+  position: relative;
+  display: block;
+  padding-bottom: 10px;
+}
+.slide-dots span::before,
+.slide-dots span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #ffffff26;
+}
+.slide-dots span::after {
+  background: var(--accent);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+}
+.slide-dots button[aria-current='true'] {
+  color: var(--text);
+}
+.slide-dots button:hover {
+  color: var(--accent);
+}
+.latest {
+  padding-block: 72px 88px;
+}
+.latest-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-soft);
+}
+.latest-list a {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: baseline;
+  gap: 8px 32px;
+  padding-block: 22px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.latest-meta {
+  display: flex;
+  gap: 16px;
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+.latest-meta span {
+  color: var(--accent);
+}
+.latest-list strong {
+  font: 600 clamp(1.3rem, 2vw, 1.7rem) / 1.2 var(--display);
+  color: var(--text);
+}
+.latest-list a:hover strong {
+  color: var(--accent);
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Follow chips: homepage, footer and mobile menu */
+.follow-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.follow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #ffffff05;
+  font-size: 13px;
+}
+.follow-chip strong {
+  display: block;
+  font-weight: 500;
+  color: var(--text);
+}
+.follow-chip small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+.follow-chip:hover {
+  border-color: #88806b;
+}
+.follow-links.compact .follow-chip {
+  width: 44px;
+  padding: 0;
+  justify-content: center;
+  background: #0708088c;
+}
+.nav-follow {
+  margin-left: 8px;
+  padding: 8px 16px;
+  border: 1px solid #c7ad7599;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.nav-follow:hover {
+  background: #c7ad751a;
+}
+
+/* Series: the games catalogue's groups */
+.series-stack {
+  display: grid;
+  gap: 72px;
+}
+.series {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.series-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.series-head :is(h2, h3) {
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  margin: 0;
+}
+.series-head > p:last-child {
+  margin: 0;
+}
+.series-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: 0;
+  font: 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+.series-meta span + span {
+  color: var(--muted);
+}
+.catalogue-more {
+  margin: 64px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-soft);
+}
+.catalogue-more a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: #c7ad7566;
+  text-underline-offset: 4px;
 }
 
 /* Game cards */
@@ -624,46 +867,6 @@ summary:focus-visible {
   padding-top: 32px;
 }
 
-/* Community */
-.community {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 64px;
-  align-items: center;
-  padding: 56px;
-  border: 1px solid var(--line-soft);
-  border-radius: 10px;
-  background: linear-gradient(145deg, #151912, #0e100d);
-}
-.community-copy h2 {
-  margin-bottom: 16px;
-}
-.community-copy > p:not(.eyebrow) {
-  max-width: 44ch;
-}
-.social-grid {
-  display: grid;
-  border-top: 1px solid var(--line-soft);
-}
-.social-tile {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 60px;
-  border-bottom: 1px solid var(--line-soft);
-}
-.social-tile strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-}
-.social-tile small {
-  display: block;
-  font-size: 12px;
-  color: var(--muted);
-}
-
 /* Strip used at the end of game pages */
 .contact-strip {
   display: flex;
@@ -700,22 +903,6 @@ summary:focus-visible {
   font-size: 13px;
   margin-top: 12px;
 }
-.footer-socials {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px 26px;
-  justify-content: flex-end;
-  align-content: start;
-  padding-top: 6px;
-}
-.footer-socials a {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 32px;
-  font-size: 13px;
-  color: var(--muted);
-}
 .footer-bottom {
   grid-column: 1 / -1;
   display: flex;
@@ -739,6 +926,21 @@ summary:focus-visible {
 }
 .footer-button:hover {
   color: var(--accent);
+}
+
+.footer-follow {
+  justify-self: end;
+  display: grid;
+  gap: 14px;
+}
+.footer-follow-title {
+  margin: 0 !important;
+  font: 600 22px/1 var(--display) !important;
+  letter-spacing: 0.02em;
+  color: var(--text) !important;
+}
+.mobile-menu-follow {
+  margin-top: auto;
 }
 
 /* Inner page intro */
@@ -774,15 +976,6 @@ summary:focus-visible {
   margin: 4px 0 0;
   color: var(--muted);
   font: 11px var(--mono);
-}
-.catalogue-group + .catalogue-group {
-  margin-top: 72px;
-}
-.catalogue-heading {
-  margin-bottom: 28px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line-soft);
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
 }
 .catalogue-empty {
   padding: 48px 0;
@@ -1143,23 +1336,6 @@ summary:focus-visible {
 .contact-grid aside p {
   max-width: 38ch;
 }
-.community-links {
-  display: grid;
-  gap: 16px;
-  margin-top: 52px;
-  max-width: 300px;
-}
-.community-links h3 {
-  margin-bottom: 8px;
-}
-.community-links a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 40px;
-  font-size: 14px;
-  color: var(--muted);
-}
 .contact-form {
   max-width: 650px;
   position: relative;
@@ -1311,9 +1487,6 @@ textarea::placeholder {
     transform: scale(1.08);
     background-color: #0b0c0c;
   }
-  .social-tile:hover strong {
-    color: var(--accent);
-  }
   .filter-button:hover {
     color: var(--text);
     border-color: var(--muted);
@@ -1334,25 +1507,11 @@ textarea::placeholder {
   :root {
     --gutter: 32px;
   }
-  .hero-art {
-    width: 55%;
-  }
-  .hero-copy {
-    max-width: 48%;
-  }
-  .hero h1 {
-    font-size: clamp(2.4rem, 5.2vw, 3.2rem);
-  }
   .game-grid {
     gap: 32px;
   }
   .game-copy h3 {
     font-size: 2.5rem;
-  }
-  .community {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 40px;
   }
   .game-overview,
   .support-grid {
@@ -1368,6 +1527,9 @@ textarea::placeholder {
   .site-nav {
     display: none;
   }
+  .nav-follow {
+    margin-left: auto;
+  }
   .menu-toggle {
     display: inline-flex;
   }
@@ -1379,6 +1541,70 @@ textarea::placeholder {
 }
 
 @media (max-width: 767px) {
+  .landing {
+    min-height: 560px;
+  }
+  .landing-head {
+    padding-top: 24px;
+  }
+  .slide-copy {
+    bottom: 132px;
+  }
+  .slide h2 {
+    font-size: clamp(3rem, 15vw, 4.4rem);
+  }
+  .slide-copy > p:not(.slide-meta) {
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+  .landing-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-block: 14px 18px;
+  }
+  .slide-dots {
+    gap: 12px;
+  }
+  .follow-links.compact {
+    gap: 6px;
+  }
+  .follow-links.compact .follow-chip {
+    width: 38px;
+    min-height: 38px;
+  }
+  .slide-dots button {
+    flex: 1;
+    min-width: 0;
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+  .slide-dots span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .latest {
+    padding-block: 48px 64px;
+  }
+  .latest-list a {
+    grid-template-columns: 1fr;
+  }
+  .follow-chip {
+    padding: 8px 12px;
+  }
+  .nav-wrap {
+    gap: 12px;
+  }
+  .nav-follow {
+    padding: 7px 12px;
+  }
+  .footer-follow {
+    justify-self: start;
+  }
+  .series-stack {
+    gap: 56px;
+  }
   .trailer-play {
     width: 64px;
     height: 64px;
@@ -1418,35 +1644,6 @@ textarea::placeholder {
   .brand small {
     font-size: 9px;
     letter-spacing: 0.3em;
-  }
-
-  .hero-art {
-    left: 0;
-    width: 100%;
-    bottom: auto;
-    height: 340px;
-  }
-  .hero-art img {
-    object-position: 22% 75%;
-  }
-  .hero-art::after {
-    background: linear-gradient(0deg, var(--bg-deep) 2%, transparent 55%);
-  }
-  .hero-copy {
-    max-width: none;
-  }
-  .hero-inner {
-    min-height: 0;
-    justify-content: flex-end;
-    padding: 228px 0 40px;
-  }
-  .hero h1 {
-    font-size: clamp(2.4rem, 10vw, 3.2rem);
-    margin-bottom: 14px;
-  }
-  .hero-copy > p:not(.eyebrow) {
-    font-size: 14px;
-    margin-bottom: 24px;
   }
 
   .game-grid {
@@ -1505,14 +1702,6 @@ textarea::placeholder {
     padding-top: 20px;
   }
 
-  .community {
-    padding: 28px 20px;
-    gap: 28px;
-  }
-  .social-tile {
-    min-height: 56px;
-  }
-
   .contact-strip {
     flex-direction: column;
     align-items: flex-start;
@@ -1531,9 +1720,6 @@ textarea::placeholder {
   }
   .footer-grid {
     grid-template-columns: 1fr;
-  }
-  .footer-socials {
-    justify-content: flex-start;
   }
   .footer-bottom {
     flex-direction: column;
@@ -1613,9 +1799,6 @@ textarea::placeholder {
   .catalogue-filters {
     margin-bottom: 32px;
   }
-  .catalogue-group + .catalogue-group {
-    margin-top: 48px;
-  }
   .catalogue-filters .filter-bar {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -1661,9 +1844,6 @@ textarea::placeholder {
   .support-grid h2 {
     font-size: 2.4rem;
   }
-  .community-links {
-    margin-top: 32px;
-  }
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
@@ -1687,6 +1867,11 @@ textarea::placeholder {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .slide,
+  .slide img {
+    transition: none;
+    transform: none;
+  }
   html {
     scroll-behavior: auto;
   }

@@ -10,8 +10,8 @@ const details = url(`games/${game.slug}/`);
   class="game-card"
   data-game={game.slug}
   data-item
-  data-type="game"
-  data-platforms={game.platformTags.join(' ')}
+  data-genre={game.genre.toLowerCase()}
+  data-platform={game.platformTags.join(' ')}
 >
   <a href={details} class="game-image" tabindex="-1" aria-hidden="true">
     <img

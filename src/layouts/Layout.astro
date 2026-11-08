@@ -1,5 +1,5 @@
 ---
-import SocialIcon from '../components/SocialIcon.astro';
+import FollowLinks from '../components/FollowLinks.astro';
 import '@fontsource/barlow-condensed/600.css';
 import '@fontsource/barlow-condensed/500.css';
 import '@fontsource/ibm-plex-sans/400.css';
@@ -12,10 +12,10 @@ import { url } from '../lib';
 import Analytics from '../components/Analytics.astro';
 import { ClientRouter } from 'astro:transitions';
 const {
-  title = 'Encrypted Cat Games | Narrative horror',
-  description = 'Small games. Dark stories. Lingering nightmares. Explore The Cradle and atmospheric horror games by Encrypted Cat Games.',
-  image = '/images/banner.webp',
-  imageAlt = 'Encrypted Cat Games. A figure waits in a lit sanatorium doorway.',
+  title = 'Encrypted Cat Games | Independent game studio',
+  description = 'Encrypted Cat Games is an independent studio making The Cradle, an episodic horror series, and Destruction Cars, a car-mayhem game in development. Play, read the devlog and follow along.',
+  image = '/images/og-studio.jpg',
+  imageAlt = 'Encrypted Cat Games: The Cradle, a horror series, and Destruction Cars, a car-mayhem game. Dark stories. Loud crashes.',
   type = 'website',
   noindex = false,
   structuredData,
@@ -26,9 +26,8 @@ const canonical = new URL(
 );
 const nav = [
   ['Games', 'games/'],
-  ['Projects', 'other-projects/'],
   ['Devlog', 'devlog/'],
-  ['Support', 'support/'],
+  ['Projects', 'other-projects/'],
   ['Contact', 'contact/'],
 ];
 const analyticsEnabled =
@@ -97,6 +96,9 @@ const current = (path: string) =>
             </a>
           ))}
         </nav>
+        <a class="nav-follow" href="#follow">
+          Follow
+        </a>
         <button
           class="menu-toggle"
           type="button"
@@ -118,12 +120,9 @@ const current = (path: string) =>
               </a>
             ))}
           </nav>
-          <div class="mobile-menu-socials" aria-label="Community">
-            {site.socials.map((s) => (
-              <a href={s.url} target="_blank" rel="noopener noreferrer">
-                <SocialIcon name={s.name} /> {s.name}
-              </a>
-            ))}
+          <div class="mobile-menu-follow">
+            <p class="eyebrow">Follow the studio</p>
+            <FollowLinks notes={false} label="Follow the studio (menu)" />
           </div>
         </div>
       </div>
@@ -131,28 +130,28 @@ const current = (path: string) =>
     <main id="main" transition:name="page-content" transition:animate="none">
       <slot />
     </main>
-    <footer class="footer" transition:persist="site-footer">
+    <footer class="footer" id="follow" transition:persist="site-footer">
       <div class="container footer-grid">
         <div>
           <a class="footer-brand" href={url()}>
             ENCRYPTED CAT GAMES
           </a>
-          <p>Narrative horror, one episode at a time.</p>
+          <p>
+            Independent games: narrative horror and car mayhem. Follow along as
+            we build them.
+          </p>
         </div>
-        <div class="footer-socials">
-          {site.socials.map((s) => (
-            <a href={s.url} target="_blank" rel="noopener noreferrer">
-              <SocialIcon name={s.name} /> {s.name}
-            </a>
-          ))}
+        <div class="footer-follow">
+          <p class="footer-follow-title">Follow the studio</p>
+          <FollowLinks label="Studio channels" />
         </div>
         <div class="footer-bottom">
           <span>© {new Date().getFullYear()} Encrypted Cat Games</span>
           <div>
-            <a href={url('support/')}>Support</a>
+            <a href={url('support/')}>Player support</a>
             <a href={url('privacy/')}>Privacy policy</a>
             <a href={url('terms/')}>Terms</a>
-            <a href={url('other-projects/')}>Other Projects</a>
+            <a href={url('other-projects/')}>Projects</a>
             <a href={url('devlog/rss.xml')}>RSS</a>
             {analyticsEnabled && (
               <button class="footer-button" type="button" data-consent-open>
