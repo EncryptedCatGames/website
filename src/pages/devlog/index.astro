@@ -2,7 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import PostList from '../../components/PostList.astro';
 import { getCollection } from 'astro:content';
-import { gameName, games } from '../../data/games';
+import { series } from '../../data/series';
+import { subjectSeries } from '../../data/subjects';
 import { projects } from '../../data/projects';
 import { url } from '../../lib';
 const posts = (await getCollection('devlog')).sort(
@@ -12,14 +13,14 @@ const posts = (await getCollection('devlog')).sort(
 
 <Layout
   title="Devlog | Encrypted Cat Games"
-  description="Development notes, updates, and behind-the-scenes stories from The Cradle and our other projects."
+  description="Development notes, updates and behind-the-scenes stories from The Cradle, Destruction Cars and our other projects."
 >
   <section class="container page-intro">
     <p class="eyebrow">From the workshop</p>
-    <h1>Making the nightmares.</h1>
+    <h1>Devlog.</h1>
     <p>
-      New builds, strange discoveries, and the work behind The Cradle and our
-      other projects.
+      New builds, patches and the work behind every game and project. Pick a
+      series to follow just that one.
     </p>
     <a class="text-link" href={url('devlog/rss.xml')}>
       Follow with RSS
@@ -34,13 +35,13 @@ const posts = (await getCollection('devlog')).sort(
       >
         All updates
       </button>
-      {games.map((game) => (
+      {series.map((item) => (
         <button
           class="filter-button"
-          data-filter={game.slug}
+          data-filter={item.slug}
           aria-pressed="false"
         >
-          {gameName(game.slug)}
+          {item.name}
         </button>
       ))}
       {projects.map((project) => (
@@ -57,7 +58,7 @@ const posts = (await getCollection('devlog')).sort(
       </span>
     </div>
     {posts.map((post) => (
-      <div data-post-game={post.data.game}>
+      <div data-post-series={subjectSeries(post.data.game)}>
         <PostList posts={[post]} />
       </div>
     ))}

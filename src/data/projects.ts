@@ -1,5 +1,5 @@
 import type { Platform } from './platforms';
-// Side projects shown on the homepage, the catalogue, and the Other Projects page.
+// Side projects shown on the homepage and the Projects page.
 export const projects = [
   {
     slug: 'gobnative',

@@ -1,7 +1,8 @@
 ---
 import { url } from '../lib';
 import { fullName } from '../data/games';
-const { game } = Astro.props;
+const { game, headingLevel = 3 } = Astro.props;
+const Heading = headingLevel === 4 ? 'h4' : 'h3';
 const name = fullName(game);
 const details = url(`games/${game.slug}/`);
 ---
@@ -10,8 +11,8 @@ const details = url(`games/${game.slug}/`);
   class="game-card"
   data-game={game.slug}
   data-item
-  data-type="game"
-  data-platforms={game.platformTags.join(' ')}
+  data-genre={game.genre.toLowerCase()}
+  data-platform={game.platformTags.join(' ')}
 >
   <a href={details} class="game-image" tabindex="-1" aria-hidden="true">
     <img
@@ -24,7 +25,7 @@ const details = url(`games/${game.slug}/`);
   </a>
   <div class="game-copy">
     <p class="game-kind">{game.kind}</p>
-    <h3>
+    <Heading>
       <a href={details}>
         {game.subtitle ? (
           <>
@@ -38,7 +39,7 @@ const details = url(`games/${game.slug}/`);
           </>
         )}
       </a>
-    </h3>
+    </Heading>
     <p class="game-description">{game.short}</p>
     <ul class="game-meta" aria-label="Details">
       <li class="game-status">{game.status}</li>

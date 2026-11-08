@@ -59,10 +59,12 @@ document.addEventListener('click', (event) => {
     b.classList.toggle('active', b === button);
     b.setAttribute('aria-pressed', String(b === button));
   });
-  document.querySelectorAll<HTMLElement>('[data-post-game]').forEach((post) => {
-    post.hidden = filter !== 'all' && post.dataset.postGame !== filter;
-    if (!post.hidden) count++;
-  });
+  document
+    .querySelectorAll<HTMLElement>('[data-post-series]')
+    .forEach((post) => {
+      post.hidden = filter !== 'all' && post.dataset.postSeries !== filter;
+      if (!post.hidden) count++;
+    });
   const countLabel = document.querySelector('#post-count');
   if (countLabel) countLabel.textContent = `${count} posts`;
 });
@@ -86,7 +88,7 @@ document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
   if (event.target.closest('[data-menu-toggle]'))
     setMenu(menuToggle()?.getAttribute('aria-expanded') !== 'true');
-  else if (event.target.closest('[data-menu] a')) setMenu(false);
+  else if (event.target.closest('[data-menu] a, .nav-follow')) setMenu(false);
 });
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !menu()?.hidden) setMenu(false, true);
@@ -96,7 +98,8 @@ matchMedia('(min-width: 861px)').addEventListener('change', (event) => {
   if (event.matches) setMenu(false);
 });
 
-// Catalogue: one active value per filter group; items match on type and platform tags.
+// Catalogue: one active value per filter group (genre, platform); an item
+// matches when its tags for every group include the active value.
 document.addEventListener('click', (event) => {
   if (!(event.target instanceof Element)) return;
   const button = event.target.closest<HTMLButtonElement>(
@@ -112,16 +115,17 @@ document.addEventListener('click', (event) => {
       b.setAttribute('aria-pressed', String(b === button));
     });
   root.dataset[group] = button.dataset.value;
-  const type = root.dataset.type ?? 'all';
-  const platform = root.dataset.platform ?? 'all';
+  const active = ['genre', 'platform']
+    .map((name) => [name, root.dataset[name] ?? 'all'])
+    .filter(([, value]) => value !== 'all');
   let count = 0;
   root.querySelectorAll<HTMLElement>('[data-group]').forEach((section) => {
     let visible = 0;
     section.querySelectorAll<HTMLElement>('[data-item]').forEach((item) => {
-      item.hidden =
-        (type !== 'all' && item.dataset.type !== type) ||
-        (platform !== 'all' &&
-          !item.dataset.platforms!.split(' ').includes(platform));
+      item.hidden = active.some(
+        ([name, value]) =>
+          !(item.dataset[name] ?? '').split(' ').includes(value),
+      );
       if (!item.hidden) visible++;
     });
     section.hidden = visible === 0;
@@ -129,7 +133,7 @@ document.addEventListener('click', (event) => {
   });
   root.querySelector<HTMLElement>('[data-catalogue-empty]')!.hidden = count > 0;
   root.querySelector('[data-catalogue-count]')!.textContent =
-    `${count} ${count === 1 ? 'title' : 'titles'}`;
+    `${count} ${count === 1 ? 'game' : 'games'}`;
 });
 
 // Trailers: swap the poster for YouTube's privacy-enhanced player only when asked.

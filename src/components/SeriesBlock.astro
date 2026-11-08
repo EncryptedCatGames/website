@@ -1,0 +1,51 @@
+---
+// One series in the catalogue: its name and genre, then its games. On the
+// homepage a series still in development shows its trailer instead of a card.
+import GameCard from './GameCard.astro';
+import Trailer from './Trailer.astro';
+import { url } from '../lib';
+import type { Series } from '../data/series';
+interface Props {
+  series: Series;
+  // 2 on the games page (under the page's h1), 3 on the homepage.
+  level?: 2 | 3;
+  feature?: boolean;
+}
+const { series, level = 3, feature = true } = Astro.props;
+const Heading = level === 2 ? 'h2' : 'h3';
+const single = series.games.length === 1 ? series.games[0] : undefined;
+const featured = feature && single?.trailer ? single : undefined;
+---
+
+<div class="series" id={series.slug} data-group>
+  <header class="series-head">
+    <p class="series-meta">
+      <span>{series.genre}</span>
+      <span>{series.status}</span>
+    </p>
+    <Heading>{series.name}</Heading>
+    <p>{series.pitch}</p>
+  </header>
+  {featured ? (
+    <div class="in-development">
+      <Trailer {...featured.trailer!} />
+      <div>
+        {featured.workingTitle && (
+          <p class="wip-note">
+            Codename · the final game will have a different name
+          </p>
+        )}
+        <p>{featured.description}</p>
+        <a class="text-link" href={url(`games/${featured.slug}/`)}>
+          More about it
+        </a>
+      </div>
+    </div>
+  ) : (
+    <div class="game-grid">
+      {series.games.map((game) => (
+        <GameCard game={game} headingLevel={level + 1} />
+      ))}
+    </div>
+  )}
+</div>

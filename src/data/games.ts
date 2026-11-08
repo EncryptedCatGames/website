@@ -3,6 +3,7 @@ import type { Platform } from './platforms';
 export const games = [
   {
     slug: 'episode-01',
+    series: 'the-cradle',
     title: 'The Cradle',
     subtitle: 'Episode 01',
     kind: 'Narrative survival horror',
@@ -37,6 +38,7 @@ export const games = [
   },
   {
     slug: 'trick-or-treat',
+    series: 'the-cradle',
     title: 'The Cradle',
     subtitle: 'Trick-or-Treat',
     kind: 'Halloween horror',
@@ -70,6 +72,7 @@ export const games = [
   },
   {
     slug: 'destruction-cars',
+    series: 'destruction-cars',
     // A codename, not the final name: shown with a "Codename" note.
     title: 'Destruction Cars',
     subtitle: '',
