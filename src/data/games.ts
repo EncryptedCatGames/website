@@ -12,9 +12,9 @@ export const games = [
     description:
       'September, 1996. A radio engineer descends beneath an abandoned Soviet sanatorium to restore a silent station. The night shift is missing. The building is listening.',
     status: 'Out now',
-    platforms: 'Browser · Windows · Linux · Phone',
+    platforms: 'Browser · Windows · Linux · iPhone & iPad',
     // Announced but not yet released; shown after the platforms as "(coming soon)".
-    comingSoon: 'iPhone & iPad app',
+    comingSoon: '',
     platformTags: ['browser', 'desktop', 'mobile'] as Platform[],
     length: '45-60 minutes',
     languages: 'English & Russian',
@@ -34,7 +34,8 @@ export const games = [
         'Medical cards, duty logs, and old tapes tell a fragmented story. Discover three different endings.',
       ],
     ],
-    appStoreUrl: '',
+    appStoreUrl:
+      'https://apps.apple.com/app/the-cradle-episode-01/id6823263497',
     // The homepage carousel's picture for this game.
     hero: {
       image: '/images/episode-01-1.webp',

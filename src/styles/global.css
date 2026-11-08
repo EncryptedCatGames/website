@@ -1031,6 +1031,11 @@ summary:focus-visible {
 .game-hero-meta li {
   background: #0b0c0ccc;
 }
+.game-hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
 .back-link {
   display: inline-block;
   font-size: 13px;
@@ -1057,6 +1062,9 @@ summary:focus-visible {
 }
 .game-overview aside h2 {
   font-size: 2.5rem;
+}
+.game-overview aside .text-link {
+  margin-right: 24px;
 }
 .lead {
   font-size: 18px;
