@@ -7,3 +7,6 @@ src/content/devlog/
 src/data/asset-sources.json
 public/
 vendor/
+
+# Written by the control plane (cp install-studio)
+.claude/skills/studio/
