@@ -8,27 +8,27 @@ const analyticsEnabled =
 
 <Layout
   title="Privacy Policy | Encrypted Cat Games"
-  description="How the Encrypted Cat Games website and The Cradle: Episode 01 on iPhone and iPad handle your information."
+  description="How the Encrypted Cat Games website, The Cradle: Episode 01 on iPhone and iPad, and Encrypted Cat Studio handle your information."
 >
   <article class="container article legal">
     <header class="article-header">
       <p class="eyebrow">Privacy</p>
       <h1>Your privacy.</h1>
-      <p>Website and app privacy policy · Updated October 15, 2026</p>
+      <p>Website and app privacy policy · Updated November 8, 2026</p>
     </header>
     <div class="prose">
       <p>
         This policy describes how Encrypted Cat Games (Encrypted Cat / 0xKOT)
-        handles information through this website and in The Cradle: Episode 01
-        for iPhone and iPad. For privacy questions or requests, contact{' '}
-        <a href={`mailto:${site.email}`}>{site.email}</a>.
+        handles information through this website, in The Cradle: Episode 01 for
+        iPhone and iPad, and in Encrypted Cat Studio. For privacy questions or
+        requests, contact <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
       <h2>Scope</h2>
       <p>
         This policy covers the studio website, contact pages, website analytics,
-        and links used here, and the iPhone and iPad version of The Cradle:
-        Episode 01. Games running on itch.io are also subject to itch.io’s
-        privacy policy and the game’s own data practices.
+        and links used here, the iPhone and iPad version of The Cradle: Episode
+        01, and Encrypted Cat Studio. Games running on itch.io are also subject
+        to itch.io’s privacy policy and the game’s own data practices.
       </p>
       {!site.nativePrivacyConfirmed && (
         <div class="notice">
@@ -118,6 +118,52 @@ const analyticsEnabled =
           </p>
         </section>
       )}
+      <section id="studio" aria-labelledby="studio-heading">
+        <h2 id="studio-heading">Encrypted Cat Studio</h2>
+        <p>
+          <a href={url('studio/')}>Encrypted Cat Studio</a> is an internal tool
+          used only by the Encrypted Cat Games team with accounts the team owns.
+          It uses YouTube API Services and the TikTok API.
+        </p>
+        <h3>What it accesses</h3>
+        <p>
+          When the team connects a YouTube channel or TikTok account, the Studio
+          receives sign-in tokens from Google or TikTok, the account’s name and
+          id, and the team’s own videos and their public numbers (views, likes,
+          comments). It does not read anyone else’s data, messages, contacts, or
+          payment information.
+        </p>
+        <h3>How it is used and stored</h3>
+        <p>
+          This data is used only to run the Studio for the team’s own channels.
+          Tokens are kept on the team’s own server, are never sent to a browser,
+          and are not shared with, sold to, or used for advertising by anyone.
+          Encrypted Cat Studio’s use of information received from Google APIs
+          adheres to the{' '}
+          <a href="https://developers.google.com/terms/api-services-user-data-policy">
+            Google API Services User Data Policy
+          </a>
+          , including the Limited Use requirements. See also the{' '}
+          <a href="https://policies.google.com/privacy">
+            Google Privacy Policy
+          </a>{' '}
+          and{' '}
+          <a href="https://www.tiktok.com/legal/privacy-policy">
+            TikTok’s privacy policy
+          </a>
+          .
+        </p>
+        <h3>Removing access and deleting data</h3>
+        <p>
+          Access can be revoked at any time from{' '}
+          <a href="https://myaccount.google.com/permissions">
+            Google’s third-party access settings
+          </a>{' '}
+          or TikTok’s app settings; the Studio then can no longer reach the
+          account. Stored tokens and video numbers are deleted on request to{' '}
+          <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </section>
       <h2>gobnative browser storage</h2>
       <p>
         The gobnative player reads installers and game files you select locally.
