@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import site from '../../../site.config.mjs';
+import { url } from '../../lib';
+---
+
+<Layout
+  title="Encrypted Cat Studio | Encrypted Cat Games"
+  description="Encrypted Cat Studio is an internal tool used by the Encrypted Cat Games team."
+>
+  <article class="container article legal">
+    <header class="article-header">
+      <p class="eyebrow">App</p>
+      <h1>Encrypted Cat Studio.</h1>
+      <p>An internal tool of Encrypted Cat Games.</p>
+    </header>
+    <div class="prose">
+      <img
+        src={url('images/studio-logo.png')}
+        alt="Encrypted Cat Studio logo"
+        width="120"
+        height="120"
+      />
+      <p>
+        Encrypted Cat Studio is used only by the Encrypted Cat Games team, with
+        the team’s own accounts. It is not offered to the public and has no
+        sign-up.
+      </p>
+      <ul>
+        <li>
+          <a href={url('privacy/#studio')}>Privacy policy</a>
+        </li>
+        <li>
+          <a href={url('terms/')}>Terms of service</a>
+        </li>
+        <li>
+          Contact: <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+      </ul>
+    </div>
+  </article>
+</Layout>
