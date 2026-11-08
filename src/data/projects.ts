@@ -15,4 +15,18 @@ export const projects = [
     // The project page is a standalone document outside the site layout.
     reload: true,
   },
+  {
+    slug: 'openwhisp',
+    name: 'OpenWhisp',
+    kind: 'Open source · macOS app',
+    status: 'Open source',
+    tagline: 'SPEAK. IT’S TYPED.',
+    icon: 'other-projects/openwhisp/icon.png',
+    description:
+      'Realtime dictation for macOS that runs entirely on your Mac: words appear as you speak. It doubles as a local MCP server, so AI coding agents can hear you too. Free, no account.',
+    path: 'other-projects/openwhisp/',
+    platformTags: ['desktop'] as Platform[],
+    // Its own site has everything; this page points there.
+    site: 'https://openwhisp.app/',
+  },
 ];
