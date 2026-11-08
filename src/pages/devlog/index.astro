@@ -9,6 +9,10 @@ import { url } from '../../lib';
 const posts = (await getCollection('devlog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+// A project gets a filter only once it has posts (OpenWhisp's live on its own site).
+const postedProjects = projects.filter((project) =>
+  posts.some((post) => post.data.game === project.slug),
+);
 ---
 
 <Layout
@@ -44,7 +48,7 @@ const posts = (await getCollection('devlog')).sort(
           {item.name}
         </button>
       ))}
-      {projects.map((project) => (
+      {postedProjects.map((project) => (
         <button
           class="filter-button"
           data-filter={project.slug}
