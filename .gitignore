@@ -15,3 +15,6 @@ dist/
 
 # Downloaded from the pinned gobnative release; never commit generated binaries.
 public/other-projects/gobnative/play/
+
+# The control plane adapter (scripts/cp-index.mjs)
+.data/
