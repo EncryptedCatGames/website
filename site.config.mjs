@@ -16,6 +16,7 @@ export default {
   nativePrivacyConfirmed: true,
   socials: [
     { name: 'X', url: 'https://x.com/encrptcatgames' },
+    { name: 'Telegram', url: 'https://t.me/encryptedcatgames' },
     { name: 'itch.io', url: 'https://0xkot.itch.io/' },
     { name: 'Discord', url: 'https://discord.gg/ufYtrP3NRk' },
     { name: 'Reddit', url: 'https://www.reddit.com/r/TheCradleHorror/' },

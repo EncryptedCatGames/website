@@ -48,7 +48,7 @@ Home
 
 ## Open questions
 
-- The X profile (https://x.com/encrptcatgames) is the first channel everywhere. Steam or
+- X (https://x.com/encrptcatgames) and Telegram (https://t.me/encryptedcatgames) lead the channels everywhere. Steam or
   Bluesky would go in `site.config.mjs` socials the same way.
 - A mailing list would be the strongest "follow" for people who don't use Discord; none
   exists yet.

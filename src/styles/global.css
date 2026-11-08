@@ -1566,6 +1566,13 @@ textarea::placeholder {
   .slide-dots {
     gap: 12px;
   }
+  .follow-links.compact {
+    gap: 6px;
+  }
+  .follow-links.compact .follow-chip {
+    width: 38px;
+    min-height: 38px;
+  }
   .slide-dots button {
     flex: 1;
     min-width: 0;
