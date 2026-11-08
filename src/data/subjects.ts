@@ -1,5 +1,4 @@
 import { games, fullName } from './games';
-import { series } from './series';
 import { projects } from './projects';
 // What a devlog post is about: one of the games, or a side project.
 export const subjectSlugs = [
@@ -26,11 +25,3 @@ export const isProject = (slug: string) => Boolean(project(slug));
 // The series a post belongs to (its game's series, or the side project itself).
 export const subjectSeries = (slug: string) =>
   games.find((g) => g.slug === slug)?.series ?? slug;
-// A series' page: its only game's page, or its place in the catalogue.
-export const seriesPath = (slug: string) => {
-  const item = series.find((s) => s.slug === slug);
-  if (!item) return subjectPath(slug);
-  return item.games.length === 1
-    ? `games/${item.games[0].slug}/`
-    : `games/#${item.slug}`;
-};

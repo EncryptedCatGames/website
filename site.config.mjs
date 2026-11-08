@@ -15,6 +15,7 @@ export default {
   // Set true only after checking the native games and completing game privacy disclosures.
   nativePrivacyConfirmed: true,
   socials: [
+    { name: 'X', url: 'https://x.com/encrptcatgames' },
     { name: 'itch.io', url: 'https://0xkot.itch.io/' },
     { name: 'Discord', url: 'https://discord.gg/ufYtrP3NRk' },
     { name: 'Reddit', url: 'https://www.reddit.com/r/TheCradleHorror/' },

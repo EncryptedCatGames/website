@@ -1,9 +1,15 @@
 ---
 // The studio's channels as one row of chips: the hero, the footer and the mobile menu.
+// `compact` shows the icons only (the name stays for screen readers and as a tooltip).
 import SocialIcon from './SocialIcon.astro';
 import site from '../../site.config.mjs';
-const { notes = true, label = 'Follow the studio' } = Astro.props;
+const {
+  notes = true,
+  compact = false,
+  label = 'Follow the studio',
+} = Astro.props;
 const what: Record<string, string> = {
+  X: 'News first',
   Discord: 'Chat with us',
   YouTube: 'Trailers',
   Reddit: 'Discussion',
@@ -12,7 +18,7 @@ const what: Record<string, string> = {
 };
 ---
 
-<ul class="follow-links" aria-label={label}>
+<ul class:list={['follow-links', { compact }]} aria-label={label}>
   {site.socials.map((s) => (
     <li>
       <a
@@ -20,11 +26,12 @@ const what: Record<string, string> = {
         href={s.url}
         target="_blank"
         rel="noopener noreferrer"
+        title={compact ? s.name : undefined}
       >
         <SocialIcon name={s.name} />
-        <span>
+        <span class={compact ? 'visually-hidden' : undefined}>
           <strong>{s.name}</strong>
-          {notes && <small>{what[s.name]}</small>}
+          {notes && !compact && <small>{what[s.name]}</small>}
         </span>
       </a>
     </li>

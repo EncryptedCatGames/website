@@ -1,6 +1,6 @@
 import { games } from './games';
 // The catalogue's top level: each series (or standalone game) with its games.
-// The homepage hero shows one tile per series, in this order.
+// The homepage carousel takes turns between them, in this order.
 export const series = [
   {
     slug: 'the-cradle',
@@ -8,8 +8,6 @@ export const series = [
     genre: 'Narrative horror',
     status: 'Two episodes out now',
     pitch: 'Episodic horror under an abandoned Soviet sanatorium.',
-    image: '/images/episode-01-1.webp',
-    imageAlt: 'A dim sanatorium corridor under a single lamp.',
   },
   {
     slug: 'destruction-cars',
@@ -17,8 +15,6 @@ export const series = [
     genre: 'Car-mayhem action',
     status: 'In development',
     pitch: 'Soft-body cars, physics bosses and online play for up to 8.',
-    image: '/images/destruction-cars-cover.webp',
-    imageAlt: 'A car explodes on a city crossing.',
   },
 ].map((item) => ({
   ...item,

@@ -35,17 +35,20 @@ Home
 └── Footer: Follow (every channel), Player support, Privacy, Terms, RSS
 ```
 
-- **Home:** studio line → one tile per series → follow row → latest 3 posts → games by series
-  (a series in development shows its trailer) → projects. The footer is the follow block.
+- **Home (minimal):** a full-screen carousel, one slide per game, taking turns between the
+  series every 6 seconds (it waits on hover or focus, swipes on phones, and stays put for
+  reduced motion). Each slide has one action, "See the game"; the full description lives on
+  the game's own page. Under the slides: the game picker and the follow icons (X first). Below
+  the fold, only the 3 latest devlog titles. The footer is the follow block.
 - **Header:** Games, Devlog, Projects, Contact, and a **Follow** button that jumps to the
   footer's channels on any page. Player support moved to the footer.
-- **Series** live in `src/data/games.ts` (`series`): the catalogue, the homepage tiles and the
-  devlog filter all read it. A new game joins a series with `series: '<slug>'`; a new
+- **Series** live in `src/data/series.ts`: the catalogue, the carousel's order and the devlog
+  filter all read it. A game's carousel picture is its `hero` in `src/data/games.ts`. A new game joins a series with `series: '<slug>'`; a new
   standalone game gets its own series entry.
 
 ## Open questions
 
-- There is no X/Twitter (or Bluesky, Steam) link in `site.config.mjs` socials. Adding the
-  studio's handle there puts it in the hero, the menu and the footer at once.
+- The X profile (https://x.com/encrptcatgames) is the first channel everywhere. Steam or
+  Bluesky would go in `site.config.mjs` socials the same way.
 - A mailing list would be the strongest "follow" for people who don't use Discord; none
   exists yet.

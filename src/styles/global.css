@@ -352,127 +352,225 @@ summary:focus-visible {
   color: var(--accent);
 }
 
-/* Homepage: the studio line, one tile per series, and the follow row */
-.studio-hero {
-  padding-block: 48px 48px;
-  background:
-    radial-gradient(80% 60% at 85% 0%, #c7ad7512, transparent 70%),
-    var(--bg-deep);
-  border-bottom: 1px solid var(--line-soft);
-}
-.studio-intro {
-  max-width: 62rem;
-  margin-bottom: 32px;
-}
-.studio-intro h1 {
-  font-size: clamp(3rem, 5.6vw, 5.2rem);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
-  margin-bottom: 20px;
-}
-.studio-intro h1 span {
-  color: var(--accent);
-}
-.studio-intro > p:not(.eyebrow) {
-  max-width: 36rem;
-  font-size: 16px;
-  line-height: 1.7;
-  margin: 0;
-}
-.worlds {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-}
-.world {
+/* Homepage: one full-screen slide per game, taking turns on a timer */
+.landing {
   position: relative;
-  display: block;
-  aspect-ratio: 16 / 9;
+  height: calc(100svh - var(--header-h));
+  min-height: 540px;
+  max-height: 940px;
   overflow: hidden;
-  border: 1px solid #34392f;
-  border-radius: var(--radius-lg);
-  background: var(--bg);
-  isolation: isolate;
+  background: var(--bg-deep);
 }
-.world img {
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+.slide img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -2;
-  transition: transform 720ms var(--ease-out);
+  transform: scale(1.05);
+  transition: transform 7s linear;
 }
-.world::after {
+.slide.active img {
+  transform: scale(1);
+}
+.slide::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    0deg,
-    #070808f5 0%,
-    #070808d9 34%,
-    #07080880 58%,
-    transparent 82%
-  );
+  background:
+    linear-gradient(
+      0deg,
+      #070808 0%,
+      #070808e0 24%,
+      #07080870 50%,
+      transparent 72%
+    ),
+    linear-gradient(180deg, #070808e6 0%, #07080899 16%, transparent 34%);
 }
-.world-copy {
+.slide-copy {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
-  display: grid;
-  gap: 6px;
-  padding: 28px;
+  bottom: 116px;
+  z-index: 1;
+  transition: opacity 500ms var(--ease-out) 350ms;
 }
-.world-genre,
-.world-status {
-  font: 11px/1.4 var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
+/* The leaving game's text goes at once, so two titles never overlap. */
+.slide:not(.active) .slide-copy {
+  opacity: 0;
+  transition: opacity 150ms linear;
 }
-.world-genre {
-  color: var(--accent);
-  text-shadow: 0 1px 8px #000;
-}
-.world strong {
-  font: 600 clamp(2.2rem, 3.6vw, 3.2rem) / 1 var(--display);
-  letter-spacing: -0.015em;
-  color: var(--text);
-}
-.world-pitch {
-  max-width: 34ch;
-  font-size: 14px;
-  color: #cfcbbd;
-}
-.world-status {
-  justify-self: start;
-  margin-top: 6px;
-  padding: 5px 9px;
-  border: 1px solid #c7ad7566;
-  border-radius: 4px;
-  color: var(--text);
-}
-.world:hover {
-  color: inherit;
-  border-color: #88806b;
-}
-.hero-follow {
+.slide-meta {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 12px 20px;
-  margin-top: 20px;
-}
-.hero-follow > p {
-  margin: 0;
+  gap: 6px 20px;
+  margin-bottom: 14px;
   font: 11px var(--mono);
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--accent);
 }
+.slide-meta span + span {
+  color: #cfcbbd;
+}
+.slide h2 {
+  font-size: clamp(3.6rem, 9vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.slide h2 small {
+  display: block;
+  margin-bottom: 10px;
+  font: 13px var(--mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #cfcbbd;
+}
+.slide-copy > p:not(.slide-meta) {
+  max-width: 40ch;
+  font-size: 17px;
+  color: #d6d2c4;
+  margin-bottom: 24px;
+}
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 10px 22px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 500;
+}
+.slide-cta:hover {
+  background: #dcc48f;
+  color: var(--bg);
+}
+.landing-head {
+  position: relative;
+  z-index: 2;
+  padding-top: 36px;
+}
+.landing-head .eyebrow {
+  margin-bottom: 10px;
+}
+.landing-head h1 {
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: 0;
+  margin: 0;
+}
+.landing-head h1 span {
+  color: var(--accent);
+}
+.landing-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding-block: 22px 28px;
+  border-top: 1px solid #ffffff14;
+}
+.slide-dots {
+  display: flex;
+  gap: 24px;
+}
+.slide-dots button {
+  min-width: 112px;
+  padding: 10px 0 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 11px var(--mono);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.slide-dots span {
+  position: relative;
+  display: block;
+  padding-bottom: 10px;
+}
+.slide-dots span::before,
+.slide-dots span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #ffffff26;
+}
+.slide-dots span::after {
+  background: var(--accent);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+}
+.slide-dots button[aria-current='true'] {
+  color: var(--text);
+}
+.slide-dots button:hover {
+  color: var(--accent);
+}
+.latest {
+  padding-block: 72px 88px;
+}
+.latest-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-soft);
+}
+.latest-list a {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: baseline;
+  gap: 8px 32px;
+  padding-block: 22px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.latest-meta {
+  display: flex;
+  gap: 16px;
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+.latest-meta span {
+  color: var(--accent);
+}
+.latest-list strong {
+  font: 600 clamp(1.3rem, 2vw, 1.7rem) / 1.2 var(--display);
+  color: var(--text);
+}
+.latest-list a:hover strong {
+  color: var(--accent);
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
 
-/* Follow chips: hero, footer and mobile menu */
+/* Follow chips: homepage, footer and mobile menu */
 .follow-links {
   display: flex;
   flex-wrap: wrap;
@@ -506,6 +604,12 @@ summary:focus-visible {
 .follow-chip:hover {
   border-color: #88806b;
 }
+.follow-links.compact .follow-chip {
+  width: 44px;
+  padding: 0;
+  justify-content: center;
+  background: #0708088c;
+}
 .nav-follow {
   margin-left: 8px;
   padding: 8px 16px;
@@ -519,7 +623,7 @@ summary:focus-visible {
   background: #c7ad751a;
 }
 
-/* Series: the catalogue's groups, on the homepage and the games page */
+/* Series: the games catalogue's groups */
 .series-stack {
   display: grid;
   gap: 72px;
@@ -617,12 +721,12 @@ summary:focus-visible {
   color: var(--accent);
   margin-bottom: 12px;
 }
-.game-copy :is(h3, h4) {
+.game-copy h3 {
   font-size: 2.8rem;
   letter-spacing: -0.02em;
   margin-bottom: 14px;
 }
-.game-copy :is(h3, h4) small {
+.game-copy h3 small {
   display: block;
   margin-bottom: 6px;
   font: 500 13px var(--body);
@@ -1396,9 +1500,6 @@ textarea::placeholder {
 
 /* Breakpoints */
 @media (max-width: 1024px) {
-  .world-copy {
-    padding: 20px;
-  }
   .in-development {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -1409,7 +1510,7 @@ textarea::placeholder {
   .game-grid {
     gap: 32px;
   }
-  .game-copy :is(h3, h4) {
+  .game-copy h3 {
     font-size: 2.5rem;
   }
   .game-overview,
@@ -1440,27 +1541,47 @@ textarea::placeholder {
 }
 
 @media (max-width: 767px) {
-  .studio-hero {
-    padding-block: 36px 40px;
+  .landing {
+    min-height: 560px;
   }
-  .studio-intro {
-    margin-bottom: 28px;
+  .landing-head {
+    padding-top: 24px;
   }
-  .studio-intro > p:not(.eyebrow) {
+  .slide-copy {
+    bottom: 132px;
+  }
+  .slide h2 {
+    font-size: clamp(3rem, 15vw, 4.4rem);
+  }
+  .slide-copy > p:not(.slide-meta) {
     font-size: 15px;
+    margin-bottom: 18px;
   }
-  .worlds {
+  .landing-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-block: 14px 18px;
+  }
+  .slide-dots {
+    gap: 12px;
+  }
+  .slide-dots button {
+    flex: 1;
+    min-width: 0;
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+  .slide-dots span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .latest {
+    padding-block: 48px 64px;
+  }
+  .latest-list a {
     grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .world {
-    aspect-ratio: 16 / 11;
-  }
-  .world-pitch {
-    font-size: 13px;
-  }
-  .hero-follow {
-    margin-top: 24px;
   }
   .follow-chip {
     padding: 8px 12px;
@@ -1525,7 +1646,7 @@ textarea::placeholder {
   .game-copy {
     padding-top: 18px;
   }
-  .game-copy :is(h3, h4) {
+  .game-copy h3 {
     font-size: 2.3rem;
     margin-bottom: 10px;
   }
@@ -1739,6 +1860,11 @@ textarea::placeholder {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .slide,
+  .slide img {
+    transition: none;
+    transform: none;
+  }
   html {
     scroll-behavior: auto;
   }

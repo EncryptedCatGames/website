@@ -154,3 +154,78 @@ document.addEventListener('click', (event) => {
   poster.replaceWith(frame);
   frame.focus();
 });
+
+// Homepage carousel: the next game every few seconds. It waits while the
+// pointer or focus is on it or the tab is hidden, and never moves by itself
+// for people who prefer reduced motion. Swipe or the game names to change it.
+const SLIDE_MS = 6000;
+let carouselTick: ReturnType<typeof setInterval> | undefined;
+function startCarousel() {
+  clearInterval(carouselTick);
+  const root = document.querySelector<HTMLElement>('[data-carousel]');
+  if (!root) return;
+  const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+  const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-slide-to]')];
+  let current = 0;
+  let elapsed = 0;
+  let held = false;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const progress = () =>
+    dots[current]
+      ?.querySelector<HTMLElement>('span')
+      ?.style.setProperty('--p', String(still ? 1 : elapsed / SLIDE_MS));
+  const show = (index: number) => {
+    dots[current]
+      ?.querySelector<HTMLElement>('span')
+      ?.style.setProperty('--p', '0');
+    current = (index + slides.length) % slides.length;
+    elapsed = 0;
+    slides.forEach((slide, i) => {
+      const on = i === current;
+      slide.classList.toggle('active', on);
+      slide.inert = !on;
+      if (on) slide.removeAttribute('aria-hidden');
+      else slide.setAttribute('aria-hidden', 'true');
+    });
+    dots.forEach((dot, i) =>
+      dot.setAttribute('aria-current', String(i === current)),
+    );
+    progress();
+  };
+  root.addEventListener('pointerenter', () => (held = true));
+  root.addEventListener('pointerleave', () => (held = false));
+  root.addEventListener('focusin', () => (held = true));
+  root.addEventListener('focusout', (event) => {
+    if (!root.contains(event.relatedTarget as Node)) held = false;
+  });
+  root.addEventListener('click', (event) => {
+    const dot = (event.target as Element).closest<HTMLButtonElement>(
+      '[data-slide-to]',
+    );
+    if (dot) show(Number(dot.dataset.slideTo));
+  });
+  let startX: number | null = null;
+  root.addEventListener(
+    'touchstart',
+    (event) => (startX = event.touches[0].clientX),
+    { passive: true },
+  );
+  root.addEventListener('touchend', (event) => {
+    if (startX === null) return;
+    const dx = event.changedTouches[0].clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+  });
+  show(0);
+  if (still || slides.length < 2) return;
+  carouselTick = setInterval(() => {
+    if (held || document.hidden) return;
+    elapsed += 100;
+    if (elapsed >= SLIDE_MS) show(current + 1);
+    else progress();
+  }, 100);
+}
+document.addEventListener('astro:page-load', startCarousel);
+document.addEventListener('astro:before-swap', () =>
+  clearInterval(carouselTick),
+);
