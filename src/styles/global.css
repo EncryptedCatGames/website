@@ -354,18 +354,18 @@ summary:focus-visible {
 
 /* Homepage: the studio line, one tile per series, and the follow row */
 .studio-hero {
-  padding-block: 64px 56px;
+  padding-block: 48px 48px;
   background:
     radial-gradient(80% 60% at 85% 0%, #c7ad7512, transparent 70%),
     var(--bg-deep);
   border-bottom: 1px solid var(--line-soft);
 }
 .studio-intro {
-  max-width: 44rem;
-  margin-bottom: 40px;
+  max-width: 62rem;
+  margin-bottom: 32px;
 }
 .studio-intro h1 {
-  font-size: clamp(3rem, 6vw, 5.4rem);
+  font-size: clamp(3rem, 5.6vw, 5.2rem);
   line-height: 0.98;
   letter-spacing: -0.025em;
   margin-bottom: 20px;
@@ -387,7 +387,7 @@ summary:focus-visible {
 .world {
   position: relative;
   display: block;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid #34392f;
   border-radius: var(--radius-lg);
@@ -462,7 +462,7 @@ summary:focus-visible {
   align-items: center;
   flex-wrap: wrap;
   gap: 12px 20px;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 .hero-follow > p {
   margin: 0;
