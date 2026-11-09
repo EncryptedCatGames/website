@@ -67,6 +67,17 @@ const details = url(`games/${game.slug}/`);
           </a>
         )
       )}
+      {game.appStoreUrl && (
+        <a
+          class="text-link"
+          href={game.appStoreUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Get ${name} on the App Store`}
+        >
+          App Store
+        </a>
+      )}
       <a class="text-link" href={details} aria-label={`${name} details`}>
         Details
       </a>

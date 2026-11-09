@@ -62,7 +62,7 @@ export const gameData = (game: Game) => ({
         : {}),
       author: { '@id': studio['@id'] },
       publisher: { '@id': studio['@id'] },
-      sameAs: [game.url].filter(Boolean),
+      sameAs: [game.url, game.appStoreUrl].filter(Boolean),
     },
   ],
 });

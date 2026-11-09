@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { url } from '../lib';
+import { games } from '../data/games';
+const episode01 = games.find((game) => game.slug === 'episode-01')!;
 ---
 
 <Layout
@@ -20,12 +22,19 @@ import { url } from '../lib';
         <details open>
           <summary>How do I play on iPhone or iPad?</summary>
           <p>
-            The Cradle: Episode 01 is coming soon to the App Store as a paid app
-            for iPhone and iPad (iOS 18 or later). Until then, and for
-            Trick-or-Treat, play in Safari from the game’s itch.io page. For
-            Episode 01 on iPhone, use Share → Add to Home Screen, then launch
-            from the new icon to play without browser bars. On iPad, use the
-            game’s full-screen button. Rotate your device to landscape.
+            The Cradle: Episode 01 is on the{' '}
+            <a
+              href={episode01.appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              App Store
+            </a>{' '}
+            as a paid app for iPhone and iPad (iOS 18 or later). Both games also
+            play in Safari from their itch.io pages. For Episode 01 on iPhone,
+            use Share → Add to Home Screen, then launch from the new icon to
+            play without browser bars. On iPad, use the game’s full-screen
+            button. Rotate your device to landscape.
           </p>
           <a class="text-link" href={url('games/')}>
             Find your game
@@ -59,11 +68,11 @@ import { url } from '../lib';
           </p>
         </details>
         <details>
-          <summary>Where are the iPhone and iPad App Store versions?</summary>
+          <summary>Where is the App Store version?</summary>
           <p>
-            The Cradle: Episode 01 is coming soon to the App Store. The link
-            will appear on the <a href={url('games/episode-01/')}>game page</a>{' '}
-            as soon as it is live. Until then, the game pages link to itch.io.
+            The Cradle: Episode 01 is on the App Store for iPhone and iPad. The
+            link is on the <a href={url('games/episode-01/')}>game page</a>.
+            Trick-or-Treat plays in the browser from itch.io.
           </p>
         </details>
         <details>
