@@ -3,12 +3,12 @@ title: "Seven new weapons are coming to Destruction Cars"
 date: "2026-11-10T23:16:39.632Z"
 game: "destruction-cars"
 description: "A railgun, a flamethrower, zombie sheep, an oil slick, a flak shotgun, a wrecking-ball flail and bolt-on armour: here's what each one does, with clips from our test arena."
-image: "/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-1.png"
+image: "/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-1.webp"
 ---
 
 We've been building new weapons in our test arena, and seven of them are coming to the game next. None of them is in the game yet: they're still being tuned in the lab, and they'll arrive in the campaign, Free Roam and online at the same time, with the same rules everywhere.
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-1.png)
+![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-1.webp)
 
 Here's what each one does. The clips at the end are in the same order, all recorded in the test arena.
 
@@ -44,16 +44,30 @@ Not a weapon but a defence: steel plates bolted onto your car. They take the hit
 
 We'll bring them into the game in a batch, and we'll post here when they're in. Tell us in Discord which one you want first.
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-2.gif)
+**Railgun**
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-3.gif)
+![Railgun in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-2.gif)
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-4.gif)
+**Flamethrower**
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-5.gif)
+![Flamethrower in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-3.gif)
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-6.gif)
+**Zombie sheep**
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-7.gif)
+![Zombie sheep in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-4.gif)
 
-![Seven new weapons are coming to Destruction Cars](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-8.gif)
+**Oil slick**
+
+![Oil slick in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-5.gif)
+
+**Flak shotgun**
+
+![Flak shotgun in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-6.gif)
+
+**Wrecking-ball flail**
+
+![Wrecking-ball flail in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-7.gif)
+
+**Bolt-on armour**
+
+![Bolt-on armour in the test arena](/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-8.gif)
