@@ -1,6 +1,6 @@
 ---
 title: "Seven new weapons are coming to Destruction Cars"
-date: "2026-11-10T23:16:39.632Z"
+date: "2026-11-10T23:27:51.416Z"
 game: "destruction-cars"
 description: "A railgun, a flamethrower, zombie sheep, an oil slick, a flak shotgun, a wrecking-ball flail and bolt-on armour: here's what each one does, with clips from our test arena."
 image: "/images/devlog/destruction-cars-seven-new-weapons-are-coming-to-destruction-cars-1.webp"
