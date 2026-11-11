@@ -17,7 +17,7 @@ the cards and run `run done`. The only reason to end early is a question only th
 answer: then `run done <id> --status stopped --note <the question>` first.
 
 ```bash
-CP="node /Users/maksymnaboka/projects/EncryptedCatGames/control-plane/bin/cp.mjs --project website"
+CP="node ${CP_ROOT:-$HOME/projects/EncryptedCatGames/control-plane}/bin/cp.mjs --project website"
 ```
 
 ## 1. Read the run
