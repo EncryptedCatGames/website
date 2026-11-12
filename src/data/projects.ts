@@ -29,4 +29,16 @@ export const projects = [
     // Its own site has everything; this page points there.
     site: 'https://openwhisp.app/',
   },
+  {
+    slug: 'control-plane',
+    name: 'Control Plane',
+    kind: 'In-house tool · Agent studio',
+    status: 'In-house tool',
+    tagline: 'FILE IT. APPROVE IT.',
+    icon: 'other-projects/control-plane/icon.svg',
+    description:
+      'The studio that runs our agent-built work. We file what we want, AI leads build and test it, and we answer one card per piece of work from a phone. Destruction Cars and this website are built with it.',
+    path: 'other-projects/control-plane/',
+    platformTags: ['browser', 'mobile'] as Platform[],
+  },
 ];
