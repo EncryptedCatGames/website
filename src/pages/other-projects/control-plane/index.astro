@@ -1,0 +1,198 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PostList from '../../../components/PostList.astro';
+import { projects } from '../../../data/projects';
+import { url } from '../../../lib';
+import { getCollection } from 'astro:content';
+const project = projects.find((p) => p.slug === 'control-plane')!;
+const posts = (await getCollection('devlog'))
+  .filter((p) => p.data.game === project.slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const steps = [
+  ['File it.', 'Write what you want in plain words. It lands in the inbox.'],
+  [
+    'An AI lead builds it.',
+    'Each piece of work gets its own branch, checks, screenshots and a test drive on our build box.',
+  ],
+  [
+    'Answer one card.',
+    'One card per piece of work, with the pictures and a preview link. Approve it or ask for a change, from your phone.',
+  ],
+  [
+    'It ships on its own.',
+    'Approved work merges, deploys and can be posted, with nobody at a desk.',
+  ],
+];
+const shots = [
+  {
+    src: 'other-projects/control-plane/inbox.jpg',
+    width: 1440,
+    height: 475,
+    alt: 'The inbox: one card per piece of work, each with a picture and an answer.',
+  },
+  {
+    src: 'other-projects/control-plane/flow.jpg',
+    width: 1440,
+    height: 860,
+    alt: 'Flow: linked work items, each waiting on the one before it.',
+  },
+  {
+    src: 'other-projects/control-plane/activity.jpg',
+    width: 1440,
+    height: 360,
+    alt: 'Activity: the workers that are building right now.',
+  },
+];
+---
+
+<Layout
+  title="Control Plane | Encrypted Cat Games"
+  description="Control Plane: the in-house studio that runs our agent-built work. File what you want, AI leads build and test it, answer one card from your phone."
+  image="/other-projects/control-plane/flow.jpg"
+  imageAlt="Control Plane's Flow view: linked work items for Destruction Cars."
+>
+  <section class="container page-intro">
+    <a class="text-link back" href={url('other-projects/')}>
+      ← Projects
+    </a>
+    <p class="eyebrow">{project.kind}</p>
+    <h1>Control Plane.</h1>
+    <p>
+      The studio that runs our agent-built work. Destruction Cars and this
+      website are built with it.
+    </p>
+  </section>
+
+  <section class="container cp-shots" aria-label="Screenshots">
+    <figure class="cp-main">
+      <img
+        src={url(shots[0].src)}
+        width={shots[0].width}
+        height={shots[0].height}
+        alt={shots[0].alt}
+      />
+    </figure>
+    <figure class="cp-phone">
+      <img
+        src={url('other-projects/control-plane/phone.jpg')}
+        width="780"
+        height="1560"
+        alt="The same studio on a phone: a chain of work, step by step."
+        loading="lazy"
+      />
+    </figure>
+  </section>
+
+  <section class="container section" aria-label="How it works">
+    <ol class="cp-steps">
+      {steps.map(([title, text], i) => (
+        <li>
+          <span class="cp-num">{String(i + 1).padStart(2, '0')}</span>
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="cp-more">
+      {shots.slice(1).map((shot) => (
+        <figure>
+          <img
+            src={url(shot.src)}
+            width={shot.width}
+            height={shot.height}
+            alt={shot.alt}
+            loading="lazy"
+          />
+          <figcaption>{shot.alt}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="cp-note">
+      An in-house tool: not open source, nothing to download.
+    </p>
+  </section>
+
+  <section class="container section" id="story">
+    <div class="section-heading">
+      <h2>Read the story.</h2>
+      <a class="text-link" href={url('devlog/')}>
+        All updates
+      </a>
+    </div>
+    {posts.length > 0 ? (
+      <PostList posts={posts} />
+    ) : (
+      <p class="cp-note">The first post about it is on its way.</p>
+    )}
+  </section>
+</Layout>
+
+<style>
+  .back {
+    margin-bottom: 24px;
+  }
+  figure {
+    margin: 0;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+  .cp-shots {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 24px;
+    align-items: start;
+  }
+  .cp-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin: 0 0 48px;
+    padding: 0;
+    list-style: none;
+  }
+  .cp-steps h2 {
+    margin: 8px 0;
+    font-size: 22px;
+  }
+  .cp-steps p {
+    margin: 0;
+    color: var(--muted);
+  }
+  .cp-num {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .cp-more {
+    display: grid;
+    gap: 24px;
+  }
+  figcaption {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .cp-note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  @media (max-width: 860px) {
+    .cp-steps {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .cp-shots,
+    .cp-steps {
+      grid-template-columns: 1fr;
+    }
+    .cp-phone {
+      max-width: 240px;
+    }
+  }
+</style>
