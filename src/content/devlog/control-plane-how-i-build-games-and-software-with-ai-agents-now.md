@@ -6,7 +6,7 @@ description: "Six days, 225 pieces of work from \"I want X\" to a pull request w
 image: "/images/devlog/control-plane-how-i-build-games-and-software-with-ai-agents-now-1.webp"
 ---
 
-In the six days from 7 to 12 November, 225 pieces of work across several projects went from a sentence I typed ("I want X") to a pull request with proof attached, and 211 of them are merged. I answered 263 review cards. The tool that ran all of it is called the control plane. It did not exist on 6 November, and agents built it that same week, through itself.
+In the six days from 7 to 12 November, 225 pieces of work across several projects went from a sentence I typed ("I want X") to a pull request with proof attached, and 211 of them are merged. I answered 263 cards. The tool that ran all of it is called the control plane. It did not exist on 6 November, and agents built it that same week, through itself.
 
 ![How I build games and software with AI agents now](/images/devlog/control-plane-how-i-build-games-and-software-with-ai-agents-now-1.webp)
 
@@ -106,7 +106,7 @@ Each of these passed its own tests and showed up only in real use.
 - **A post went out that I had not wanted.** A publish card that had been replaced by a better one was approved by mistake and closed by hand two minutes later, but the approval stayed on it. Six hours later, the moment automatic publishing was switched on, the old post went to Telegram and Discord.
 - **Leads died mid-work.** One ended its turn while its builders were still running, which killed them. Under an hour later three leads were cut off in the same second, and I still do not know why.
 
-The fixes are less interesting than the two habits that came out of them. First, a **rule check** that runs all the time: thirteen plain statements such as "never two live leads on one pull request", "the front of the merge queue changes within 15 minutes", "nothing goes public from a closed card". A broken rule files its own work item with the evidence. In two days it filed 19. All 19 were closed without a fix: already handled, duplicates, or false alarms, and two real fixes went into making the check itself quieter. It is an alarm, not yet a good one. Second, every incident became a **rehearsal**: a simulated studio with a fake agent and a fake GitHub replays each failure on every pull request. And a lead that dies is now resumed in its own worktree with a note saying why, instead of starting over.
+The fixes are less interesting than the two habits that came out of them. First, a **rule check** that runs all the time: thirteen plain statements such as "never two live leads on one pull request", "the front of the merge queue changes within 15 minutes", "nothing goes public from a closed card". A broken rule files its own work item with the evidence. In two days it filed 19. All 19 were closed: already handled, duplicates, or false alarms. Two fixes went into the check itself, to make it quieter. It is an alarm, not yet a good one. Second, every incident became a **rehearsal**: a simulated studio with a fake agent and a fake GitHub replays each failure on every pull request. And a lead that dies is now resumed in its own worktree with a note saying why, instead of starting over.
 
 ![Activity: workers, leads and the merge queue](/images/devlog/control-plane-how-i-build-games-and-software-with-ai-agents-now-6.webp)
 
@@ -122,7 +122,7 @@ They are far more polished than this, and most of them you can install today. Wh
 
 - One person. Nobody else has reviewed a card. Nothing here says it works for a team.
 - It runs on a home network and is an in-house tool: not packaged, not open source.
-- One Mac did almost all the work: of the runs the workers started, it ran 65 and the second Mac 3.
+- One machine does most of it: of the 68 runs that recorded where they ran, 65 ran on one Mac.
 - The approval rate may be too comfortable, as above.
 - At metered prices, $15 for a median game run is real money.
 - Six days. Ask me again in six weeks.
