@@ -122,7 +122,7 @@ They are far more polished than this, and most of them you can install today. Wh
 
 - One person. Nobody else has reviewed a card. Nothing here says it works for a team.
 - It runs on a home network and is an in-house tool: not packaged, not open source.
-- One Mac did almost all the work; the second worker mostly sat paused.
+- One Mac did almost all the work: of the runs the workers started, it ran 65 and the second Mac 3.
 - The approval rate may be too comfortable, as above.
 - At metered prices, $15 for a median game run is real money.
 - Six days. Ask me again in six weeks.
