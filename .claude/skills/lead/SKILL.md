@@ -32,9 +32,12 @@ CP="node ${CP_ROOT:-$HOME/projects/EncryptedCatGames/control-plane}/bin/cp.mjs -
 
 ## 2. Build each item
 
-- One item = one branch and one PR, each in its own worktree
-  (`git worktree add .claude/worktrees/<run>-<n> -b claude/<stream>-<short-name> origin/main`,
-  then `bun install --frozen-lockfile`). Two items on the same files → one PR.
+- One item = one branch and one PR, each in its own worktree under the **main checkout**, named
+  with the full run id, never inside your own worktree:
+  `MAIN=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")`, then
+  `git worktree add "$MAIN/.claude/worktrees/<run id>-<n>" -b claude/<stream>-<short-name> origin/main`
+  (e.g. `run-202611131903-7efc-1`), then `bun install --frozen-lockfile`. Two items on the same
+  files → one PR.
 - Follow CLAUDE.md. Check the work against every taste rule; a rule you broke goes in `unsure`.
 - Checks, each recorded as pass, fail or skip in the card's `checks`: `format`
   (`bun run format:check`), `astro` (`bun run check`), `test` (`bun run test`), `build`
@@ -48,7 +51,8 @@ CP="node ${CP_ROOT:-$HOME/projects/EncryptedCatGames/control-plane}/bin/cp.mjs -
 - **Look at it:** `bun run dev`, open http://localhost:4321 in the browser pane at desktop and
   phone width (`resize_window`), every page you changed. No console errors.
 - **Shots:** `bun run cp:shots` refreshes `docs/shots/<page id>-<desktop|phone>.jpg` (the wiki's
-  pictures, analytics off). Commit the ones that changed; upload the best 2–6 with
+  pictures, analytics off). Commit every new and changed shot (`git status docs/shots`: a new
+  page's shot is untracked, not modified; leave none behind); upload the best 2–6 with
   `$CP media <file>` for the card's `shots`, before/after where something changed.
 - **Test drive on the box:** `$CP push-refs` (in your worktree), then `$CP drive pr-<n> --wait`
   as a foreground Bash call with `timeout: 600000`. If it times out, `$CP jobs` for its id, then
@@ -62,8 +66,8 @@ CP="node ${CP_ROOT:-$HOME/projects/EncryptedCatGames/control-plane}/bin/cp.mjs -
 
 ## 4. Critic, then file
 
-- Write `card.json` per item (fields: the control plane's shared/types.ts `Card`). It names the
-  items it closes: `"items": ["12"]`. `kind`: `review` for finished work, `decision` when the
+- Write `$TMPDIR/<run id>-<n>-card.json` per item, never in the repo (fields: the control
+  plane's shared/types.ts `Card`). It names the items it closes: `"items": ["12"]`. `kind`: `review` for finished work, `decision` when the
   person must pick (2–5 options, recommendation first), `idea` for something you noticed and
   didn't build. `stream`: this project's stream id. `priority`: 1 blocks other work, 3 cosmetic,
   else 2. The `summary` ends with: "Approving merges to main, which publishes the live site."
@@ -71,7 +75,9 @@ CP="node ${CP_ROOT:-$HOME/projects/EncryptedCatGames/control-plane}/bin/cp.mjs -
   frames, the shots and the taste profile; JSON only:
   `{ "call": "pass" | "return", "risk": 0-100, "fun": 1-5, "notes": ["…"] }`. On `return`: fix
   once, re-check, ask again.
-- `$CP card add card.json`, then `$CP card critique <id> critique.json` (with `at` and `model`).
+- `$CP card add $TMPDIR/<run id>-<n>-card.json`, then
+  `$CP card critique <id> $TMPDIR/<run id>-<n>-critique.json` (with `at` and `model`). Both files
+  stay out of the repo (`/card.json` and `/critique.json` are in .gitignore as a backstop).
 
 ## 5. Finish
 

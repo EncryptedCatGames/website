@@ -18,3 +18,7 @@ public/other-projects/gobnative/play/
 
 # The control plane adapter (scripts/cp-index.mjs)
 .data/
+
+# Lead card files belong in $TMPDIR (.claude/skills/lead/SKILL.md); never commit them
+/card.json
+/critique.json
