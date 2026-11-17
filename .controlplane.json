@@ -1,0 +1,33 @@
+{
+  "$comment": "The control plane's commands for this project (build, server, drive, checks, local). Changed only by a reviewed PR in this repo; everything else is edited in the control plane's Settings.",
+  "build": {
+    "image": "node:24-bookworm",
+    "install": "npm install -g bun@1.3.14 --no-audit --no-fund --silent && bun install --frozen-lockfile",
+    "command": "SITE_BASE=\"$BASE\" bun run build && cp -a dist/. \"$OUT\"/",
+    "env": {
+      "SITE_URL": "https://192.168.68.52:5700",
+      "CUSTOM_DOMAIN": "",
+      "PUBLIC_GA_ID": "G-XXXXXXXXXX"
+    }
+  },
+  "drive": {
+    "image": "mcr.microsoft.com/playwright:v1.49.1-noble",
+    "script": "scripts/cp-drive.mjs",
+    "scenarios": [
+      {
+        "id": "desktop",
+        "name": "Every page at desktop width",
+        "covers": ["Page", "Game", "Devlog post", "Side project", "Playtest"],
+        "default": true
+      },
+      {
+        "id": "phone",
+        "name": "Every page at phone width",
+        "covers": ["Page", "Game", "Devlog post", "Side project", "Playtest"]
+      }
+    ]
+  },
+  "local": {
+    "refresh": ["node scripts/cp-index.mjs --push"]
+  }
+}
