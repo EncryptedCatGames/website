@@ -17,31 +17,17 @@
       {
         "id": "desktop",
         "name": "Every page at desktop width",
-        "covers": [
-          "Page",
-          "Game",
-          "Devlog post",
-          "Side project",
-          "Playtest"
-        ],
+        "covers": ["Page", "Game", "Devlog post", "Side project", "Playtest"],
         "default": true
       },
       {
         "id": "phone",
         "name": "Every page at phone width",
-        "covers": [
-          "Page",
-          "Game",
-          "Devlog post",
-          "Side project",
-          "Playtest"
-        ]
+        "covers": ["Page", "Game", "Devlog post", "Side project", "Playtest"]
       }
     ]
   },
   "local": {
-    "refresh": [
-      "node scripts/cp-index.mjs --push"
-    ]
+    "refresh": ["node scripts/cp-index.mjs --push"]
   }
 }
