@@ -1,6 +1,6 @@
 ---
 title: "691 AI agent runs in 13 days, and the race conditions that came with them"
-date: "2026-11-20T03:46:25.721Z"
+date: "2026-11-20T03:51:14.509Z"
 game: "control-plane"
 description: "In 13 days our AI agents merged 459 PRs across 691 runs, and hit real races: two agents on one PR, a run stuck 36 hours unseen. How an audit, property tests and a model-checked protocol, reviewed by a second AI, are meant to make those impossible."
 image: "/images/devlog/control-plane-691-ai-agent-runs-in-13-days-and-the-race-conditions-that-1.webp"
